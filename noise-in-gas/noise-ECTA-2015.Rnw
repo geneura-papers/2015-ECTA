@@ -19,6 +19,11 @@
 \subfigbottomskip=0pt
 
 \begin{document}
+<<setup, cache=FALSE,echo=FALSE>>=
+library("ggplot2")
+library("RCurl") #To download stuff directly from the GitHub repo
+# Now download stuff from noisy-ga repo
+@ 
 
 \title{There is Noisy Lunch: a study of noise in evolutionary
   optimization problems.}
