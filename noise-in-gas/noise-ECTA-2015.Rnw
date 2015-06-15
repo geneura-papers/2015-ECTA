@@ -55,14 +55,47 @@ different phases of the optimization in a single problem}
 \section{\uppercase{Introduction}}
 \label{sec:introduction}
 
-Noise or unce
+Optimization methods usually need a crisp and fixed value to work
+correctly. This value, usually called {\em cost} or {\em fitness},
+informs the procedure on how good is the solution and is used to
+select particular solution over others. In fact, most procedures do
+not need a floating point number; since they are based on comparisons,
+it is usually enough that the values can be partially ordered;
+multiobjective optimization, in general, just need to know when
+comparing two solutions whether one or the other is the best or there
+can be no comparison between them. In either case, the answer to the
+cuestion ``Is this solution better than the other'' is either a crisp
+Yes or No of simply ``Cannot know''.
+
+In many cases, however, there is not a single value that describes the
+performance of a solution. In case where there is uncertainty in the
+measure, that is, in most physical cases, or in the procedure used to
+evaluate the solution, for instance, when using a stochastic procedure
+to measure it, the best way to describe a solution will be a random
+variable, not a single, or even a vector, value. In our research we
+have found this happens in many different problems:\begin{itemize}
+\item When optimizing the layout of a webpage using simulated
+  annealing \cite{jj-ppsn98}. Since simulated annealing is a
+  stochastic procedure, the fitness obtained by a solution will be
+ a random variable.
+\item Optimizing any kind of neural network, such as
+  \cite{esann94,merelo:ESNN}. Since training a neural network is a
+  stochastic procedure, the error rate obtained after every training
+  run will follow also a statistical distribution.
+\item Evolution of game bots \cite{bots:evostar}. In this case, the
+  uncertainty arises from the problem itself; in games, initial
+  positions or oponent behavior have a certain stochastic component so
+  that final score will also be {\em uncertain} or {\em noisy}
+\end{itemize}
+
+The rest of the paper is organized as follows...
 
 \section{\uppercase{State of the Art}}
 \label{sec:soa}
 
 \sloppypar The most comprehensive review of the state of the art in evolutionary
 algorithms in {\em uncertain} environments 
-was done by %Jin and Branke in 2005 -- CARLOS: inline reference; no need to add authors in text
+was done by 
 \cite{Jin2005303}, although recent
 papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and \cite{Qian:sampling} include a brief update of the state
 of the art. In that first survey 
