@@ -23,6 +23,9 @@
 library("ggplot2")
 library("RCurl") #To download stuff directly from the GitHub repo
 # Now download stuff from noisy-ga repo
+made.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/MADE/made-data.csv")
+pacman.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/ms-pacman/pacman.Rdata")
+planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet-wars/planetwars.Rdata")
 @ 
 
 \title{There is Noisy Lunch: a study of noise in evolutionary
@@ -32,7 +35,7 @@ library("RCurl") #To download stuff directly from the GitHub repo
     Antonio Fernández Ares, Rubén García\sup{2}, Zeineb Chelly, Carlos
     Cotta and Nuria Rico\sup{1}}
 \affiliation{\sup{1}CITIC and University of Granada}
-\affiliation{\sup{2}Afiliación}
+\affiliation{\sup{2}Escuela de Doctorado, UGR}
 \email{{\tt jmerelo@geneura.ugr.es}}
 }
 
@@ -65,7 +68,7 @@ multiobjective optimization, in general, just need to know when
 comparing two solutions whether one or the other is the best or there
 can be no comparison between them. In either case, the answer to the
 cuestion ``Is this solution better than the other'' is either a crisp
-Yes or No of simply ``Cannot know''.
+Yes or No of simply ``Impossible to know''.
 
 In many cases, however, there is not a single value that describes the
 performance of a solution. In case where there is uncertainty in the
