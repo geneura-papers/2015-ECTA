@@ -51,7 +51,7 @@ planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet
   paper we will look at several uncertain optimization problems and
   prove that there is no single statistical model these variables
   follow, with different not only from one problem to the next, but in
-different phases of the optimization in a single problem}
+different phases of the optimization in a single problem.}
 
 \onecolumn \maketitle \normalsize \vfill
 
@@ -91,44 +91,72 @@ have found this happens in many different problems:\begin{itemize}
   that final score will also be {\em uncertain} or {\em noisy}
 \end{itemize}
 
-The rest of the paper is organized as follows...
+After some initial study of noise in \cite{merelo14:noisy}, where our
+findings indicated that, in some cases, noise followed a Gamma, that
+is a skewed normal distribution and proposing a solution to this using
+Wilcoxon comparison as a selection operator, we dug into data
+discovering that, even if the distribution in that particular case was
+always a gamma, the parameters of the distribution were different,
+which meant that the random variable behaved in different ways
+depending on the particular individual, the state of evolution and, of
+course, the particular problem.
+
+This initial conclusion disagrees with the usual assumptions in
+optimization in uncertain environments, where it is usual to assume
+that the noise is normally distributed and with a fixed sigma
+\cite{arnold2001evolution}. For instance, in the Black Box
+Optimization Benchmarks \cite{hansen2009real} the uncertainty was
+simulated by adding noise centered in 0 and with a Cauchy distribution
+with different widths. Either multiplicative or additive noise has
+been used in different occasions. 
+
+That is why in this paper we have collected data from three different
+problems and tried to find a model for the fitness using statistical
+tools. Our intention is to eventually find a model that is as general
+as possible and that is able to account for most sources of
+uncertainty; failing that, to try and find selection operators that
+are able to work with random variables in a natural way. However, this
+is not the focus of this paper and, if it is eventually needed, is
+left as future work. 
+
+The rest of the paper is organized as follows. Next we present the
+state of the art in evolutionary algorithms in uncertain environments,
+to be followed by a short presentation of the three problems with
+uncertainty whose measures will be used in this paper in Section
+\ref{sec:problems}. Results will be presented in Section \ref{sec:res}
+followed by our conclusions.
 
 \section{\uppercase{State of the Art}}
 \label{sec:soa}
 
-\sloppypar The most comprehensive review of the state of the art in evolutionary
+\sloppypar The most recent and comprehensive review of the state of the art in evolutionary
 algorithms in {\em uncertain} environments 
 was done by 
 \cite{Jin2005303}, although recent
-papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and \cite{Qian:sampling} include a brief update of the state
-of the art. In that first survey 
-of evolutionary optimization by Jin and Branke  in
-uncertain environments that uncertainty is categorized into noise,
-robustness, fitness approximation and time-varying fitness functions, and then,
+papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and
+\cite{Qian:sampling} include a brief updates. In that first survey  
+of evolutionary optimization in
+uncertain environments the authors state that uncertainty is categorized into noise,
+robustness issues, fitness approximation and time-varying fitness functions, and then,
 different options for dealing with it are proposed. In principle, the
 approach presented in this paper was designed to deal with the first kind of
-uncertainty, noise in fitness evaluation, although it could be argued
+uncertainty, noise or uncertainty in fitness evaluation, although it could be argued
 that there is uncertainty in the true fitness as stated in the third
-category. In any case it could be applied to
-other types of noise, since it depends more on the shape and intensity
-of noise than the origin. 
+category; however, we do not think that is the case and in general
+that third case refers to the case in which expensive fitness
+functions are substituted by surrogate functions which carry a certain
+amount of error. They suggest several methods, based either on using
+averaging or using a selection threshold over which one or other
+individual is selected. But since then, several other solutions have
+been proposed.
 
-\sloppypar In the same situation, a noisy fitness evaluation, several solutions have been
-proposed and explained in the survey \cite{Jin2005303}. These will be
-explained next.
-For scientists not concerned on solving the problem of noise, but on
+\sloppypar For scientists not concerned on solving the problem of noise, but on
 a straightforward solution of the optimization problem without
 modification of existing tools and methodologies, a usual approach is
 just to disregard the fact that the fitness is 
 noisy and use whatever value is returned by a single evaluation or after
-re-evaluation each generation. 
-% Zeineb - A usual approach is just to disregard the fact that the fitness is noisy and 
-%to use whatever value is returned a single time or after a
-%re-evaluation of each generation.
-% fixed, thx - JJ
-This was the option in our
-%CARLOS: references split in order to avoid margin problems
-previous research in games \cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,Liberatore_COSECIVI14} and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN} and leads, if
+re-evaluation each generation. This was the option in our
+previous research in games \cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,liberatore:pacman} and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN} and leads, if
 the population is large enough, to an {\em implicit averaging} as
 mentioned in \cite{Jin2005303}. In fact, selection used in evolutionary algorithms
 is also stochastic, so noise in fitness evaluation
