@@ -43,9 +43,9 @@ planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet
 
 \abstract{Noise or uncertainty appear in many optimization processes
   when there is not a single measure of optimality or fitness but a
-  random variable representing it. This
-  has been known for a long time, but there has been no investigation
-  of the statistical distribution that random variable follow,
+  random variable representing it. These kind of problems
+  have been known for a long time, but there has been no investigation
+  of the statistical distribution those random variables follow,
   assuming in most cases that it is distributed normally and, thus,
   can be modelled via an additive or multiplicative noise. In this
   paper we will look at several uncertain optimization problems and
@@ -61,37 +61,50 @@ different phases of the optimization in a single problem.}
 Optimization methods usually need a crisp and fixed value to work
 correctly. This value, usually called {\em cost} or {\em fitness},
 informs the procedure on how good is the solution and is used to
-select particular solution over others. In fact, most procedures do
-not need a floating point number; since they are based on comparisons,
+select particular solution over others. This does not imply that these
+methods need a single floating point number; since they are based on comparisons,
 it is usually enough that the values can be partially ordered;
 multiobjective optimization, in general, just need to know when
 comparing two solutions whether one or the other is the best or there
 can be no comparison between them. In either case, the answer to the
-cuestion ``Is this solution better than the other'' is either a crisp
+cuestion ``Is this solution better than the other'' needs to be either a crisp
 Yes or No of simply ``Impossible to know''.
 
-In many cases, however, there is not a single value that describes the
-performance of a solution. In case where there is uncertainty in the
-measure, that is, in most physical cases, or in the procedure used to
+In many cases, however, the fitness or cost of a solution cannot be
+described by a crisp value. In cases where there is uncertainty in the
+measure, that is, in most real world, physical cases, or in the procedure used to
 evaluate the solution, for instance, when using a stochastic procedure
-to measure it, the best way to describe a solution will be a random
-variable, not a single, or even a vector, value. In our research we
-have found this happens in many different problems:\begin{itemize}
+to make that measure, the best way to describe a solution will be a random
+variable, not a single, or even a vector, value. 
+In our research we have found this happens in many different
+optimization problems:\begin{itemize}
 \item When optimizing the layout of a webpage using simulated
   annealing \cite{jj-ppsn98}. Since simulated annealing is a
   stochastic procedure, the fitness obtained by a solution will be
  a random variable.
-\item Optimizing any kind of neural network, such as
-  \cite{esann94,merelo:ESNN}. Since training a neural network is a
+\item When training any kind of neural network, such as those in
+  \cite{esann94,merelo:ESNN}; in the second case we dealt with a
+  physical installation, introducing another kind of randomness. Since training a neural network is a
   stochastic procedure, the error rate obtained after every training
-  run will follow also a statistical distribution.
-\item Evolution of game bots \cite{bots:evostar}. In this case, the
+  run will also follow  a statistical distribution.
+\item When evolving game bots \cite{bots:evostar}. In this case, the
   uncertainty arises from the problem itself; in games, initial
   positions or oponent behavior have a certain stochastic component so
-  that final score will also be {\em uncertain} or {\em noisy}
+  that final score will also be {\em uncertain} or {\em noisy}; in
+  some cases, too, the bot itself will rely on probabilities to
+  generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
+  case two different runs with exactly the same initial conditions and
+  opponent will also yield different scores.
 \end{itemize}
 
-After some initial study of noise in \cite{merelo14:noisy}, where our
+In all these case it cannot be said that there is {\em noise} added to
+a {\em crisp} fitness. The fitness itself is a statistical variable
+whose value arises from a stochastic process, evaluation or
+training, however, we have not seen an exhaustive research of the
+behavior of fitness as a random variable.
+
+That is why, after some initial study of noise in
+\cite{merelo14:noisy}, where our 
 findings indicated that, in some cases, noise followed a Gamma, that
 is a skewed normal distribution and proposing a solution to this using
 Wilcoxon comparison as a selection operator, we dug into data
