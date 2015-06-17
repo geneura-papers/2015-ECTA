@@ -99,7 +99,7 @@ optimization problems:
   \cite{esann94,merelo:ESNN}; in the second case we dealt with a
   physical installation, introducing another kind of randomness. Since training a neural network is a   stochastic procedure, the error rate obtained after every training run will also follow  a statistical distribution.
 % Antonio - seguir una distribución estadística es lo mismo que ser una variable aleatoria?
-\item When evolving game bots \cite{bots:evostar}. In this case, the
+\item When evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
   uncertainty arises from the problem itself; in games, several factors such as the initial positions of the players or the opponent's behavior add certain stochastic component so that final score will also be {\em uncertain} or {\em noisy}; in some cases, too, the bot itself will rely on probabilities to
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
   case two different runs with exactly the same initial conditions and
@@ -289,17 +289,16 @@ then we will check in this paper what is the influence on the quality of
 results of these two strategies and which one, if any, is the best
 when working in noisy environments.  
 
-\section{Problems used in this paper}
-\ref{sec:problems}
 % ******************************************************************************
 
-% Antonio - Sección describiendo los tres problemas considerados (cogerlas de los artículos anteriores).
+\section{Problems used in this paper}
+\label{sec:problems}
 
-The fitness of three different problems, all of them related to computational intelligence in games has been used in this paper: optimization of the ghost team in Ms. Pacman, which will be described in subsection \ref{ss:pacman}, generation of character backstories in artificial worlds \ref{ss:made} and optimization of bots for playing the real time strategy game planet wars \ref{ss:pw}. These three problems have been chosen for several reasons, the most important of which is that we have been working on them and thus have data available; another reason is that the origin of the uncertainty is different in the three cases. In the case of Ms. Pac-Man, it is due to the nature of the game; in the case of MADE, fitness is computed through a simulation; finally, in the case of Planet Wars, the bot themselves have a random component, with its representation including probabilities of different courses of action. It is not a complete representation of all causes of uncertainty, but the sample is big enough so that we can generalize the results obtained, which will be presented in the next section.
+The fitness of three different problems, all of them related to computational intelligence in games has been used in this paper: optimization of the ghost team in Ms. Pac-Man, which will be described in subsection \ref{ss:pacman}, generation of character backstories in artificial worlds \ref{ss:made} and optimization of bots for playing the real time strategy game Planet Wars \ref{ss:pw}. These three problems have been chosen for several reasons, the most important of which is that we have been working on them and thus have data available; another reason is that the origin of the uncertainty is different in the three cases. In the case of Ms. Pac-Man, it is due to the nature of the game; in the case of MADE, fitness is computed through a simulation; finally, in the case of Planet Wars, the bot themselves have a random component, with its representation including probabilities of different courses of action. It is not a complete representation of all causes of uncertainty, but the sample is big enough so that we can generalize the results obtained, which will be presented in the next section.
 
 
 \subsection{Ghost team optimization}
-\ref{ss:pacman}
+\label{ss:pacman}
 
 \subsection{Creation of character backstories}
 \ref{ss:made}
@@ -309,19 +308,25 @@ As the evolved parameters are the probabilities to jump from one state to anothe
 
 
 \subsection{Real time strategy: Planet Wars}
-\ref{ss:pw}
-Planet Wars \footnote{\url{http://planetwars.aichallenge.org/}} is a simple Real time strategy (RTS) game. RTS games are played in real time (that is, they are not turn-based), and the objective is to defeat the enemy using resources available in the map to build units and structures. Planet Wars is used in the computational intelligence in games area as it provides a simplification of the elements of the RTS: one kind of units (spaceships) and one kind of resources and structures (planets). Spaceships are generated in the planets owned by the player and they are used to conquer the enemy planets. In this paper we are using the results obtained from the GPBot algorithm \cite{}. This algorithm uses genetic programming (GP) to automatically generate a decision tree for the player indicating how many ships send from each planet to attack or reinforce another planet. The generated bot is not deterministic, as some of the decisions of the nodes are based in probabilities. %FERGU: DE DONDE SE SACAN LOS RESULTADOS? (PONER REF)
+\label{ss:pw}
 
-Fitness is calculated confronting the bot modelled by the tree against a previous bot in the literature (Exp-Genebot) \cite{ExpGenebot12} 10 times. A hierarchical fitness is used, grouping the number of victories and the number of actions to win or be defeated. Selection is performed using a binary tournament comparing first the number of victories and comparing the rest of the elements of the fitness (number of actions to win, and then number of actions to lose) in case of equality in this elements.
+Planet Wars \footnote{\url{http://planetwars.aichallenge.org/}} is a simple Real-Time Strategy (RTS) game\footnote{actually the game is turn-based, but with just a few milliseconds to decide the actions}, in which the players control spaceships (units) and have to conquer planets (structures/resources). These planets generate spaceships (with a different rate depending on their size). The objective is to defeat the enemy's fleet. 
+Planet Wars has been considered in Computational Intelligence researches as it provides a simplification of the elements of the RTSs: just one kind of units and one kind of structures. 
 
-\section{Results}
-\ref{sec:res}
+In this paper we are using the results obtained from the so-called GeneBot algorithm \cite{}. This algorithm applies a Genetic Algorithm (GA) to improve the behavioral parameters and thresholds (of a Finite State Machine) that define how the bot behaves in a battle against any opponent.
+This creates a non-deterministic agent, because some of these parameters are probabilities.
+
+The evaluation of every potential bot (during the GA running), i.e. the fitness function is calculated confronting the bot modelled against an concrete opponent, AresBot \cite{GeneBot_IWANN11}. However, five different matches are done, in five different and representative (of all the possible distributions) maps.
+A hierarchical fitness is used, grouping the number of victories and the number of actions to win or be defeated. Selection is performed using a binary tournament comparing first the number of victories and comparing the rest of the elements of the fitness (number of movements to win, and then number of movements to lose) in case of equality in this elements.
+The overall fitness value for a bot is computed as the average result in those five combats.
+
 % ******************************************************************************
 
-% Antonio - Sección de experimentos y resultados.
-% Podías haberla puesto directamente - JJ
-% ******************************************************************************
+\section{Experiments and Results}
+\label{sec:res}
 
+
+% ******************************************************************************
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusion}
