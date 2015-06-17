@@ -313,11 +313,14 @@ As the evolved parameters are the probabilities to jump from one state to anothe
 Planet Wars \footnote{\url{http://planetwars.aichallenge.org/}} is a simple Real-Time Strategy (RTS) game\footnote{actually the game is turn-based, but with just a few milliseconds to decide the actions}, in which the players control spaceships (units) and have to conquer planets (structures/resources). These planets generate spaceships (with a different rate depending on their size). The objective is to defeat the enemy's fleet. 
 Planet Wars has been considered in Computational Intelligence researches as it provides a simplification of the elements of the RTSs: just one kind of units and one kind of structures. 
 
-In this paper we are using the results obtained from the so-called GeneBot algorithm \cite{}. This algorithm applies a Genetic Algorithm (GA) to improve the behavioral parameters and thresholds (of a Finite State Machine) that define how the bot behaves in a battle against any opponent.
+In this paper we are using the results obtained from the so-called GeneBot algorithm \cite{GeneBot_IWANN11}. This algorithm applies a Genetic Algorithm (GA) to improve the behavioral parameters and thresholds (of a Finite State Machine) that define how the bot behaves in a battle against any opponent.
 This creates a non-deterministic agent, because some of these parameters are probabilities.
 
 The evaluation of every potential bot (during the GA running), i.e. the fitness function is calculated confronting the bot modelled against an concrete opponent, AresBot \cite{GeneBot_IWANN11}. However, five different matches are done, in five different and representative (of all the possible distributions) maps.
-A hierarchical fitness is used, grouping the number of victories and the number of actions to win or be defeated. Selection is performed using a binary tournament comparing first the number of victories and comparing the rest of the elements of the fitness (number of movements to win, and then number of movements to lose) in case of equality in this elements.
+A hierarchical fitness is used, 
+% What do you mean by hierarchical fitness? What kind of fitness was
+% actually in the data we used? - JJ
+grouping the number of victories and the number of actions to win or be defeated. Selection is performed using a binary tournament comparing first the number of victories and comparing the rest of the elements of the fitness (number of movements to win, and then number of movements to lose) in case of equality in this elements.
 The overall fitness value for a bot is computed as the average result in those five combats.
 
 % ******************************************************************************
