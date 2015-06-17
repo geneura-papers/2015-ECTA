@@ -200,7 +200,7 @@ generation. This was the option in our previous research in
 games although one evaluation in some of those works consists, in
   fact, in an average of several evaluations, in different maps or
   considering different opponents, for instance. 
-\cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12, liberatore:pacman}  
+\cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,liberatore:pacman}  
 % Antonio - esto habría que comentarlo, ya que, normalmente, no nos
 % limitamos a evaluar una vez y ya, sino a hacer varias evaluaciones
 % en distintos mapas o contra distintos rivales. Lo he puesto como
@@ -377,7 +377,7 @@ the archetypes in the execution log.
 \subsection{Real time strategy: Planet Wars}
 \label{ss:pw}
 
-Planet Wars \footnote{\url{http://planetwars.aichallenge.org/}} is a
+Planet Wars \cite{DBLP:conf/cec/Fernandez-AresMGGF11} is a
 simple Real-Time strategy (RTS) game. RTS games are not turn-based and
 their objective is to defeat the enemy using resources available in
 the map to build units and structures. 
@@ -390,7 +390,7 @@ simplification of the elements of the RTS: one kind of units
 and they are used to conquer the enemy planets, as this is the objective of the game. 
 
 In this paper we are
-using the results obtained from the Genebot algorithm \cite{https://github.com/JJ/noisy-ga/blob/master/data/planet-wars/experiment-1.csv}. This
+using the results obtained from the Genebot algorithm \cite{EvoStar2014:GPBot}. This
 algorithm optimizes the parameters of a hand-coded FSM that indicates how many ships send from each
 planet to attack or reinforce another planet depending of some other values (such as the distance between planets). The generated bot is not
 deterministic, as some of the jumps of the states are based in
