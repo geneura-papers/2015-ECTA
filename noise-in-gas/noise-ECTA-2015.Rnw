@@ -89,7 +89,10 @@ Optimization methods usually need a crisp and fixed value to work
 correctly. This value, usually called {\em cost} or {\em fitness},
 informs the procedure on how good is the solution and is used to
 select particular solution over others. This does not imply that these
-methods need a single floating point number; since they are based on comparisons, it is usually enough that the values can be partially ordered. Multiobjective optimization, for instance, just need to know when
+methods need a single floating point number; since they are based on
+comparisons, it is usually enough that the values can be partially
+ordered. Multiobjective optimization, for instance, just need to know
+when 
 comparing two solutions whether one or the other is the best or there
 can be no comparison between them. In either case, the answer to the
 question ``Is this solution better than the other?'' needs to be either a crisp
@@ -193,15 +196,17 @@ modification of existing tools and methodologies, a usual approach is
 just to disregard the fact that the fitness is noisy and use whatever
 value is returned by a single evaluation or after re-evaluation each
 generation. This was the option in our previous research in
-games\footnote{One evaluation in some of those works consists, in
-  fact, in an average of several evaluations (in different maps or
-  considering different opponents, for instance)}
+games although one evaluation in some of those works consists, in
+  fact, in an average of several evaluations, in different maps or
+  considering different opponents, for instance. 
 \cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12, liberatore:pacman}  
 % Antonio - esto habría que comentarlo, ya que, normalmente, no nos
 % limitamos a evaluar una vez y ya, sino a hacer varias evaluaciones
 % en distintos mapas o contra distintos rivales. Lo he puesto como
 % nota al pie, pero quizá habría que meterlo en el texto y explicarlo
-% mejor, aunque sea para decir que no es válido. ;) 
+% mejor, aunque sea para decir que no es válido. ;)
+% Añadido. NO se usan ni notas al pie ni paréntesis si se puede evitar
+% - JJ
 and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN} and leads, if the population is large enough, to an {\em implicit averaging} as
 mentioned in \cite{Jin2005303}.
 
