@@ -349,6 +349,22 @@ presented in the next section.
 \subsection{Ghost team optimization}
 \label{ss:pacman}
 
+
+Pac-Man game, released in 1981, has resulted in several variants. One of the most famous Ms. Pac-Man, that extends the mechanics of the original game with several features. 
+The most interesting is the possibility of applying different strategies to the ghosts’ behavior. Another one is the inclusion of a random movement to prevent the use of patterns to clear each round.
+
+Recently, researchers are paying more attention to this game due to the Ms. Pac-Man vs Ghosts competition, where participants can submit controllers for both Ms. Pac-Man and the Ghost Team. 
+In this competition, the objective of Ms. Pac-Man is to maximize the final score, while the objective of the Ghost Team is to minimize it. 
+
+Proposed implementation follows the following restrictions for the Ghost Team:
+\begin{itemize}
+ \item A ghost can never stop and if it is in a corridor it must move forward.
+ \item A ghost can choose its direction only at a junction.
+ \item Every time a ghost is at a junction the controller has to provide a direction from the set of feasible directions.
+ \item After 4000 game ticks, a level is considered completed and the game moves on to the next level.
+\end{itemize}
+
+
 \subsection{Creation of character backstories}
 \label{ss:made}
 
