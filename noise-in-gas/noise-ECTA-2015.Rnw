@@ -394,15 +394,7 @@ using the results obtained from the Genebot algorithm \cite{https://github.com/J
 algorithm optimizes the parameters of a hand-coded FSM that indicates how many ships send from each
 planet to attack or reinforce another planet depending of some other values (such as the distance between planets). The generated bot is not
 deterministic, as some of the jumps of the states are based in
-probabilities. %FERGU: DE DONDE SE SACAN LOS RESULTADOS? (PONER REF) 
-%puesta ref. - JJ
-%FERGU: he corregido las refs de nuevo, son de Genebot, no de GPbot
-
-
-
-% What do you mean by hierarchical fitness? What kind of fitness was
-% actually in the data we used? - JJ
-%FERGU: al final no era el jerárquico, lo borro todo y lo pongo abajo corregido
+probabilities. 
 Fitness is calculated confronting five times the bot obtained from the parameter set of the FSM against
 a competitive hand-coded bot. The result of each match takes into account the `slope' of the number of player spaceships
 during the time of the match. Positive results mean that the bot won, as the slope will be positive, and vice versa. Theoretical values are in the range $[-1,1]$, although these values are impossible to attain in the game. A value of -1 would indicate that the player lost all their ships in the initial time, while $1$ would mean the contrary: it generated all the spaceships and won in the initial time. The fitness of an individual is the sum of all five results, and therefore being in the range $[-5,5]$. This fitness has been explained in more detail in \cite{Fernandez-Ares_COSECIVI14}.
@@ -412,6 +404,24 @@ during the time of the match. Positive results mean that the bot won, as the slo
 
 \section{Experiments and Results}
 \label{sec:res}
+
+With the problems presented above, data on fitness was collected by
+selecting a few random individuals in every generation and measuring
+its fitness 100 times. Thus, every individual is represented by a
+random variable with the 100 measures taken with its
+fitness. According to the usual assumptions, this random variable
+should follow a normal distribution, with probably different $\sigma$
+and centered on the {\em true} fitness value. In order to check that
+hypothesis, we plotted the {\em skewness}, that is, assymmetry of the
+distribution, and kurtosis, which is a parameter related to the shape
+of the distribution. A symmetrical distribution like the normal
+distribution has a skewness and kurtosis equal to 0; assymetric
+distributions, such as the Gamma that we had found in previous papers
+\cite{merelo14:noisy}, has non-zero skewness and kurtosis which are
+related to their $\alpha$ and $\kappa$ parameters, for instance. Any
+random variable has skewness and kurtosis at any rate, and we have
+computed and plotted them in the next figures, where skewness is
+plotted as $x$ axis against kurtosis in the $y$ axis.
 
 \begin{figure}[htb]
   \centering
@@ -438,6 +448,20 @@ ggplot(s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous
   the MADE problem. Different colors represent diffent generations.}
 \label{fig:made}
 \end{figure}
+
+Figure \ref{fig:made} represents them for the MADE problem for which
+we took measures for a variable amount of individuals every
+generation, from 100 in generation 64 to around 50 in the latest
+generation. A curious convergence, but without reaching, the normal
+distribution is observed as generations proceed; in the first
+generations, values of skewness and kurtosis are quite high and
+correspond to arbitrary distribution (Beta or uniform), however, as
+the simulation proceeds, values approach zero. However, they do not
+converge exactly to 0, meaning that, even if uncertainty can be
+approached by a normal distribution, that approximation would only be
+correct for the latest simulation generations. In general, individual
+fitness will follow an arbitrary distribution with a general shape and
+asymmetry. 
 
 \begin{figure}[htb]
   \centering
