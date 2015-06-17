@@ -399,14 +399,7 @@ probabilities. %FERGU: DE DONDE SE SACAN LOS RESULTADOS? (PONER REF)
 %FERGU: he corregido las refs de nuevo, son de Genebot, no de GPbot
 
 
-Fitness is calculated confronting 10 times the bot modelled by the GP tree against
-a previous bot in the literature (Exp-Genebot)
-\cite{DBLP:conf/cig/Fernandez-AresGMG12}. A hierarchical
-fitness is used, grouping the number of victories and the number of
-actions to win or be defeated. Selection is performed using a binary
-tournament comparing first the number of victories and comparing the
-rest of the elements of the fitness (number of actions to win, and
-then number of actions to lose) in case of equality in this elements. 
+
 % What do you mean by hierarchical fitness? What kind of fitness was
 % actually in the data we used? - JJ
 %FERGU: al final no era el jerárquico, lo borro todo y lo pongo abajo corregido
