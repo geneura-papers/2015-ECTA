@@ -420,6 +420,8 @@ during the time of the match. Positive results mean that the bot won, as the slo
 \section{Experiments and Results}
 \label{sec:res}
 
+\begin{figure}[htb]
+  \centering
 <<made,cache=FALSE,echo=FALSE,warning=FALSE>>=
 s.k <- data.frame(Gen=character(), 
                   Skewness=character(),
@@ -439,7 +441,13 @@ for ( i in c(64,128,256)) {
 ggplot(s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))
 
 @ 
+\caption{Skewness and kurtosis for fitness in several generations of
+  the MADE problem. Different colors represent diffent generations.}
+\label{fig:made}
+\end{figure}
 
+\begin{figure}[htb]
+  \centering
 <<planetwars,cache=FALSE,echo=FALSE,warning=FALSE>>=
 pw.s.k <- data.frame(Gen=character(), 
                   Skewness=character(),
@@ -458,7 +466,13 @@ for ( i in c(1,50)) {
 
 ggplot(pw.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))
 @ 
+\caption{Skewness and kurtosis for fitness in several generations of
+  the planet wars problem. Different colors represent diffent generations.}
+\label{fig:pw}
+\end{figure}
 
+\begin{figure}[htb]
+  \centering
 <<pacman,cache=FALSE,echo=FALSE,warning=FALSE>>=
 pm.s.k <- data.frame(Gen=character(), 
                   Skewness=character(),
@@ -477,6 +491,10 @@ for ( i in c(1,25,50)) {
 
 ggplot(pm.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-2,10))+scale_y_continuous(limits=c(-5,100))
 @ 
+\caption{Skewness and kurtosis for fitness in several generations of
+  the Ms. Pac-Man problem. Different colors represent diffent generations.}
+\label{fig:pm}
+\end{figure}
 
 % ******************************************************************************
 
