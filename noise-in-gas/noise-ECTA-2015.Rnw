@@ -377,15 +377,7 @@ the archetypes in the execution log.
 \label{ss:pw}
 
 Planet Wars \footnote{\url{http://planetwars.aichallenge.org/}} is a
-simple Real-Time Strategy (RTS) game\footnote{actually the game is
-  turn-based, but with just a few milliseconds to decide the actions},
-in which the players control spaceships (units) and have to conquer
-planets (structures/resources). These planets generate spaceships
-(with a different rate depending on their size). The objective is to
-defeat the enemy's fleet.  
-
-Planet Wars \footnote{\url{http://planetwars.aichallenge.org/}} is a
-simple real time strategy (RTS) game. RTS games are not turn-based and
+simple Real-Time strategy (RTS) game. RTS games are not turn-based and
 their objective is to defeat the enemy using resources available in
 the map to build units and structures. 
 
@@ -393,29 +385,25 @@ Computational intelligence
 methods have been applied to Planet Wars since it provides a
 simplification of the elements of the RTS: one kind of units
 (spaceships) and one kind of resources and structures
-(planets). Spaceships are generated in the planets owned by the player
-and they are used to conquer the enemy planets. In this paper we are
-using the results obtained from the GPBot algorithm \cite{EvoStar2014:GPBot}. This
-algorithm uses genetic programming (GP) to automatically generate a
-decision tree for the player indicating how many ships send from each
-planet to attack or reinforce another planet. The generated bot is not
-deterministic, as some of the decisions of the nodes are based in
+(planets). Spaceships are automatically generated in the planets owned by the player
+and they are used to conquer the enemy planets, as this is the objective of the game. 
+
+In this paper we are
+using the results obtained from the Genebot algorithm \cite{https://github.com/JJ/noisy-ga/blob/master/data/planet-wars/experiment-1.csv}. This
+algorithm optimizes the parameters of a hand-coded FSM that indicates how many ships send from each
+planet to attack or reinforce another planet depending of some other values (such as the distance between planets). The generated bot is not
+deterministic, as some of the jumps of the states are based in
 probabilities. %FERGU: DE DONDE SE SACAN LOS RESULTADOS? (PONER REF) 
 %puesta ref. - JJ
+%FERGU: he corregido las refs de nuevo, son de Genebot, no de GPbot
 
-Fitness is calculated confronting 10 times the bot modelled by the GP tree against
-a previous bot in the literature (Exp-Genebot)
-\cite{DBLP:conf/cig/Fernandez-AresGMG12}. A hierarchical
-fitness is used, grouping the number of victories and the number of
-actions to win or be defeated. Selection is performed using a binary
-tournament comparing first the number of victories and comparing the
-rest of the elements of the fitness (number of actions to win, and
-then number of actions to lose) in case of equality in this elements. 
+
 % What do you mean by hierarchical fitness? What kind of fitness was
 % actually in the data we used? - JJ
-grouping the number of victories and the number of actions to win or be defeated. Selection is performed using a binary tournament comparing first the number of victories and comparing the rest of the elements of the fitness (number of movements to win, and then number of movements to lose) in case of equality in this elements.
-The overall fitness value for a bot is computed as the average result
-in those five combats. 
+%FERGU: al final no era el jerárquico, lo borro todo y lo pongo abajo corregido
+Fitness is calculated confronting five times the bot obtained from the parameter set of the FSM against
+a competitive hand-coded bot. The result of each match takes into account the `slope' of the number of player spaceships
+during the time of the match. Positive results mean that the bot won, as the slope will be positive, and vice versa. Theoretical values are in the range $[-1,1]$, although these values are impossible to attain in the game. A value of -1 would indicate that the player lost all their ships in the initial time, while $1$ would mean the contrary: it generated all the spaceships and won in the initial time. The fitness of an individual is the sum of all five results, and therefore being in the range $[-5,5]$. This fitness has been explained in more detail in \cite{Fernandez-Ares_COSECIVI14}.
 
 % ******************************************************************************
 
