@@ -32,9 +32,15 @@ planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet
   optimization problems.}
 % Antonio - ¿se pone algo de juegos en el título?
 
-\author{\authorname{Juan J. Merelo\sup{1}, Federico Liberatore,
-    Antonio Fernández Ares, Rubén García\sup{2}, Zeineb Chelly, Carlos
-    Cotta, Nuria Rico and Antonio M. Mora\sup{1}}
+\author{\authorname{Juan J. Merelo\sup{1}, 
+    Federico Liberatore,
+    Antonio Fernández Ares, 
+    Rubén García\sup{2}, 
+    Zeineb Chelly, 
+    Carlos Cotta, 
+    Nuria Rico, 
+    Antonio M. Mora\sup{1}
+    and Pablo Garc{\'i}a-S{\'a}nchez\sup{1}} %FERGU: me pongo el último, que he sido el que menos ha hecho :P
 % Antonio - Faltan las afiliaciones de mucha gente
 \affiliation{\sup{1}CITIC and University of Granada}
 \affiliation{\sup{2}Escuela de Doctorado, UGR}
@@ -303,9 +309,16 @@ The fitness of three different problems, all of them related to computational in
 
 \subsection{Creation of character backstories}
 \ref{ss:made}
+MADE (Massive Drama Engine for non-player characters) \cite{garcia14my} is a framework for the automatic generation of virtual worlds that allow the emergence of backstories for secondary characters in videogames. This framework is focused in search the generation of {\em archetypes} in the generated stories. An archetype is a well-known behaviour present in the imaginary collective (for example, a ``hero'' or a ``villain''). Given a fitness to model the existence of different $N_a$ archetypes for a virtual world, MADE uses a genetic algorithm to optimize the parameter values of a Finite State Machine (FSM) that model the agents of that world. For the evaluation, a world is simulated using this parameter set, and the log is analysed to detect behaviours of the world agents to match with the desired archetypes.
+
+As the evolved parameters are the probabilities to jump from one state to another in the FSM, each fitness evaluation is performed executing the virtual world 5 times per individual, obtaining the average fitness. Selection is, therefore, performed comparing this average fitness, using a binary tournament in this case. Fitness values are comprised between 0 and $N_a$ and are calculated taking into account the rate of the archetypes in the execution log.
+
 
 \subsection{Real time strategy: Planet Wars}
 \ref{ss:pw}
+Planet Wars \footnote{\url{http://planetwars.aichallenge.org/}} is a simple Real time strategy (RTS) game. RTS games are played in real time (that is, they are not turn-based), and the objective is to defeat the enemy using resources available in the map to build units and structures. Planet Wars is used in the computational intelligence in games area as it provides a simplification of the elements of the RTS: one kind of units (spaceships) and one kind of resources and structures (planets). Spaceships are generated in the planets owned by the player and they are used to conquer the enemy planets. In this paper we are using the results obtained from the GPBot algorithm \cite{}. This algorithm uses genetic programming (GP) to automatically generate a decision tree for the player indicating how many ships send from each planet to attack or reinforce another planet. The generated bot is not deterministic, as some of the decisions of the nodes are based in probabilities. %FERGU: DE DONDE SE SACAN LOS RESULTADOS? (PONER REF)
+
+Fitness is calculated confronting the bot modelled by the tree against a previous bot in the literature (Exp-Genebot) \cite{ExpGenebot12} 10 times. A hierarchical fitness is used, grouping the number of victories and the number of actions to win or be defeated. Selection is performed using a binary tournament comparing first the number of victories and comparing the rest of the elements of the fitness (number of actions to win, and then number of actions to lose) in case of equality in this elements.
 
 \section{Results}
 \ref{sec:res}
