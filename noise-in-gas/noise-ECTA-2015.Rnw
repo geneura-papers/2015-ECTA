@@ -29,8 +29,7 @@ pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noi
 planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
 @ 
 
-\title{There is Noisy Lunch: a study of noise in evolutionary
-  optimization problems.}
+\title{There is Noisy Lunch: a study of noise in evolutionary optimization problems.}
 % Antonio - ¿se pone algo de juegos en el título?
 % MADE no es un juego y vamos a intentar hacerlo de la forma más general.
 
