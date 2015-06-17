@@ -30,16 +30,19 @@ planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet
 
 \title{There is Noisy Lunch: a study of noise in evolutionary
   optimization problems.}
+% Antonio - ¿se pone algo de juegos en el título?
 
 \author{\authorname{Juan J. Merelo\sup{1}, Federico Liberatore,
-    Antonio FernÃ¡ndez Ares, RubÃ©n GarcÃ­a\sup{2}, Zeineb Chelly, Carlos
-    Cotta and Nuria Rico\sup{1}}
+    Antonio Fernández Ares, Rubén García\sup{2}, Zeineb Chelly, Carlos
+    Cotta, Nuria Rico and Antonio M. Mora\sup{1}}
+% Antonio - Faltan las afiliaciones de mucha gente
 \affiliation{\sup{1}CITIC and University of Granada}
 \affiliation{\sup{2}Escuela de Doctorado, UGR}
 \email{{\tt jmerelo@geneura.ugr.es}}
 }
 
 \keywords{games, evolutionary optimization, noise, uncertainty}
+% Antonio - yo pondría 'noisy fitness'
 
 \abstract{Noise or uncertainty appear in many optimization processes
   when there is not a single measure of optimality or fitness but a
@@ -47,13 +50,20 @@ planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet
   have been known for a long time, but there has been no investigation
   of the statistical distribution those random variables follow,
   assuming in most cases that it is distributed normally and, thus,
-  can be modelled via an additive or multiplicative noise. In this
-  paper we will look at several uncertain optimization problems and
-  prove that there is no single statistical model these variables
-  follow, with different not only from one problem to the next, but in
+  it can be modelled via an additive or multiplicative noise. 
+% Antonio - se modela con ruido o con una función?
+In this paper we will look at several uncertain optimization problems, addressed by means of Evolutionary Algorithms, 
+% Antonio - añado una cosilla para aclarar que son evolutivos
+ and prove that there is no single statistical model these variables
+% Antonio - yo pondría 'these variables' -> 'the fitness functions'
+  follow, with 
+% Antonio - with -> being?
+different not only from one problem to the next, but in
 different phases of the optimization in a single problem.}
 
 \onecolumn \maketitle \normalsize \vfill
+
+% ******************************************************************************
 
 \section{\uppercase{Introduction}}
 \label{sec:introduction}
@@ -115,17 +125,21 @@ depending on the particular individual, the state of evolution and, of
 course, the particular problem.
 
 This initial conclusion disagrees with the usual assumptions in
-optimization in uncertain environments, where it is usual to assume
+optimization in uncertain environments, where it is frequent to assume
 that the noise is normally distributed and with a fixed sigma
 \cite{arnold2001evolution}. For instance, in the Black Box
 Optimization Benchmarks \cite{hansen2009real} the uncertainty was
 simulated by adding noise centered in 0 and with a Cauchy distribution
-with different widths. Either multiplicative or additive noise has
+with different widths. 
+% Antonio - Referencia?
+Either multiplicative or additive noise has
 been used in different occasions. 
 
 That is why in this paper we have collected data from three different
-problems and tried to find a model for the fitness using statistical
-tools. Our intention is to eventually find a model that is as general
+problems 
+% Antonio - explicar un poco los problemas considerados (cogerlo de los artículos pertinentes). ;D
+and tried to find a model for the fitness using statistical
+tools. Our aim is to eventually find a model that is as general
 as possible and that is able to account for most sources of
 uncertainty; failing that, to try and find selection operators that
 are able to work with random variables in a natural way. However, this
@@ -136,27 +150,25 @@ The rest of the paper is organized as follows. Next we present the
 state of the art in evolutionary algorithms in uncertain environments,
 to be followed by a short presentation of the three problems with
 uncertainty whose measures will be used in this paper in Section
-\ref{sec:problems}. Results will be presented in Section \ref{sec:res}
-followed by our conclusions.
+\ref{sec:problems}. Results will be presented in Section \ref{sec:res}, followed by our conclusions.
+
+% ******************************************************************************
 
 \section{\uppercase{State of the Art}}
 \label{sec:soa}
 
-\sloppypar The most recent and comprehensive review of the state of the art in evolutionary
-algorithms in {\em uncertain} environments 
-was done by 
-\cite{Jin2005303}, although recent
+\sloppypar The most recent and comprehensive review of the state of the art in 
+% Antonio - el más reciente es de 2005?
+evolutionary algorithms in {\em uncertain} environments 
+was done by \cite{Jin2005303}, although recent
 papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and
-\cite{Qian:sampling} include a brief updates. In that first survey  
-of evolutionary optimization in
-uncertain environments the authors state that uncertainty is categorized into noise,
-robustness issues, fitness approximation and time-varying fitness functions, and then,
-different options for dealing with it are proposed. In principle, the
+\cite{Qian:sampling} include brief updates. In that first survey  
+the authors state that uncertainty is categorized into noise,
+robustness issues, fitness approximation, and time-varying fitness functions, and then, different options for dealing with it are proposed. In principle, the
 approach presented in this paper was designed to deal with the first kind of
-uncertainty, noise or uncertainty in fitness evaluation, although it could be argued
-that there is uncertainty in the true fitness as stated in the third
-category; however, we do not think that is the case and in general
-that third case refers to the case in which expensive fitness
+uncertainty, noise or uncertainty in fitness evaluation, although it could be argued that there is uncertainty in the true fitness as stated in the third
+category; however, we do not think that is the case and, in general,
+that third issue refers to the case in which expensive fitness
 functions are substituted by surrogate functions which carry a certain
 amount of error. They suggest several methods, based either on using
 averaging or using a selection threshold over which one or other
@@ -166,27 +178,38 @@ been proposed.
 \sloppypar For scientists not concerned on solving the problem of noise, but on
 a straightforward solution of the optimization problem without
 modification of existing tools and methodologies, a usual approach is
-just to disregard the fact that the fitness is 
-noisy and use whatever value is returned by a single evaluation or after
-re-evaluation each generation. This was the option in our
-previous research in games \cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,liberatore:pacman} and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN} and leads, if
-the population is large enough, to an {\em implicit averaging} as
-mentioned in \cite{Jin2005303}. In fact, selection used in evolutionary algorithms
+just to disregard the fact that the fitness is noisy and use whatever
+value is returned by a single evaluation or after re-evaluation each
+generation. This was the option in our previous research in
+games\footnote{One evaluation in some of those works consists, in
+  fact, in an average of several evaluations (in different maps or
+  considering different opponents, for instance)}
+\cite{bots:evostar,NoisyFitness_JCST, liberatore:pacman}  
+% Antonio - esto habría que comentarlo, ya que, normalmente, no nos
+% limitamos a evaluar una vez y ya, sino a hacer varias evaluaciones
+% en distintos mapas o contra distintos rivales. Lo he puesto como
+% nota al pie, pero quizá habría que meterlo en el texto y explicarlo
+% mejor, aunque sea para decir que no es válido. ;) 
+and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN} and leads, if the population is large enough, to an {\em implicit averaging} as
+mentioned in \cite{Jin2005303}.
+
+In fact, selection used in evolutionary algorithms
 is also stochastic, so noise in fitness evaluation
 will have the same effect as randomness in selection or a higher mutation
 rate, which might make the evolution process easier and not harder
 in some particular cases
 \cite{DBLP:journals/corr/QianYZ13}. 
+% Antonio - yo estoy lo pongo en duda, por lo menos en el caso de los juegos, aunque existe un factor de ruido, no se corresponde con algo aleatorio (o casi), a menos que los rivales estén muy igualados o que se produzcan situaciones MUY extrañas en el mapa. Normalmente los buenos ganarán a los malos y viceversa.
 In fact, Miller and Goldberg proved that an infinite population would not
 be affected by noise \cite{miller1996genetic} and Jun-Hua and Ming studied the
 effect of noise in convergence rates \cite{Junhua20136780}, proving
-that an elitist genetic algorithm finds at least one solution, although with a lowered
-convergence rate. But real populations are finite, so the usual
-approach to dealing with fitness with a degree of randomness is to
-increase the population size to a value bigger than 
-would be needed in a non-noisy environment. In fact, it has been
-recently proved that using {\em sex}, that is, crossover, is able to
-deal successfully with noise \cite{2015arXiv150202793F}, while an
+that an elitist genetic algorithm finds at least one solution, although with a lowered convergence rate. 
+
+But real populations are finite, so the usual approach to dealing with fitness with a degree of randomness is to increase the population size to a value bigger than would be needed in a non-noisy environment. 
+% Antonio - en juegos el tratamiento es la repetición de evaluaciones (creo recordar que hay algunos trabajos que lo indican así, aparte del nuestro de la revista JCST). :D    Vale, esto lo pone debajo... 
+In fact, it has been recently proved that using {\em sex}, that is, crossover, 
+% Antonio - esto qué es? cómo los carteles esos que ponen en grande SEXO para llamar la atención? :D
+is able to deal successfully with noise \cite{2015arXiv150202793F}, while an
 evolutionary algorithm based on mutation
 %CARLOS: un algorithm mu+1 puede usar cruce - elimino esto  (such as
 %the $\mu$+1 EA)
@@ -201,11 +224,11 @@ has to be made, just different values of the standard parameters.
 Another more theoretically sound way is using a statistical central tendency
 indicator, which is usually the {\em average}. This strategy is called
 {\em explicit averaging} by Jin and Branke and is used, for instance,
-in 
-\cite{Junhua20136780}. Averaging decreases the variance of fitness but
+in \cite{Junhua20136780}. Averaging decreases the variance of fitness but
 the problem is that it is not clear in advance what would be the
-sample size used for averaging \cite{aizawa1994scheduling}. Most
-authors use several measures of fitness for each new individual
+sample size used for averaging \cite{aizawa1994scheduling}. 
+% Antonio - Decir que nosotros mismos lo hemos aplicado en juegos como he comentado arriba. Cita JCST. ;)
+Most authors use several measures of fitness for each new individual
 \cite{costa2013using}, although other averaging strategies have also
 been proposed, like averaging over the neighbourhood of the
 individual or using {\em resampling}, that is, more measures of fitness in a
@@ -213,8 +236,9 @@ number which is decided heuristically
 \cite{liu2014mathematically}. This assumes that there is, effectively,
 an average of the 
 fitness values which is true for Gaussian random noise and other
-distributions such as Gamma or Cauchy but not
+distributions such as Gamma or Cauchy, but not
 necessarily for all distributions. 
+
 To the best of our knowledge, 
 other measures like the median which might be more adequate for
 certain noise models have not been tested; the median always exists,
@@ -227,7 +251,8 @@ and independent of its value,
 which might result in bad individuals
 being evaluated many times before being discarded; some authors have
 proposed {\em resampling}, that is, re-evaluate the individuals a number of times to increase the precision in fitness
-\cite{RadaVilela2014,6900521}, 
+\cite{RadaVilela2014,6900521},
+% Antonio - el resampling se ha comentado también unas líneas antes 
 which will effectively increase the number of
 evaluations and thus slow down the search. In any case, using average is
 also a small change to the overall algorithm framework, requiring only
@@ -258,27 +283,36 @@ paper, where we present a method that uses resampling via an
 individual memory and use either explicit averaging or statistical
 tests like the non-parametric Wilcoxon test. 
 First we will examine and try to find the shape of the noise that
-actually appears in games; then we will check in this paper what is the influence on the quality of
+actually appears in games; 
+% Antonio - aclarar lo de 'games' => "in optimization of behavioural models of autonomous agents for playing games"
+then we will check in this paper what is the influence on the quality of
 results of these two strategies and which one, if any, is the best
 when working in noisy environments.  
+
+% ******************************************************************************
+
+% Antonio - Sección describiendo los tres problemas considerados (cogerlas de los artículos anteriores).
+
+% ******************************************************************************
+
+% Antonio - Sección de experimentos y resultados.
+
+% ******************************************************************************
 
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusion}
 
-\noindent Please note that ONLY the files required to compile your paper should be submitted. Previous versions or examples MUST be removed from the compilation directory before submission.
-
-We hope you find the information in this template useful in the preparation of your submission.
+\noindent TODO
 
 \section*{\uppercase{Acknowledgements}}
 
 \noindent This work has been supported in part by SIPESCA (Programa Operativo
-FEDER de AndalucÃ­a 2007-2013), TIN2014-56494-C4-3-P (Spanish
+FEDER de Andalucía 2007-2013), TIN2014-56494-C4-3-P (Spanish
 Ministry of Economy and Competitivity), SPIP2014-01437 (Direcci{\'o}n
 General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
 Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de
-Investigaci{\'o}n), and PYR-2014-17 GENIL project (CEI-BIOTIC
-Granada).
+Investigaci{\'o}n), and project V17-2015 of the Microprojects program 2015 from CEI BioTIC Granada.
 
 \vfill
 
