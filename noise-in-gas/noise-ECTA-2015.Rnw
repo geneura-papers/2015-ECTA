@@ -216,35 +216,51 @@ will have the same effect as randomness in selection or a higher mutation
 rate, which might make the evolution process easier and not harder
 in some particular cases
 \cite{DBLP:journals/corr/QianYZ13}. 
-% Antonio - yo estoy lo pongo en duda, por lo menos en el caso de los juegos, aunque existe un factor de ruido, no se corresponde con algo aleatorio (o casi), a menos que los rivales estén muy igualados o que se produzcan situaciones MUY extrañas en el mapa. Normalmente los buenos ganarán a los malos y viceversa.
+% Antonio - yo estoy lo pongo en duda, por lo menos en el caso de los
+% juegos, aunque existe un factor de ruido, no se corresponde con algo
+% aleatorio (o casi), a menos que los rivales estén muy igualados o
+% que se produzcan situaciones MUY extrañas en el mapa. Normalmente
+% los buenos ganarán a los malos y viceversa. 
+% el ruido por definición es aleatorio y de eso no es de lo que estoy
+% hablando en ese párrafo, sino del trabajo de esas personas - JJ 
 In fact, Miller and Goldberg proved that an infinite population would not
 be affected by noise \cite{miller1996genetic} and Jun-Hua and Ming studied the
 effect of noise in convergence rates \cite{Junhua20136780}, proving
 that an elitist genetic algorithm finds at least one solution, although with a lowered convergence rate. 
 
-But real populations are finite, so the usual approach to dealing with fitness with a degree of randomness is to increase the population size to a value bigger than would be needed in a non-noisy environment. 
-% Antonio - en juegos el tratamiento es la repetición de evaluaciones (creo recordar que hay algunos trabajos que lo indican así, aparte del nuestro de la revista JCST). :D    Vale, esto lo pone debajo... 
+But real populations are finite, so the usual approach to dealing with
+fitness with a degree of randomness is to increase the population size
+to a value bigger than would be needed in a non-noisy environment.  
+% Antonio - en juegos el tratamiento es la repetición de evaluaciones
+% (creo recordar que hay algunos trabajos que lo indican así, aparte
+% del nuestro de la revista JCST). :D    Vale, esto lo pone debajo...  
+% resuelto entonces - JJ
 In fact, it has been recently proved that using {\em sex}, that is, crossover, 
 % Antonio - esto qué es? cómo los carteles esos que ponen en grande SEXO para llamar la atención? :D
+% también ejerce ese papel en la naturaleza: reducir ruido - JJ
 is able to deal successfully with noise \cite{2015arXiv150202793F}, while an
-evolutionary algorithm based on mutation
-%CARLOS: un algorithm mu+1 puede usar cruce - elimino esto  (such as
-%the $\mu$+1 EA)
-% but that's the one mentioned in the paper - JJ
+evolutionary algorithm based mainly on mutation,
+%CARLOS: un algorithm mu+1 puede usar cruce - elimino esto  
+such as the $\mu$+1 EA, or evolutionary programming, 
+% but that's the one mentioned in the paper, so I put it back - JJ
 would suffer a considerable degradation of performance. 
-% Zeineb - (such as the $\mu$+1 EA) would suffer from a considerable degradation in terms of performance.
 However, crossover is part of the standard kit of evolutionary
 algorithms, so using it and increasing the population size has the
-advantage that no special provision or change to the implementation
+advantage that no special provision or change in the implementation
 has to be made, just different values of the standard parameters.
 
 Another more theoretically sound way is using a statistical central tendency
-indicator, which is usually the {\em average}. This strategy is called
+indicator, which is usually the {\em average}; which happens to be
+equal to the median in the case of the random variable following the
+normal distribution. This strategy is called
 {\em explicit averaging} by Jin and Branke and is used, for instance,
 in \cite{Junhua20136780}. Averaging decreases the variance of fitness but
 the problem is that it is not clear in advance what would be the
-sample size used for averaging \cite{aizawa1994scheduling}. 
-% Antonio - Decir que nosotros mismos lo hemos aplicado en juegos como he comentado arriba. Cita JCST. ;)
+sample size used for averaging \cite{aizawa1994scheduling}. We have
+used it in some cases but in a different way: not re-evaluating
+individuals every additional generation and computing the average but
+computing the fitness using the average of several evaluations,
+usually five or more \cite{DBLP:journals/jcst/MoraFGGF12}. 
 Most authors use several measures of fitness for each new individual
 \cite{costa2013using}, although other averaging strategies have also
 been proposed, like averaging over the neighbourhood of the
@@ -258,24 +274,21 @@ necessarily for all distributions.
 
 To the best of our knowledge, 
 other measures like the median which might be more adequate for
-certain noise models have not been tested; the median always exists,
+certain noise models, but which is the same for the normal
+distribution usually attributed to noise, have not been tested; the median always exists,
 while the average might not exist for non-centrally distributed
 variables. Besides, most models keep the number of evaluations fixed 
 and independent of its value, 
-% Zeineb - Besides, most models keep the number of evaluations   fixed
-% and independent of its value, 
-% fixed, thx- JJ
 which might result in bad individuals
 being evaluated many times before being discarded; some authors have
 proposed {\em resampling}, that is, re-evaluate the individuals a number of times to increase the precision in fitness
 \cite{RadaVilela2014,6900521},
 % Antonio - el resampling se ha comentado también unas líneas antes 
+% y? Qué sugieres? - JJ
 which will effectively increase the number of
 evaluations and thus slow down the search. In any case, using average is
-also a small change to the overall algorithm framework, requiring only
+also a small change to the algorithm framework, requiring only
 using as new fitness function the average of several evaluations.
-We will try to address this in the model presented in this
-paper. 
 
 These two approaches that are focused on the evaluation process might
 be complemented with changes to the selection process. For instance,
@@ -300,8 +313,9 @@ paper, where we present a method that uses resampling via an
 individual memory and use either explicit averaging or statistical
 tests like the non-parametric Wilcoxon test. 
 First we will examine and try to find the shape of the noise that
-actually appears in games; 
+actually appears in games and other problems; 
 % Antonio - aclarar lo de 'games' => "in optimization of behavioural models of autonomous agents for playing games"
+% añadido "and other problems" - JJ
 then we will check in this paper what is the influence on the quality of
 results of these two strategies and which one, if any, is the best
 when working in noisy environments.  
