@@ -99,7 +99,7 @@ optimization problems:
   \cite{esann94,merelo:ESNN}; in the second case we dealt with a
   physical installation, introducing another kind of randomness. Since training a neural network is a   stochastic procedure, the error rate obtained after every training run will also follow  a statistical distribution.
 % Antonio - seguir una distribución estadística es lo mismo que ser una variable aleatoria?
-\item When evolving game bots \cite{bots:evostar}. In this case, the
+\item When evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
   uncertainty arises from the problem itself; in games, several factors such as the initial positions of the players or the opponent's behavior add certain stochastic component so that final score will also be {\em uncertain} or {\em noisy}; in some cases, too, the bot itself will rely on probabilities to
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
   case two different runs with exactly the same initial conditions and
@@ -290,18 +290,18 @@ then we will check in this paper what is the influence on the quality of
 results of these two strategies and which one, if any, is the best
 when working in noisy environments.  
 
-\section{Problems used in this paper}
-\ref{sec:problems}
 % ******************************************************************************
 
-% Antonio - Sección describiendo los tres problemas considerados (cogerlas de los artículos anteriores).
+\section{Problems used in this paper}
+\label{sec:problems}
+
 
 The fitness of three different problems, all of them related to
 computational intelligence in games has been used in this paper:
-optimization of the ghost team in Ms. Pacman, which will be described
+optimization of the ghost team in Ms. Pac-Man, which will be described
 in subsection \ref{ss:pacman}, generation of character backstories in
 artificial worlds \ref{ss:made} and optimization of bots for playing
-the real time strategy game planet wars \ref{ss:pw}. These three
+the real time strategy game Planet Wars \ref{ss:pw}. These three
 problems have been chosen for several reasons, the most important of
 which is that we have been working on them and thus have data
 available; another reason is that the origin of the uncertainty is
@@ -316,7 +316,7 @@ presented in the next section.
 
 
 \subsection{Ghost team optimization}
-\ref{ss:pacman}
+\label{ss:pacman}
 
 \subsection{Creation of character backstories}
 \ref{ss:made}
@@ -346,10 +346,21 @@ the archetypes in the execution log.
 \subsection{Real time strategy: Planet Wars}
 \ref{ss:pw}
 
+
+Planet Wars \footnote{\url{http://planetwars.aichallenge.org/}} is a
+simple Real-Time Strategy (RTS) game\footnote{actually the game is
+  turn-based, but with just a few milliseconds to decide the actions},
+in which the players control spaceships (units) and have to conquer
+planets (structures/resources). These planets generate spaceships
+(with a different rate depending on their size). The objective is to
+defeat the enemy's fleet.  
+
 Planet Wars \footnote{\url{http://planetwars.aichallenge.org/}} is a
 simple real time strategy (RTS) game. RTS games are not turn-based and
 their objective is to defeat the enemy using resources available in
-the map to build units and structures. Computational intelligence
+the map to build units and structures. 
+
+Computational intelligence
 methods have been applied to Planet Wars since it provides a
 simplification of the elements of the RTS: one kind of units
 (spaceships) and one kind of resources and structures
@@ -373,15 +384,16 @@ rest of the elements of the fitness (number of actions to win, and
 then number of actions to lose) in case of equality in this elements. 
 % What do you mean by hierarchical fitness? What kind of fitness was
 % actually in the data we used? - JJ
+grouping the number of victories and the number of actions to win or be defeated. Selection is performed using a binary tournament comparing first the number of victories and comparing the rest of the elements of the fitness (number of movements to win, and then number of movements to lose) in case of equality in this elements.
+The overall fitness value for a bot is computed as the average result in those five combats.
 
-\section{Results}
-\ref{sec:res}
 % ******************************************************************************
 
-% Antonio - Sección de experimentos y resultados.
-% Podías haberla puesto directamente - JJ
-% ******************************************************************************
+\section{Experiments and Results}
+\label{sec:res}
 
+
+% ******************************************************************************
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusion}
