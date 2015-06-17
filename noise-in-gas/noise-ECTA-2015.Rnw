@@ -350,7 +350,7 @@ presented in the next section.
 \label{ss:pacman}
 
 \subsection{Creation of character backstories}
-\ref{ss:made}
+\label{ss:made}
 
 MADE (Massive Drama Engine for non-player characters)
 \cite{garcia14my} is a framework for the automatic generation of
