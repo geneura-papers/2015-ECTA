@@ -22,8 +22,9 @@
 <<setup, cache=FALSE,echo=FALSE>>=
 library("ggplot2")
 library("RCurl") #To download stuff directly from the GitHub repo
+library(e1071) # for skewness and kurtosis
 # Now download stuff from noisy-ga repo
-made.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/MADE/made-data.csv")
+made.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/MADE/made-data.csv"))
 pacman.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/ms-pacman/pacman.Rdata")
 planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet-wars/planetwars.Rdata")
 @ 
@@ -413,7 +414,11 @@ rest of the elements of the fitness (number of actions to win, and
 then number of actions to lose) in case of equality in this elements. 
 % What do you mean by hierarchical fitness? What kind of fitness was
 % actually in the data we used? - JJ
-grouping the number of victories and the number of actions to win or be defeated. Selection is performed using a binary tournament comparing first the number of victories and comparing the rest of the elements of the fitness (number of movements to win, and then number of movements to lose) in case of equality in this elements.
+grouping the number of victories and the number of actions to win or
+be defeated. Selection is performed using a binary tournament
+comparing first the number of victories and comparing the rest of the
+elements of the fitness (number of movements to win, and then number
+of movements to lose) in case of equality in this elements. 
 The overall fitness value for a bot is computed as the average result
 in those five combats. 
 
@@ -422,7 +427,25 @@ in those five combats.
 \section{Experiments and Results}
 \label{sec:res}
 
+<<made,cache=FALSE,echo=FALSE,warning=FALSE>>=
+s.k <- data.frame(Gen=character(), 
+                  Skewness=character(),
+                  Kurtosis=character(),
+                  stringsAsFactors=FALSE)
 
+for ( i in c(64,128,256)) {
+    for ( j in unique(subset(made.data,Gen==i)$ID) ) {
+        this.data <- subset(made.data,Gen==i & ID==j)$Fitness
+        s.k <- rbind( s.k
+                     , data.frame(Gen=paste("Gen",i)
+                                  ,Skewness=skewness(this.data)
+                                  ,Kurtosis=kurtosis(this.data)))
+    }
+}
+
+ggplot(s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))
+
+@ 
 % ******************************************************************************
 
 \section{\uppercase{Conclusions}}
