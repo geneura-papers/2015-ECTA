@@ -25,8 +25,8 @@ library("RCurl") #To download stuff directly from the GitHub repo
 library(e1071) # for skewness and kurtosis
 # Now download stuff from noisy-ga repo
 made.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/MADE/made-data.csv"))
-pacman.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/ms-pacman/pacman.Rdata")
-planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet-wars/planetwars.Rdata")
+pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/ms-pacman/pacman-fitness.csv"))
+planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
 @ 
 
 \title{There is Noisy Lunch: a study of noise in evolutionary
@@ -404,6 +404,8 @@ deterministic, as some of the decisions of the nodes are based in
 probabilities. %FERGU: DE DONDE SE SACAN LOS RESULTADOS? (PONER REF) 
 %puesta ref. - JJ
 
+
+
 Fitness is calculated confronting 10 times the bot modelled by the GP tree against
 a previous bot in the literature (Exp-Genebot)
 \cite{DBLP:conf/cig/Fernandez-AresGMG12}. A hierarchical
@@ -446,6 +448,45 @@ for ( i in c(64,128,256)) {
 ggplot(s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))
 
 @ 
+
+<<planetwars,cache=FALSE,echo=FALSE,warning=FALSE>>=
+pw.s.k <- data.frame(Gen=character(), 
+                  Skewness=character(),
+                  Kurtosis=character(),
+                  stringsAsFactors=FALSE)
+
+for ( i in c(1,50)) {
+    for ( j in unique(subset(planetwars.data,Gen==i)$ID) ) {
+        this.data <- subset(planetwars.data,Gen==i & ID==j)$Fitness
+        pw.s.k <- rbind( pw.s.k
+                     , data.frame(Gen=paste("Gen",i)
+                                  , Skewness=skewness(this.data)
+                                  , Kurtosis=kurtosis(this.data)))
+    }
+}
+
+ggplot(pw.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))
+@ 
+
+<<pacman,cache=FALSE,echo=FALSE,warning=FALSE>>=
+pm.s.k <- data.frame(Gen=character(), 
+                  Skewness=character(),
+                  Kurtosis=character(),
+                  stringsAsFactors=FALSE)
+
+for ( i in c(1,25,50)) {
+    for ( j in unique(subset(pacman.data,Gen==i)$ID) ) {
+        this.data <- subset(pacman.data,Gen==i & ID==j)$Fitness
+        pm.s.k <- rbind( pm.s.k
+                        , data.frame(Gen=paste("Gen",i)
+                                     , Skewness=skewness(this.data)
+                                     , Kurtosis=kurtosis(this.data)))
+    }
+}
+
+ggplot(pm.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-2,10))+scale_y_continuous(limits=c(-5,100))
+@ 
+
 % ******************************************************************************
 
 \section{\uppercase{Conclusions}}
