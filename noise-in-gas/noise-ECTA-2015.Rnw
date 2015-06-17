@@ -159,6 +159,7 @@ uncertainty whose measures will be used in this paper in Section
 
 \sloppypar The most recent and comprehensive review of the state of the art in 
 % Antonio - el más reciente es de 2005?
+% Pues sí. No he encontrado más. - JJ
 evolutionary algorithms in {\em uncertain} environments 
 was done by \cite{Jin2005303}, although recent
 papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and
@@ -184,7 +185,7 @@ generation. This was the option in our previous research in
 games\footnote{One evaluation in some of those works consists, in
   fact, in an average of several evaluations (in different maps or
   considering different opponents, for instance)}
-\cite{bots:evostar,NoisyFitness_JCST, liberatore:pacman}  
+\cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12, liberatore:pacman}  
 % Antonio - esto habría que comentarlo, ya que, normalmente, no nos
 % limitamos a evaluar una vez y ya, sino a hacer varias evaluaciones
 % en distintos mapas o contra distintos rivales. Lo he puesto como
@@ -295,7 +296,23 @@ when working in noisy environments.
 
 % Antonio - Sección describiendo los tres problemas considerados (cogerlas de los artículos anteriores).
 
-The fitness of three different problems, all of them related to computational intelligence in games has been used in this paper: optimization of the ghost team in Ms. Pacman, which will be described in subsection \ref{ss:pacman}, generation of character backstories in artificial worlds \ref{ss:made} and optimization of bots for playing the real time strategy game planet wars \ref{ss:pw}. These three problems have been chosen for several reasons, the most important of which is that we have been working on them and thus have data available; another reason is that the origin of the uncertainty is different in the three cases. In the case of Ms. Pac-Man, it is due to the nature of the game; in the case of MADE, fitness is computed through a simulation; finally, in the case of Planet Wars, the bot themselves have a random component, with its representation including probabilities of different courses of action. It is not a complete representation of all causes of uncertainty, but the sample is big enough so that we can generalize the results obtained, which will be presented in the next section.
+The fitness of three different problems, all of them related to
+computational intelligence in games has been used in this paper:
+optimization of the ghost team in Ms. Pacman, which will be described
+in subsection \ref{ss:pacman}, generation of character backstories in
+artificial worlds \ref{ss:made} and optimization of bots for playing
+the real time strategy game planet wars \ref{ss:pw}. These three
+problems have been chosen for several reasons, the most important of
+which is that we have been working on them and thus have data
+available; another reason is that the origin of the uncertainty is
+different in the three cases. In the case of Ms. Pac-Man, it is due to
+the nature of the game; in the case of MADE, fitness is computed
+through a simulation; finally, in the case of Planet Wars, the bot
+themselves have a random component, with its representation including
+probabilities of different courses of action. It is not a complete
+representation of all causes of uncertainty, but the sample is big
+enough so that we can generalize the results obtained, which will be
+presented in the next section. 
 
 
 \subsection{Ghost team optimization}
@@ -303,9 +320,27 @@ The fitness of three different problems, all of them related to computational in
 
 \subsection{Creation of character backstories}
 \ref{ss:made}
-MADE (Massive Drama Engine for non-player characters) \cite{garcia14my} is a framework for the automatic generation of virtual worlds that allow the emergence of backstories for secondary characters in videogames. This framework is focused in search the generation of {\em archetypes} in the generated stories. An archetype is a well-known behaviour present in the imaginary collective (for example, a ``hero'' or a ``villain''). Given a fitness to model the existence of different $N_a$ archetypes for a virtual world, MADE uses a genetic algorithm to optimize the parameter values of a Finite State Machine (FSM) that model the agents of that world. For the evaluation, a world is simulated using this parameter set, and the log is analysed to detect behaviours of the world agents to match with the desired archetypes.
 
-As the evolved parameters are the probabilities to jump from one state to another in the FSM, each fitness evaluation is performed executing the virtual world 5 times per individual, obtaining the average fitness. Selection is, therefore, performed comparing this average fitness, using a binary tournament in this case. Fitness values are comprised between 0 and $N_a$ and are calculated taking into account the rate of the archetypes in the execution log.
+MADE (Massive Drama Engine for non-player characters)
+\cite{garcia14my} is a framework for the automatic generation of
+virtual worlds that allow the emergence of backstories for secondary
+characters that can later on be included in videogames. In this context, an archetype
+is a well-known behaviour present in the imaginary collective (for
+example, a ``hero'' or a ``villain''). Given a fitness to model the
+existence of different $N_a$ archetypes for a virtual world, MADE uses
+a genetic algorithm to optimize the parameter values of a Finite State
+Machine (FSM) that model the agents of that world. For the evaluation,
+a world is simulated using this parameter set, and the log is analysed
+to detect behaviours of the world agents to match with the desired
+archetypes. 
+
+As the evolved parameters are the probabilities to jump from one state
+to another in the FSM, each fitness evaluation is performed executing
+the virtual world five times per individual, obtaining the average
+fitness. Selection is, therefore, performed comparing this average
+fitness, using a binary tournament in this case. Fitness values range
+from 0 and $N_a$ and are calculated taking into account the rate of
+the archetypes in the execution log. 
 
 
 \subsection{Real time strategy: Planet Wars}
@@ -326,7 +361,7 @@ decision tree for the player indicating how many ships send from each
 planet to attack or reinforce another planet. The generated bot is not
 deterministic, as some of the decisions of the nodes are based in
 probabilities. %FERGU: DE DONDE SE SACAN LOS RESULTADOS? (PONER REF) 
-%puesta ref. 
+%puesta ref. - JJ
 
 Fitness is calculated confronting 10 times the bot modelled by the GP tree against
 a previous bot in the literature (Exp-Genebot)
