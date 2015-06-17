@@ -30,17 +30,17 @@ planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet
 
 \title{There is Noisy Lunch: a study of noise in evolutionary
   optimization problems.}
-% Antonio - øse pone algo de juegos en el tÌtulo?
+% Antonio - ¬øse pone algo de juegos en el t√≠tulo?
 
 \author{\authorname{Juan J. Merelo\sup{1}, 
     Federico Liberatore,
-    Antonio Fern·ndez Ares, 
-    RubÈn GarcÌa\sup{2}, 
+    Antonio Fern√°ndez Ares, 
+    Rub√©n Garc√≠a\sup{2}, 
     Zeineb Chelly, 
     Carlos Cotta, 
     Nuria Rico, 
     Antonio M. Mora\sup{1}
-    and Pablo Garc{\'i}a-S{\'a}nchez\sup{1}} %FERGU: me pongo el ˙ltimo, que he sido el que menos ha hecho :P
+    and Pablo Garc{\'i}a-S{\'a}nchez\sup{1}} %FERGU: me pongo el √∫ltimo, que he sido el que menos ha hecho :P
 % Antonio - Faltan las afiliaciones de mucha gente
 \affiliation{\sup{1}CITIC and University of Granada}
 \affiliation{\sup{2}Escuela de Doctorado, UGR}
@@ -48,7 +48,7 @@ planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet
 }
 
 \keywords{games, evolutionary optimization, noise, uncertainty}
-% Antonio - yo pondrÌa 'noisy fitness'
+% Antonio - yo pondr√≠a 'noisy fitness'
 
 \abstract{Noise or uncertainty appear in many optimization processes
   when there is not a single measure of optimality or fitness but a
@@ -57,11 +57,11 @@ planetwars.data <- getURL("https://github.com/JJ/noisy-ga/raw/master/data/planet
   of the statistical distribution those random variables follow,
   assuming in most cases that it is distributed normally and, thus,
   it can be modelled via an additive or multiplicative noise. 
-% Antonio - se modela con ruido o con una funciÛn?
+% Antonio - se modela con ruido o con una funci√≥n?
 In this paper we will look at several uncertain optimization problems, addressed by means of Evolutionary Algorithms, 
-% Antonio - aÒado una cosilla para aclarar que son evolutivos
+% Antonio - a√±ado una cosilla para aclarar que son evolutivos
  and prove that there is no single statistical model these variables
-% Antonio - yo pondrÌa 'these variables' -> 'the fitness functions'
+% Antonio - yo pondr√≠a 'these variables' -> 'the fitness functions'
   follow, with 
 % Antonio - with -> being?
 different not only from one problem to the next, but in
@@ -86,7 +86,7 @@ question ``Is this solution better than the other?'' needs to be either a crisp
 
 In many cases, however, the fitness or cost of a solution cannot be
 described by a crisp value. In those cases where there is \textit{uncertainty} in the measure, that is, in most real world, physical cases, or in the procedure 
-% Antonio - 'physical' en quÈ sentido?
+% Antonio - 'physical' en qu√© sentido?
 used to evaluate the solution, for instance, when using a stochastic procedure
 to make that measure, the best way to describe a solution will be a random
 variable, not a single, or even a vector, value. 
@@ -98,7 +98,7 @@ optimization problems:
 \item When training any kind of neural network, such as those in
   \cite{esann94,merelo:ESNN}; in the second case we dealt with a
   physical installation, introducing another kind of randomness. Since training a neural network is a   stochastic procedure, the error rate obtained after every training run will also follow  a statistical distribution.
-% Antonio - seguir una distribuciÛn estadÌstica es lo mismo que ser una variable aleatoria?
+% Antonio - seguir una distribuci√≥n estad√≠stica es lo mismo que ser una variable aleatoria?
 \item When evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
   uncertainty arises from the problem itself; in games, several factors such as the initial positions of the players or the opponent's behavior add certain stochastic component so that final score will also be {\em uncertain} or {\em noisy}; in some cases, too, the bot itself will rely on probabilities to
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
@@ -114,7 +114,7 @@ behavior of fitness as a random variable.
 
 That is why, after some initial study of noise in
 \cite{merelo14:noisy}, 
-% Antonio - indicar en quÈ tipo de problema se estudiÛ. Crees que aquÌ casarÌa el estudio de ruido que hicimos en Planet Wars? La referencia que he incluÌdo en el .bib (NoisyFitness_JCST)
+% Antonio - indicar en qu√© tipo de problema se estudi√≥. Crees que aqu√≠ casar√≠a el estudio de ruido que hicimos en Planet Wars? La referencia que he inclu√≠do en el .bib (NoisyFitness_JCST)
 where our findings indicated that, in some cases, noise followed a Gamma, that
 is a skewed normal distribution and proposing a solution to this using
 Wilcoxon comparison as a selection operator, 
@@ -137,7 +137,7 @@ been used in different occasions.
 
 That is why in this paper we have collected data from three different
 problems 
-% Antonio - explicar un poco los problemas considerados (cogerlo de los artÌculos pertinentes). ;D
+% Antonio - explicar un poco los problemas considerados (cogerlo de los art√≠culos pertinentes). ;D
 and tried to find a model for the fitness using statistical
 tools. Our aim is to eventually find a model that is as general
 as possible and that is able to account for most sources of
@@ -158,8 +158,8 @@ uncertainty whose measures will be used in this paper in Section
 \label{sec:soa}
 
 \sloppypar The most recent and comprehensive review of the state of the art in 
-% Antonio - el m·s reciente es de 2005?
-% Pues sÌ. No he encontrado m·s. - JJ
+% Antonio - el m√°s reciente es de 2005?
+% Pues s√≠. No he encontrado m√°s. - JJ
 evolutionary algorithms in {\em uncertain} environments 
 was done by \cite{Jin2005303}, although recent
 papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and
@@ -186,11 +186,11 @@ games\footnote{One evaluation in some of those works consists, in
   fact, in an average of several evaluations (in different maps or
   considering different opponents, for instance)}
 \cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12, liberatore:pacman}  
-% Antonio - esto habrÌa que comentarlo, ya que, normalmente, no nos
+% Antonio - esto habr√≠a que comentarlo, ya que, normalmente, no nos
 % limitamos a evaluar una vez y ya, sino a hacer varias evaluaciones
 % en distintos mapas o contra distintos rivales. Lo he puesto como
-% nota al pie, pero quiz· habrÌa que meterlo en el texto y explicarlo
-% mejor, aunque sea para decir que no es v·lido. ;) 
+% nota al pie, pero quiz√° habr√≠a que meterlo en el texto y explicarlo
+% mejor, aunque sea para decir que no es v√°lido. ;) 
 and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN} and leads, if the population is large enough, to an {\em implicit averaging} as
 mentioned in \cite{Jin2005303}.
 
@@ -200,16 +200,16 @@ will have the same effect as randomness in selection or a higher mutation
 rate, which might make the evolution process easier and not harder
 in some particular cases
 \cite{DBLP:journals/corr/QianYZ13}. 
-% Antonio - yo estoy lo pongo en duda, por lo menos en el caso de los juegos, aunque existe un factor de ruido, no se corresponde con algo aleatorio (o casi), a menos que los rivales estÈn muy igualados o que se produzcan situaciones MUY extraÒas en el mapa. Normalmente los buenos ganar·n a los malos y viceversa.
+% Antonio - yo estoy lo pongo en duda, por lo menos en el caso de los juegos, aunque existe un factor de ruido, no se corresponde con algo aleatorio (o casi), a menos que los rivales est√©n muy igualados o que se produzcan situaciones MUY extra√±as en el mapa. Normalmente los buenos ganar√°n a los malos y viceversa.
 In fact, Miller and Goldberg proved that an infinite population would not
 be affected by noise \cite{miller1996genetic} and Jun-Hua and Ming studied the
 effect of noise in convergence rates \cite{Junhua20136780}, proving
 that an elitist genetic algorithm finds at least one solution, although with a lowered convergence rate. 
 
 But real populations are finite, so the usual approach to dealing with fitness with a degree of randomness is to increase the population size to a value bigger than would be needed in a non-noisy environment. 
-% Antonio - en juegos el tratamiento es la repeticiÛn de evaluaciones (creo recordar que hay algunos trabajos que lo indican asÌ, aparte del nuestro de la revista JCST). :D    Vale, esto lo pone debajo... 
+% Antonio - en juegos el tratamiento es la repetici√≥n de evaluaciones (creo recordar que hay algunos trabajos que lo indican as√≠, aparte del nuestro de la revista JCST). :D    Vale, esto lo pone debajo... 
 In fact, it has been recently proved that using {\em sex}, that is, crossover, 
-% Antonio - esto quÈ es? cÛmo los carteles esos que ponen en grande SEXO para llamar la atenciÛn? :D
+% Antonio - esto qu√© es? c√≥mo los carteles esos que ponen en grande SEXO para llamar la atenci√≥n? :D
 is able to deal successfully with noise \cite{2015arXiv150202793F}, while an
 evolutionary algorithm based on mutation
 %CARLOS: un algorithm mu+1 puede usar cruce - elimino esto  (such as
@@ -253,7 +253,7 @@ which might result in bad individuals
 being evaluated many times before being discarded; some authors have
 proposed {\em resampling}, that is, re-evaluate the individuals a number of times to increase the precision in fitness
 \cite{RadaVilela2014,6900521},
-% Antonio - el resampling se ha comentado tambiÈn unas lÌneas antes 
+% Antonio - el resampling se ha comentado tambi√©n unas l√≠neas antes 
 which will effectively increase the number of
 evaluations and thus slow down the search. In any case, using average is
 also a small change to the overall algorithm framework, requiring only
@@ -344,8 +344,7 @@ the archetypes in the execution log.
 
 
 \subsection{Real time strategy: Planet Wars}
-\ref{ss:pw}
-
+\label{ss:pw}
 
 Planet Wars \footnote{\url{http://planetwars.aichallenge.org/}} is a
 simple Real-Time Strategy (RTS) game\footnote{actually the game is
@@ -385,7 +384,8 @@ then number of actions to lose) in case of equality in this elements.
 % What do you mean by hierarchical fitness? What kind of fitness was
 % actually in the data we used? - JJ
 grouping the number of victories and the number of actions to win or be defeated. Selection is performed using a binary tournament comparing first the number of victories and comparing the rest of the elements of the fitness (number of movements to win, and then number of movements to lose) in case of equality in this elements.
-The overall fitness value for a bot is computed as the average result in those five combats.
+The overall fitness value for a bot is computed as the average result
+in those five combats. 
 
 % ******************************************************************************
 
@@ -403,7 +403,7 @@ The overall fitness value for a bot is computed as the average result in those f
 \section*{\uppercase{Acknowledgements}}
 
 \noindent This work has been supported in part by SIPESCA (Programa Operativo
-FEDER de AndalucÌa 2007-2013), TIN2014-56494-C4-3-P (Spanish
+FEDER de Andaluc√≠a 2007-2013), TIN2014-56494-C4-3-P (Spanish
 Ministry of Economy and Competitivity), SPIP2014-01437 (Direcci{\'o}n
 General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
 Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de
