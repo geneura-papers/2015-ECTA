@@ -29,7 +29,7 @@ pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noi
 planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
 @ 
 
-\title{There is Noisy Lunch: a study of noise in evolutionary optimization problems.}
+\title{There is Noisy Lunch: a study of noise in evolutionary optimization problems.} 
 
 \author{\authorname{Juan J. Merelo\sup{1}, 
     Federico Liberatore\sup{1},
@@ -63,10 +63,7 @@ In this paper we will look at several uncertain optimization problems
 that have been addressed by means of Evolutionary Algorithms
  and prove that there is no single statistical model the evaluations
  of the fitness functions
-  follow, being
-% Antonio - with -> being?
-  % correcto - JJ
-different not only from one problem to the next, but in
+  follow, being different not only from one problem to the next, but in
 different phases of the optimization in a single problem.}
 
 \onecolumn \maketitle \normalsize \vfill
@@ -137,11 +134,12 @@ Optimization Benchmarks \cite{hansen2009real} the uncertainty was
 simulated by adding noise centered in 0 and with a Cauchy distribution
 with different widths. 
 % Antonio - Referencia? (pos esto)
+% References to what? It's right there, Hansen and Arnold - JJ
 Either multiplicative or additive noise has
 been used in different occasions. 
 
 That is why in this paper we have collected data from three different
-problems, which will be presented later on in the paper
+problems, which will be presented later on in this paper
 and tried to find a model for the fitness using statistical
 tools. Our aim is to eventually find a model that is as general
 as possible and that is able to account for most sources of
@@ -211,9 +209,7 @@ to a value bigger than would be needed in a non-noisy environment.
 In fact, it has been recently proved that using {\em sex}, that is, crossover, 
 is able to deal successfully with noise \cite{2015arXiv150202793F}, while an
 evolutionary algorithm based mainly on mutation,
-%CARLOS: un algorithm mu+1 puede usar cruce - elimino esto  
 such as the $\mu$+1 EA, or evolutionary programming, 
-% but that's the one mentioned in the paper, so I put it back - JJ
 would suffer a considerable degradation of performance. 
 However, crossover is part of the standard kit of evolutionary
 algorithms, so using it and increasing the population size has the
@@ -266,7 +262,7 @@ avoid making comparisons of individuals that might, in fact, be very
 similar or statistically the same; this is usually called {\em
   threshold selection} and can be applied either to explicit or
 implicit averaging fitness functions. The algorithms used for
-solution, themselves, can be also tested, with some authors proposing, instead of taking more measures, 
+solution, themselves, can be also tested, with some authors proposing, instead of taking more measures,  
 testing different solvers \cite{cauwet2014algorithm}, some of which
 might be more affected by noise than others. However, recent papers
 have proved that sampling might be ineffective \cite{Qian:sampling} in
@@ -292,7 +288,6 @@ when working in noisy environments.
 \section{Problems used in this paper}
 \label{sec:problems}
 
-
 The fitness of three different problems, all of them related to
 computational intelligence in games has been used in this paper:
 optimization of the ghost team in Ms. Pac-Man, which will be described
@@ -311,10 +306,8 @@ representation of all causes of uncertainty, but the sample is big
 enough so that we can generalize the results obtained, which will be
 presented in the next section. 
 
-
 \subsection{Ghost team optimization}
 \label{ss:pacman}
-
 
 The game of Pac-Man, released in 1981, has resulted in several
 variants. One of the most famous is Ms. Pac-Man, that extends the
@@ -364,7 +357,7 @@ to another in the FSM, each fitness evaluation is performed executing
 the virtual world five times per individual, obtaining the average
 fitness. Selection is, therefore, performed comparing this average
 fitness, using a binary tournament in this case. Fitness values range
-from 0 and $N_a$ and are calculated taking into account the rate of
+from 0 and $N_a$ and are calculated taking into account the rate of occurrence of
 the archetypes in the execution log. 
 
 
@@ -391,7 +384,7 @@ deterministic, as some of the jumps of the states are based in
 probabilities. 
 Fitness is calculated confronting five times the bot obtained from the parameter set of the FSM against
 a competitive hand-coded bot. The result of each match takes into account the `slope' of the number of player spaceships
-during the time of the match. Positive results mean that the bot won, as the slope will be positive, and vice versa. Theoretical values are in the range $[-1,1]$, although these values are impossible to attain in the game. A value of -1 would indicate that the player lost all their ships in the initial time, while $1$ would mean the contrary: it generated all the spaceships and won in the initial time. The fitness of an individual is the sum of all five results, and therefore being in the range $[-5,5]$. This fitness has been explained in more detail in \cite{Fernandez-Ares_COSECIVI14}.
+during the time of the match. Positive results mean that the bot won, as the slope will be positive, and vice versa. Theoretical values are in the range $[-1,1]$, although these values are impossible to attain in the game. A value of -1 would indicate that the player lost all their ships in the initial time, while $1$ would mean the contrary: it generated all the spaceships and won in the initial time. The fitness of an individual is the sum of all five results, and therefore being in the range $[-5,5]$. This fitness has been explained in more detail in \cite{Fernandez-Ares_COSECIVI14}. 
 
 
 % ******************************************************************************
@@ -538,7 +531,14 @@ uncertainty component.
 \section{\uppercase{Conclusions}}
 \label{sec:conclusion}
 
-\noindent TODO
+\noindent In this paper we set out to study the statistical distribution followed by the fitness of single individuals in several problems in the area of games in which we have worked. These problems: MADE, Planet Wars, and Ms. Pac-Man, have different natures and ways to compute the fitness, but all of them have in common that fitness is not a fixed number but a random variable. We have set out to do to prove the hypothesis that not only noise does not follow the normal, or Gaussian, distribution or other centrally-distributed models such as Cauchy, which have been used repeatedly in the literature, but that it does not follow a single distribution even considering a single problem.
+
+The study presented in that paper proves that hypothesis. The best way to describe statistical variables is using two parameters: kurtosis and skewness. These two parameters have been computed and ploted for each one of the problems, proving that not only distributions are asymmetrical and not bell-shaped, but that its shape changes within a sigle problem and in different stages of the computation. In some case, like MADE, it seems clear that due to the fact that averages are used as a representative for selection, those individuals whose fitness is closer to a central shape are oversampled and thus selected preferably, with almost-central individuals in the latest stages being a consequence of this fact. In other cases, when fitness is computed in a different way or selection takes another form the effect is exactly the opposite. At any rate, using averages, after the study done in this paper, is discouraged since in many cases and almost always in the early stages of the evolution, fitness, being a random variable, does not pass a centrality test and it might not even have an average. A better way of comparing any fitness with uncertainty would be, as proposed by the authors, using non-parametric tests such as the Wilcoxon test that impose a partial order on the individuals \cite{merelo14:noisy}; this partial order can be used, in several different ways, for selection.
+
+The fact that there is no single model representing distribution of fitness also implies that it is an error to use centrally distributed random variables added to a  crisp fitness to test operators and algorithms that operate in uncertainty. Either real values should be used, such as the ones proposed above, or a distribution with varying shape and symmetry such as Beta should be used. However, in this case we should take into account that ``true'' or ``crisp'' fitness {\em does not really exist}, so any modelization of uncertain fitness that uses noise added to crisp fitness is, in the more general case, wrong, although it might obviously be true in some cases. If the fitness evaluation is expensive and tests want to be performed for some new operators, the best way to model uncertainty would be to use {\em different} models applied to every individuals, with different skewness and kurtosis. However, this would be only a first-order approximation and it might favor methods that use averages. 
+
+What remains to be done is to effectively apply Wilcoxon-based comparisons to the problems above, but since they are costly to evaluate, we will try to create a benchmark for problems with uncertainty which reflects in the best possible way how fitness is organized in a wide array of problems. In order to do that we will try to examine as many uncertain problems as possible and deduce what would be the most general model.
+
 
 \section*{\uppercase{Acknowledgements}}
 
@@ -547,7 +547,7 @@ FEDER de Andaluc\'ia 2007-2013), TIN2014-56494-C4-3-P (Spanish
 Ministry of Economy and Competitivity), SPIP2014-01437 (Direcci{\'o}n
 General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
 Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de
-Investigaci{\'o}n), and project V17-2015 of the Microprojects program 2015 from CEI BioTIC Granada.
+Investigaci{\'o}n), and project V17-2015 of the Microprojects program 2015 from CEI BioTIC Granada. 
 
 \vfill
 
