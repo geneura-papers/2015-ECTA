@@ -478,9 +478,18 @@ for ( i in c(1,50)) {
 ggplot(pw.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
-  the planet wars problem. Different colors represent diffent generations.}
+  the Planet Wars problem. Different colors represent diffent generations.}
 \label{fig:pw}
 \end{figure}
+
+The shape of the graph for the Planet Wars problem, shown in Figure
+\ref{fig:pw} for two different generations, is different but has some
+similarities. The dispersion also decreases as evolution proceeds,
+with shape becoming closer to normal distribution in generation
+50. However, initial kurtosis is quite high and values above 2 and
+below 0 are found even late in the evolution. Noise is, thus, {\em
+  noisy} and does not conform to a single shape, even less a normal
+one. 
 
 \begin{figure}[htb]
   \centering
@@ -506,6 +515,23 @@ ggplot(pm.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continu
   the Ms. Pac-Man problem. Different colors represent diffent generations.}
 \label{fig:pm}
 \end{figure}
+
+The graph for the final problem, Ms. Pac-Man, is different in several
+aspects, and is shown in Figure \ref{fig:pm}. First we have to take
+into account, as explained in \ref{ss:pacman}, that differently from
+the previous cases, the fitness for a ghost team is the maximum, not
+an average of several values. This causes a curious behavior of
+fitness: in the first generation, several individuals have {\em crisp}
+values; however, this is decreasingly so, becoming more ``random'' as
+generations proceed, that is, the set of values the fitness has got
+starts to have many different values while in the first generations it
+had one or a few. That is why the behavior shown in the graph is
+completely different: distributions get increasingly asymmetric and
+its shape more different from a normal distribution and more like a
+Beta distribution. Even if the trend is different from the other two
+problems, the overall aspect is the same: there is no single
+distribution that is able to describe the shape of fitness with an
+uncertainty component. 
 
 % ******************************************************************************
 
