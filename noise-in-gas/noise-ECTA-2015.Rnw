@@ -90,8 +90,10 @@ question ``Is this solution better than the other?'' needs to be either a crisp
 `Yes' or `No', or simply ``Impossible to know''.
 
 In many cases, however, the fitness or cost of a solution cannot be
-described by a crisp value. In those cases where there is \textit{uncertainty} in the measure, that is, in most real world, physical cases, or in the procedure 
-% Antonio - 'physical' en qu� sentido? (pos esto)
+described by a crisp value. In those cases where there is
+\textit{uncertainty} in the measure, that is, in most real world,
+physical cases, such as the one described in \cite{esann94}, where a
+control system was optimized , or in the procedure 
 used to evaluate the solution, for instance, when using a stochastic procedure
 to make that measure, the best way to describe a solution will be a random
 variable, not a single, or even a vector, value. 
@@ -103,7 +105,6 @@ optimization problems:
 \item When training any kind of neural network, such as those in
   \cite{esann94,merelo:ESNN}; in the second case we dealt with a
   physical installation, introducing another kind of randomness. Since training a neural network is a   stochastic procedure, the error rate obtained after every training run will also follow  a statistical distribution.
-% Antonio - seguir una distribución estadística es lo mismo que ser una variable aleatoria? (pos esto)
 \item When evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
   uncertainty arises from the problem itself; in games, several factors such as the initial positions of the players or the opponent's behavior add certain stochastic component so that final score will also be {\em uncertain} or {\em noisy}; in some cases, too, the bot itself will rely on probabilities to
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
@@ -117,9 +118,8 @@ whose value arises from a stochastic process, evaluation or
 training, however, we have not seen an exhaustive research of the
 behavior of fitness as a random variable.
 
-That is why, after some initial study of noise in
+That is why, after some initial study of noise in a particular game in
 \cite{merelo14:noisy}, 
-% Antonio - indicar en qué tipo de problema se estudió. Crees que aquí casaría el estudio de ruido que hicimos en Planet Wars? La referencia que he incluído en el .bib (NoisyFitness_JCST) (pos esto)
 where our findings indicated that, in some cases, noise followed a Gamma, that
 is a skewed normal distribution and proposing a solution to this using
 Wilcoxon comparison as a selection operator, 
@@ -141,8 +141,7 @@ Either multiplicative or additive noise has
 been used in different occasions. 
 
 That is why in this paper we have collected data from three different
-problems 
-% Antonio - explicar un poco los problemas considerados (cogerlo de los artículos pertinentes). ;D
+problems, which will be presented later on in the paper
 and tried to find a model for the fitness using statistical
 tools. Our aim is to eventually find a model that is as general
 as possible and that is able to account for most sources of
@@ -155,7 +154,8 @@ The rest of the paper is organized as follows. Next we present the
 state of the art in evolutionary algorithms in uncertain environments,
 to be followed by a short presentation of the three problems with
 uncertainty whose measures will be used in this paper in Section
-\ref{sec:problems}. Results will be presented in Section \ref{sec:res}, followed by our conclusions.
+\ref{sec:problems}. Results will be presented in Section
+\ref{sec:res}, followed by our conclusions.
 
 % ******************************************************************************
 
@@ -163,8 +163,8 @@ uncertainty whose measures will be used in this paper in Section
 \label{sec:soa}
 
 \sloppypar The most recent and comprehensive review of the state of the art in 
-% Antonio - el más reciente es de 2005?
-% Pues sí. No he encontrado más. - JJ
+% Antonio - el mas reciente es de 2005?
+% Pues si. No he encontrado mas. - JJ
 evolutionary algorithms in {\em uncertain} environments 
 was done by \cite{Jin2005303}, although recent
 papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and
@@ -191,14 +191,6 @@ games although one evaluation in some of those works consists, in
   fact, in an average of several evaluations, in different maps or
   considering different opponents, for instance. 
 \cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,liberatore:pacman}  
-% Antonio - esto habría que comentarlo, ya que, normalmente, no nos
-% limitamos a evaluar una vez y ya, sino a hacer varias evaluaciones
-% en distintos mapas o contra distintos rivales. Lo he puesto como
-% nota al pie, pero quizá habría que meterlo en el texto y explicarlo
-% mejor, aunque sea para decir que no es válido. ;)
-% Añadido. NO se usan ni notas al pie ni paréntesis si se puede evitar
-% - JJ
-% Antonio - Ok
 and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN} and leads, if the population is large enough, to an {\em implicit averaging} as
 mentioned in \cite{Jin2005303}.
 
@@ -208,14 +200,6 @@ will have the same effect as randomness in selection or a higher mutation
 rate, which might make the evolution process easier and not harder
 in some particular cases
 \cite{DBLP:journals/corr/QianYZ13}. 
-% Antonio - yo estoy lo pongo en duda, por lo menos en el caso de los
-% juegos, aunque existe un factor de ruido, no se corresponde con algo
-% aleatorio (o casi), a menos que los rivales estén muy igualados o
-% que se produzcan situaciones MUY extrañas en el mapa. Normalmente
-% los buenos ganarán a los malos y viceversa. 
-% el ruido por definición es aleatorio y de eso no es de lo que estoy
-% hablando en ese párrafo, sino del trabajo de esas personas - JJ 
-% Antonio - vale
 In fact, Miller and Goldberg proved that an infinite population would not
 be affected by noise \cite{miller1996genetic} and Jun-Hua and Ming studied the
 effect of noise in convergence rates \cite{Junhua20136780}, proving
@@ -224,14 +208,7 @@ that an elitist genetic algorithm finds at least one solution, although with a l
 But real populations are finite, so the usual approach to dealing with
 fitness with a degree of randomness is to increase the population size
 to a value bigger than would be needed in a non-noisy environment.  
-% Antonio - en juegos el tratamiento es la repetición de evaluaciones
-% (creo recordar que hay algunos trabajos que lo indican así, aparte
-% del nuestro de la revista JCST). :D    Vale, esto lo pone debajo...  
-% resuelto entonces - JJ
 In fact, it has been recently proved that using {\em sex}, that is, crossover, 
-% Antonio - esto qué es? cómo los carteles esos que ponen en grande SEXO para llamar la atención? :D
-% también ejerce ese papel en la naturaleza: reducir ruido - JJ
-% Antonio - lo usar� si alguna vez tengo que ligar de nuevo. ;D
 is able to deal successfully with noise \cite{2015arXiv150202793F}, while an
 evolutionary algorithm based mainly on mutation,
 %CARLOS: un algorithm mu+1 puede usar cruce - elimino esto  
@@ -275,11 +252,8 @@ variables. Besides, most models keep the number of evaluations fixed
 and independent of its value, 
 which might result in bad individuals
 being evaluated many times before being discarded; some authors have
-proposed {\em resampling}, that is, re-evaluate the individuals a number of times to increase the precision in fitness
+proposed {\em resampling},
 \cite{RadaVilela2014,6900521},
-% Antonio - el resampling se ha comentado también unas líneas antes 
-% y? Qué sugieres? - JJ
-% Antonio - pos que lo quites aqu� o all�, que esta repetido lo mismo. ;)
 which will effectively increase the number of
 evaluations and thus slow down the search. In any case, using average is
 also a small change to the algorithm framework, requiring only
@@ -308,10 +282,7 @@ paper, where we present a method that uses resampling via an
 individual memory and use either explicit averaging or statistical
 tests like the non-parametric Wilcoxon test. 
 First we will examine and try to find the shape of the noise that
-actually appears in games and other problems; 
-% Antonio - aclarar lo de 'games' => "in optimization of behavioural models of autonomous agents for playing games"
-% añadido "and other problems" - JJ
-% Antonio - Pero me refer�a a que 'in games' es muy gen�rico, mejor decir a qu� �mbito nos referimos dentro de los juegos, �no?
+actually appears in some games and other optimization problems; 
 then we will check in this paper what is the influence on the quality of
 results of these two strategies and which one, if any, is the best
 when working in noisy environments.  
@@ -345,19 +316,31 @@ presented in the next section.
 \label{ss:pacman}
 
 
-Pac-Man game, released in 1981, has resulted in several variants. One of the most famous Ms. Pac-Man, that extends the mechanics of the original game with several features. 
-The most interesting is the possibility of applying different strategies to the ghosts’ behavior. Another one is the inclusion of a random movement to prevent the use of patterns to clear each round.
+The game of Pac-Man, released in 1981, has resulted in several
+variants. One of the most famous is Ms. Pac-Man, that extends the
+mechanics of the original game with several features, the most
+interesting of which is the possibility of applying different
+strategies to the ghosts behavior; the original version included fixed
+and different behaviors for each of the four ghosts. Another extension is the inclusion of a
+random movement to prevent the use of patterns for clearing each round.
 
-Recently, researchers are paying more attention to this game due to the Ms. Pac-Man vs Ghosts competition, where participants can submit controllers for both Ms. Pac-Man and the Ghost Team. 
-In this competition, the objective of Ms. Pac-Man is to maximize the final score, while the objective of the Ghost Team is to minimize it. 
+Recently, researchers are paying more attention to this game due to
+the Ms. Pac-Man vs Ghosts competition, where participants can submit
+controllers for both Ms. Pac-Man and the Ghost Team. In this
+competition, the objective of Ms. Pac-Man is to maximize the final
+score, while the objective of the Ghost Team is to minimize it.  
 
-Proposed implementation follows the following restrictions for the Ghost Team:
+The method whose fitness has been analyzed in this paper follows the
+following restrictions for the Ghost Team: 
 \begin{itemize}
  \item A ghost can never stop and if it is in a corridor it must move forward.
  \item A ghost can choose its direction only at a junction.
  \item Every time a ghost is at a junction the controller has to provide a direction from the set of feasible directions.
  \item After 4000 game ticks, a level is considered completed and the game moves on to the next level.
-\end{itemize}
+\end{itemize} 
+
+The fitness in this method is computed by computing the maximum score
+in 8 different matches. 
 
 
 \subsection{Creation of character backstories}
@@ -534,7 +517,7 @@ ggplot(pm.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continu
 \section*{\uppercase{Acknowledgements}}
 
 \noindent This work has been supported in part by SIPESCA (Programa Operativo
-FEDER de Andalucía 2007-2013), TIN2014-56494-C4-3-P (Spanish
+FEDER de Andaluc\'ia 2007-2013), TIN2014-56494-C4-3-P (Spanish
 Ministry of Economy and Competitivity), SPIP2014-01437 (Direcci{\'o}n
 General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
 Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de
