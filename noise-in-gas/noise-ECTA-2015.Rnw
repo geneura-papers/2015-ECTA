@@ -547,7 +547,7 @@ What remains to be done is to effectively apply Wilcoxon-based comparisons to th
 
 \section*{\uppercase{Acknowledgements}}
 
-\noindent This work has been supported in part by SIPESCA (Programa Operativo
+\noindent This work has been supported in part by SIPESCA (Programa Operativo %[Pedro] SIPESCA ref. can be removed
 FEDER de Andaluc\'ia 2007-2013), TIN2014-56494-C4-3-P (Spanish
 Ministry of Economy and Competitivity), SPIP2014-01437 (Direcci{\'o}n
 General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
