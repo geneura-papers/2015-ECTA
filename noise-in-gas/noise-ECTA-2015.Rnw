@@ -306,6 +306,10 @@ representation of all causes of uncertainty, but the sample is big
 enough so that we can generalize the results obtained, which will be
 presented in the next section. 
 
+%[Pedro] in the "Experiments and Results" the order of reporting the resulst is different to the previously proposed: (1)Ms.Pac-man (2)MADE (3)Planet Wars
+% in "Experiments and Results" section the order is (1)MADE (2)Planet Wars (3)Ms.Pac-man 
+% This is not so important, but I think it should be the same order...
+
 \subsection{Ghost team optimization}
 \label{ss:pacman}
 
