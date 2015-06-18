@@ -182,7 +182,7 @@ been proposed.
 \sloppypar For scientists not concerned on solving the problem of noise, but on
 a straightforward solution of the optimization problem without
 modification of existing tools and methodologies, an usual approach is
-just to disregard the fact that the fitness is noisy and use whatever
+just to disregard the fact that the fitness is noisy and use whatever  %[Pedro] I don't understand this sentence. What's is the subject for "use" in this sentence? (check the correspondence).
 value is returned by a single evaluation or after re-evaluation each
 generation. This was the option in our previous research in
 games although one evaluation in some of those works consists, in
