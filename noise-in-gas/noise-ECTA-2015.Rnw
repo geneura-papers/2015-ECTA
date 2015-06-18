@@ -34,18 +34,24 @@ planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/
 % MADE no es un juego y vamos a intentar hacerlo de la forma más general.
 
 \author{\authorname{Juan J. Merelo\sup{1}, 
-    Federico Liberatore,
-    Antonio Fernández Ares, 
-    Rubén García\sup{2}, 
-    Zeineb Chelly, 
-    Carlos Cotta, 
-    Nuria Rico, 
-    Antonio M. Mora\sup{1}
+    Federico Liberatore\sup{1},
+    Antonio Fern{\'a}ndez Ares\sup{1}, 
+    Rub{\'e}n Garc{\'i}a\sup{2}, 
+    Zeineb Chelly\sup{3}, 
+    Carlos Cotta\sup{4}, 
+    Nuria Rico\sup{5}, 
+    Antonio M. Mora\sup{6}
     and Pablo Garc{\'i}a-S{\'a}nchez\sup{1}} %FERGU: me pongo el último, que he sido el que menos ha hecho :P
 % Antonio - Faltan las afiliaciones de mucha gente
   % Añadidlas, por favor. - JJ
-\affiliation{\sup{1}CITIC and University of Granada}
-\affiliation{\sup{2}Escuela de Doctorado, UGR}
+% Antonio - hecho. ;)
+\affiliation{\sup{1}Depto. ATC, University of Granada, Spain}
+\affiliation{\sup{2}Escuela de Doctorado, University of Granada, Spain}
+% Antonio - �qu� es la Escuela de Doctorado? Rub�n est� en Unit4, �no?
+\affiliation{\sup{3}Lab. RODCP, Institut Sup\'erieur de Gestion, Tunisia}
+\affiliation{\sup{4}Depto. LCC, University of M{\'a}laga, Spain}
+\affiliation{\sup{5}Depto. EIO, University of Granada, Spain}
+\affiliation{\sup{6}Depto. TSTC, University of Granada, Spain}
 \email{{\tt jmerelo@geneura.ugr.es}}
 }
 
@@ -68,6 +74,7 @@ that have been addressed by means of Evolutionary Algorithms
 % Antonio - añado una cosilla para aclarar que son evolutivos
 % no hacía falta y creo que las conclusiones serían más o menos
 % generales - JJ
+% Antonio - pues entonces no lo pongas en el t�tulo, �no? :D
  and prove that there is no single statistical model the evaluations
  of the fitness functions
 % Antonio - yo pondría 'these variables' -> 'the fitness functions'
@@ -100,7 +107,7 @@ question ``Is this solution better than the other?'' needs to be either a crisp
 
 In many cases, however, the fitness or cost of a solution cannot be
 described by a crisp value. In those cases where there is \textit{uncertainty} in the measure, that is, in most real world, physical cases, or in the procedure 
-% Antonio - 'physical' en qué sentido?
+% Antonio - 'physical' en qu� sentido? (pos esto)
 used to evaluate the solution, for instance, when using a stochastic procedure
 to make that measure, the best way to describe a solution will be a random
 variable, not a single, or even a vector, value. 
@@ -112,7 +119,7 @@ optimization problems:
 \item When training any kind of neural network, such as those in
   \cite{esann94,merelo:ESNN}; in the second case we dealt with a
   physical installation, introducing another kind of randomness. Since training a neural network is a   stochastic procedure, the error rate obtained after every training run will also follow  a statistical distribution.
-% Antonio - seguir una distribución estadística es lo mismo que ser una variable aleatoria?
+% Antonio - seguir una distribución estadística es lo mismo que ser una variable aleatoria? (pos esto)
 \item When evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
   uncertainty arises from the problem itself; in games, several factors such as the initial positions of the players or the opponent's behavior add certain stochastic component so that final score will also be {\em uncertain} or {\em noisy}; in some cases, too, the bot itself will rely on probabilities to
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
@@ -128,11 +135,11 @@ behavior of fitness as a random variable.
 
 That is why, after some initial study of noise in
 \cite{merelo14:noisy}, 
-% Antonio - indicar en qué tipo de problema se estudió. Crees que aquí casaría el estudio de ruido que hicimos en Planet Wars? La referencia que he incluído en el .bib (NoisyFitness_JCST)
+% Antonio - indicar en qué tipo de problema se estudió. Crees que aquí casaría el estudio de ruido que hicimos en Planet Wars? La referencia que he incluído en el .bib (NoisyFitness_JCST) (pos esto)
 where our findings indicated that, in some cases, noise followed a Gamma, that
 is a skewed normal distribution and proposing a solution to this using
 Wilcoxon comparison as a selection operator, 
-% Antonio - referencia a esto
+% Antonio - referencia a esto (pos esto)
 we dug into data discovering that, even if the distribution in that particular case was always a gamma, the parameters of the distribution were different,
 which meant that the random variable behaved in different ways
 depending on the particular individual, the state of evolution and, of
@@ -145,7 +152,7 @@ that the noise is normally distributed and with a fixed sigma
 Optimization Benchmarks \cite{hansen2009real} the uncertainty was
 simulated by adding noise centered in 0 and with a Cauchy distribution
 with different widths. 
-% Antonio - Referencia?
+% Antonio - Referencia? (pos esto)
 Either multiplicative or additive noise has
 been used in different occasions. 
 
@@ -207,6 +214,7 @@ games although one evaluation in some of those works consists, in
 % mejor, aunque sea para decir que no es válido. ;)
 % Añadido. NO se usan ni notas al pie ni paréntesis si se puede evitar
 % - JJ
+% Antonio - Ok
 and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN} and leads, if the population is large enough, to an {\em implicit averaging} as
 mentioned in \cite{Jin2005303}.
 
@@ -223,6 +231,7 @@ in some particular cases
 % los buenos ganarán a los malos y viceversa. 
 % el ruido por definición es aleatorio y de eso no es de lo que estoy
 % hablando en ese párrafo, sino del trabajo de esas personas - JJ 
+% Antonio - vale
 In fact, Miller and Goldberg proved that an infinite population would not
 be affected by noise \cite{miller1996genetic} and Jun-Hua and Ming studied the
 effect of noise in convergence rates \cite{Junhua20136780}, proving
@@ -238,6 +247,7 @@ to a value bigger than would be needed in a non-noisy environment.
 In fact, it has been recently proved that using {\em sex}, that is, crossover, 
 % Antonio - esto qué es? cómo los carteles esos que ponen en grande SEXO para llamar la atención? :D
 % también ejerce ese papel en la naturaleza: reducir ruido - JJ
+% Antonio - lo usar� si alguna vez tengo que ligar de nuevo. ;D
 is able to deal successfully with noise \cite{2015arXiv150202793F}, while an
 evolutionary algorithm based mainly on mutation,
 %CARLOS: un algorithm mu+1 puede usar cruce - elimino esto  
@@ -285,6 +295,7 @@ proposed {\em resampling}, that is, re-evaluate the individuals a number of time
 \cite{RadaVilela2014,6900521},
 % Antonio - el resampling se ha comentado también unas líneas antes 
 % y? Qué sugieres? - JJ
+% Antonio - pos que lo quites aqu� o all�, que esta repetido lo mismo. ;)
 which will effectively increase the number of
 evaluations and thus slow down the search. In any case, using average is
 also a small change to the algorithm framework, requiring only
@@ -316,6 +327,7 @@ First we will examine and try to find the shape of the noise that
 actually appears in games and other problems; 
 % Antonio - aclarar lo de 'games' => "in optimization of behavioural models of autonomous agents for playing games"
 % añadido "and other problems" - JJ
+% Antonio - Pero me refer�a a que 'in games' es muy gen�rico, mejor decir a qu� �mbito nos referimos dentro de los juegos, �no?
 then we will check in this paper what is the influence on the quality of
 results of these two strategies and which one, if any, is the best
 when working in noisy environments.  
