@@ -289,7 +289,7 @@ when working in noisy environments.
 \label{sec:problems}
 
 The fitness of three different problems, all of them related to
-computational intelligence in games has been used in this paper:
+computational intelligence in games, has been used in this paper:
 optimization of the ghost team in Ms. Pac-Man, which will be described
 in subsection \ref{ss:pacman}, generation of character backstories in
 artificial worlds \ref{ss:made} and optimization of bots for playing
