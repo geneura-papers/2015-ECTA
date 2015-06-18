@@ -307,6 +307,10 @@ representation of all causes of uncertainty, but the sample is big
 enough so that we can generalize the results obtained, which will be
 presented in the next section. 
 
+%[Pedro] in the "Experiments and Results" the order of reporting the resulst is different to the previously proposed: (1)Ms.Pac-man (2)MADE (3)Planet Wars
+% in "Experiments and Results" section the order is (1)MADE (2)Planet Wars (3)Ms.Pac-man 
+% This is not so important, but I think it should be the same order...
+
 \subsection{Ghost team optimization}
 \label{ss:pacman}
 
@@ -527,14 +531,16 @@ problems, the overall aspect is the same: there is no single
 distribution that is able to describe the shape of fitness with an
 uncertainty component. 
 
-% ******************************************************************************
+% ******************************************************************************%
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusion}
 
 \noindent In this paper we set out to study the statistical distribution followed by the fitness of single individuals in several problems in the area of games in which we have worked. These problems: MADE, Planet Wars, and Ms. Pac-Man, have different natures and ways to compute the fitness, but all of them have in common that fitness is not a fixed number but a random variable. We have set out to do to prove the hypothesis that not only noise does not follow the normal, or Gaussian, distribution or other centrally-distributed models such as Cauchy, which have been used repeatedly in the literature, but that it does not follow a single distribution even considering a single problem.
 
-The study presented in that paper proves that hypothesis. The best way to describe statistical variables is using two parameters: kurtosis and skewness. These two parameters have been computed and plotted for each one of the problems, proving that not only distributions are asymmetrical and not bell-shaped, but that its shape changes within a single problem and in different stages of the computation. In some case, like MADE, it seems clear that due to the fact that averages are used as a representative for selection, those individuals whose fitness is closer to a central shape are oversampled and thus selected preferably, with almost-central individuals in the latest stages being a consequence of this fact. In other cases, when fitness is computed in a different way or selection takes another form the effect is exactly the opposite. At any rate, using averages, after the study done in this paper, is discouraged since in many cases and almost always in the early stages of the evolution, fitness, being a random variable, does not pass a centrality test and it might not even have an average. A better way of comparing any fitness with uncertainty would be, as proposed by the authors, using non-parametric tests such as the Wilcoxon test that impose a partial order on the individuals \cite{merelo14:noisy}; this partial order can be used, in several different ways, for selection.
+The study presented in this paper proves that hypothesis. %[Pedro] what paper do you refer to?
+% I meant this one :-) JJ
+The best way to describe statistical variables is using two parameters: kurtosis and skewness. These two parameters have been computed and ploted for each one of the problems, proving that not only distributions are asymmetrical and not bell-shaped, but that its shape changes within a sigle problem and in different stages of the computation. In some case, like MADE, it seems clear that due to the fact that averages are used as a representative for selection, those individuals whose fitness is closer to a central shape are oversampled and thus selected preferably, with almost-central individuals in the latest stages being a consequence of this fact. In other cases, when fitness is computed in a different way or selection takes another form, the effect is exactly the opposite. At any rate, using averages, after the study done in this paper, is discouraged since in many cases and almost always in the early stages of the evolution, fitness, being a random variable, does not pass a centrality test and it might not even have an average. A better way of comparing any fitness with uncertainty would be, as proposed by the authors, using non-parametric tests such as the Wilcoxon test that impose a partial order on the individuals \cite{merelo14:noisy}; this partial order can be used, in several different ways, for selection.
 
 The fact that there is no single model representing the distribution of fitness also implies that it is an error to use centrally distributed random variables added to a  crisp fitness to test operators and algorithms that operate in uncertainty. Either real values should be used, such as the ones proposed above, or a distribution with varying shape and symmetry such as Beta should be used. However, in this case we should take into account that ``true'' or ``crisp'' fitness {\em does not really exist}, so any modelization of uncertain fitness that uses noise added to crisp fitness is, in the more general case, wrong, although it might obviously be true in some cases. If the fitness evaluation is expensive and tests want to be performed for some new operators, the best way to model uncertainty would be to use {\em different} models applied to every individuals, with different skewness and kurtosis. However, this would be only a first-order approximation and it might favor methods that use averages. 
 
@@ -543,7 +549,7 @@ What remains to be done is to effectively apply Wilcoxon-based comparisons to th
 
 \section*{\uppercase{Acknowledgements}}
 
-\noindent This work has been supported in part by SIPESCA (Programa Operativo
+\noindent This work has been supported in part by SIPESCA (Programa Operativo %[Pedro] SIPESCA ref. can be removed
 FEDER de Andaluc\'ia 2007-2013), TIN2014-56494-C4-3-P (Spanish
 Ministry of Economy and Competitiveness), SPIP2014-01437 (Direcci{\'o}n
 General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
