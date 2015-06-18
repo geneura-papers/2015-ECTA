@@ -295,7 +295,7 @@ in subsection \ref{ss:pacman}, generation of character backstories in
 artificial worlds \ref{ss:made} and optimization of bots for playing
 the real time strategy game Planet Wars \ref{ss:pw}. These three
 problems have been chosen for several reasons, the most important of
-which is that we have been working on them and thus have data
+which is that we have been working on them and thus have data %[Pedro] should the word "we" appear before "have" ?
 available; another reason is that the origin of the uncertainty is
 different in the three cases. In the case of Ms. Pac-Man, it is due to
 the nature of the game; in the case of MADE, fitness is computed
