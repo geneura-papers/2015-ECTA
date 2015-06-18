@@ -296,6 +296,7 @@ artificial worlds \ref{ss:made} and optimization of bots for playing
 the real time strategy game Planet Wars \ref{ss:pw}. These three
 problems have been chosen for several reasons, the most important of
 which is that we have been working on them and thus have data %[Pedro] should the word "we" appear before "have" ?
+% Why not? - JJ
 available; another reason is that the origin of the uncertainty is
 different in the three cases. In the case of Ms. Pac-Man, it is due to
 the nature of the game; in the case of MADE, fitness is computed
@@ -537,7 +538,7 @@ The study presented in that paper proves that hypothesis. The best way to descri
 
 The fact that there is no single model representing the distribution of fitness also implies that it is an error to use centrally distributed random variables added to a  crisp fitness to test operators and algorithms that operate in uncertainty. Either real values should be used, such as the ones proposed above, or a distribution with varying shape and symmetry such as Beta should be used. However, in this case we should take into account that ``true'' or ``crisp'' fitness {\em does not really exist}, so any modelization of uncertain fitness that uses noise added to crisp fitness is, in the more general case, wrong, although it might obviously be true in some cases. If the fitness evaluation is expensive and tests want to be performed for some new operators, the best way to model uncertainty would be to use {\em different} models applied to every individuals, with different skewness and kurtosis. However, this would be only a first-order approximation and it might favor methods that use averages. 
 
-What remains to be done is to effectively apply Wilcoxon-based comparisons to the problems above, but since they are costly to evaluate, we will try to create a benchmark for problems with uncertainty which reflects in the best possible way how fitness is organized in a wide array of problems. In order to do that we will try to examine as many uncertain problems as possible and deduce what would be the most general model. 
+What remains to be done is to effectively apply Wilcoxon-based comparisons to the problems above, but since they are costly to evaluate, we will try to create a benchmark for problems with uncertainty which reflects in the best possible way how fitness is organized in a wide array of problems. In order to do that we will try to examine as many uncertain problems as possible and deduce what would be the most general model.
 
 
 \section*{\uppercase{Acknowledgements}}
