@@ -289,13 +289,13 @@ when working in noisy environments.
 \label{sec:problems}
 
 The fitness of three different problems, all of them related to
-computational intelligence in games has been used in this paper:
+computational intelligence in games, has been used in this paper:
 optimization of the ghost team in Ms. Pac-Man, which will be described
 in subsection \ref{ss:pacman}, generation of character backstories in
 artificial worlds \ref{ss:made} and optimization of bots for playing
 the real time strategy game Planet Wars \ref{ss:pw}. These three
 problems have been chosen for several reasons, the most important of
-which is that we have been working on them and thus have data
+which is that we have been working on them and thus have data %[Pedro] should the word "we" appear before "have" ?
 available; another reason is that the origin of the uncertainty is
 different in the three cases. In the case of Ms. Pac-Man, it is due to
 the nature of the game; in the case of MADE, fitness is computed
