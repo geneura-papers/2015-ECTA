@@ -49,7 +49,7 @@ planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/
 \email{{\tt jmerelo@geneura.ugr.es}}
 }
 
-\keywords{games, evolutionary optimization, noise, uncertainty, noisy fitness}
+\keywords{Games, evolutionary optimization, noise, uncertainty, noisy fitness}
 
 \abstract{Noise or uncertainty appear in many optimization processes
   when there is not a single measure of optimality or fitness but a
