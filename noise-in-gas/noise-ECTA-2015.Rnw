@@ -30,8 +30,6 @@ planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/
 @ 
 
 \title{There is Noisy Lunch: a study of noise in evolutionary optimization problems.}
-% Antonio - Â¿se pone algo de juegos en el tÃ­tulo?
-% MADE no es un juego y vamos a intentar hacerlo de la forma mÃ¡s general.
 
 \author{\authorname{Juan J. Merelo\sup{1}, 
     Federico Liberatore\sup{1},
@@ -41,13 +39,9 @@ planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/
     Carlos Cotta\sup{4}, 
     Nuria Rico\sup{5}, 
     Antonio M. Mora\sup{6}
-    and Pablo Garc{\'i}a-S{\'a}nchez\sup{1}} %FERGU: me pongo el Ãºltimo, que he sido el que menos ha hecho :P
-% Antonio - Faltan las afiliaciones de mucha gente
-  % AÃ±adidlas, por favor. - JJ
-% Antonio - hecho. ;)
+    and Pablo Garc{\'i}a-S{\'a}nchez\sup{1}} 
 \affiliation{\sup{1}Depto. ATC, University of Granada, Spain}
 \affiliation{\sup{2}Escuela de Doctorado, University of Granada, Spain}
-% Antonio - ¿qué es la Escuela de Doctorado? Rubén está en Unit4, ¿no?
 \affiliation{\sup{3}Lab. RODCP, Institut Sup\'erieur de Gestion, Tunisia}
 \affiliation{\sup{4}Depto. LCC, University of M{\'a}laga, Spain}
 \affiliation{\sup{5}Depto. EIO, University of Granada, Spain}
@@ -56,8 +50,6 @@ planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/
 }
 
 \keywords{games, evolutionary optimization, noise, uncertainty, noisy fitness}
-% Antonio - yo pondrÃ­a 'noisy fitness'
-% Haberla puesto! Ya la he aÃ±adido.
 
 \abstract{Noise or uncertainty appear in many optimization processes
   when there is not a single measure of optimality or fitness but a
@@ -67,18 +59,10 @@ planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/
   assuming in most cases that it is distributed normally and, thus,
   it can be modelled via an additive or multiplicative noise on top of
   a {\em non-noisy} fitness.
-% Antonio - se modela con ruido o con una funciÃ³n?
-  % Con ruido - JJ
 In this paper we will look at several uncertain optimization problems
 that have been addressed by means of Evolutionary Algorithms
-% Antonio - aÃ±ado una cosilla para aclarar que son evolutivos
-% no hacÃ­a falta y creo que las conclusiones serÃ­an mÃ¡s o menos
-% generales - JJ
-% Antonio - pues entonces no lo pongas en el título, ¿no? :D
  and prove that there is no single statistical model the evaluations
  of the fitness functions
-% Antonio - yo pondrÃ­a 'these variables' -> 'the fitness functions'
- % ni pat i ni pa mi - JJ
   follow, being
 % Antonio - with -> being?
   % correcto - JJ
