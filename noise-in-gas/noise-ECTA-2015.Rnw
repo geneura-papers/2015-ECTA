@@ -119,7 +119,7 @@ That is why, after some initial study of noise in a particular game in
 \cite{merelo14:noisy}, 
 where our findings indicated that, in some cases, noise followed a Gamma, that
 is a skewed normal distribution and proposing a solution to this using
-Wilcoxon comparison as a selection operator, 
+Wilcoxon \cite{wilcoxon:1945} comparison as a selection operator, 
 % Antonio - referencia a esto (Wilcoxon), para los no expertos
 we dug into data discovering that, even if the distribution in that particular case was always a gamma, the parameters of the distribution were different,
 which meant that the random variable behaved in different ways
@@ -131,11 +131,14 @@ optimization in uncertain environments, where it is frequent to assume
 that the noise is normally distributed and with a fixed sigma
 \cite{arnold2001evolution}. For instance, in the Black Box
 Optimization Benchmarks \cite{hansen2009real} the uncertainty was
-simulated by adding noise centered in 0 and with a Cauchy distribution
+simulated by adding noise centered in 0 and with a Cauchy
+that is, a centered, sharp bell shaped distribution,
 with different widths. 
 % Antonio - Referencia? (pos esto)
 % References to what? It's right there, Hansen and Arnold - JJ
 % No todo el mundo sabe lo que es una distribución de Cauchy
+% Everybody *should*. It's Statistics 101. I have added a small
+% explanation, however - JJ
 Either multiplicative or additive noise has
 been used in different occasions. 
 
@@ -312,6 +315,8 @@ presented in the next section.
 % in "Experiments and Results" section the order is (1)MADE (2)Planet Wars (3)Ms.Pac-man 
 % This is not so important, but I think it should be the same order...
 % Antonio - opino igual, pero habría que cambiar los textos (en los experimentos, o al principio de esta sección)
+% The order is for the sake of argument. It does not matter that it is
+% different - JJ
 
 \subsection{Ghost team optimization}
 \label{ss:pacman}
@@ -339,7 +344,11 @@ following restrictions for the Ghost Team:
  \item After 4000 game ticks, a level is considered completed and the game moves on to the next level.
 \end{itemize} 
 
-The fitness in this approach is computed as an average of the maximum score obtained by eight different Ms. Pac-Man controllers (in 30 different games each of them). Some of these controllers were the best in past editions of the international competition, so they are very tough rivals for the ghost team being evaluated.
+The fitness in this approach is computed as the maximum
+score obtained by eight different Ms. Pac-Man controllers (in 30
+different games each of them). Some of these controllers were the best
+in past editions of the international competition, so they are very
+tough rivals for the ghost team.
 
 
 \subsection{Creation of character backstories}
@@ -390,7 +399,15 @@ deterministic, as some of the jumps of the states are based in
 probabilities. 
 Fitness is calculated confronting five times the bot obtained from the parameter set of the FSM against
 a competitive hand-coded bot. The result of each match takes into account the `slope' of the number of player spaceships
-during the time of the match. Positive results mean that the bot won, as the slope will be positive, and vice versa. Theoretical values are in the range $[-1,1]$, although these values are impossible to attain in the game. A value of -1 would indicate that the player lost all their ships in the initial time, while $1$ would mean the contrary: it generated all the spaceships and won in the initial time. The fitness of an individual is the sum of all five results, and therefore being in the range $[-5,5]$. This fitness has been explained in more detail in \cite{Fernandez-Ares_COSECIVI14}. 
+during the time of the match. Positive results mean that the bot won,
+as the slope will be positive, and vice versa. Theoretical values are
+in the range $[-1,1]$, although these values are impossible to attain
+in the game. A value of -1 would indicate that the player lost all
+their ships in the initial time, while $1$ would mean the contrary: it
+generated all the spaceships and won in the initial time. The fitness
+of an individual is the sum of all five results, and therefore being
+in the range $[-5,5]$. This fitness has been explained in more detail
+in \cite{Fernandez-Ares_COSECIVI14}.  
 
 
 % ******************************************************************************
