@@ -120,7 +120,7 @@ That is why, after some initial study of noise in a particular game in
 where our findings indicated that, in some cases, noise followed a Gamma, that
 is a skewed normal distribution and proposing a solution to this using
 Wilcoxon comparison as a selection operator, 
-% Antonio - referencia a esto (pos esto)
+% Antonio - referencia a esto (Wilcoxon), para los no expertos
 we dug into data discovering that, even if the distribution in that particular case was always a gamma, the parameters of the distribution were different,
 which meant that the random variable behaved in different ways
 depending on the particular individual, the state of evolution and, of
@@ -135,6 +135,7 @@ simulated by adding noise centered in 0 and with a Cauchy distribution
 with different widths. 
 % Antonio - Referencia? (pos esto)
 % References to what? It's right there, Hansen and Arnold - JJ
+% No todo el mundo sabe lo que es una distribución de Cauchy
 Either multiplicative or additive noise has
 been used in different occasions. 
 
@@ -310,6 +311,7 @@ presented in the next section.
 %[Pedro] in the "Experiments and Results" the order of reporting the resulst is different to the previously proposed: (1)Ms.Pac-man (2)MADE (3)Planet Wars
 % in "Experiments and Results" section the order is (1)MADE (2)Planet Wars (3)Ms.Pac-man 
 % This is not so important, but I think it should be the same order...
+% Antonio - opino igual, pero habría que cambiar los textos (en los experimentos, o al principio de esta sección)
 
 \subsection{Ghost team optimization}
 \label{ss:pacman}
@@ -337,8 +339,7 @@ following restrictions for the Ghost Team:
  \item After 4000 game ticks, a level is considered completed and the game moves on to the next level.
 \end{itemize} 
 
-The fitness in this method is computed by computing the maximum score
-in 8 different matches. 
+The fitness in this approach is computed as an average of the maximum score obtained by eight different Ms. Pac-Man controllers (in 30 different games each of them). Some of these controllers were the best in past editions of the international competition, so they are very tough rivals for the ghost team being evaluated.
 
 
 \subsection{Creation of character backstories}
