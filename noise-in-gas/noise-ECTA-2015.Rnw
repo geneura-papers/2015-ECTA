@@ -136,7 +136,7 @@ that is, a centered, sharp bell shaped distribution,
 with different widths. 
 % Antonio - Referencia? (pos esto)
 % References to what? It's right there, Hansen and Arnold - JJ
-% No todo el mundo sabe lo que es una distribución de Cauchy
+% No todo el mundo sabe lo que es una distribuciÃ³n de Cauchy
 % Everybody *should*. It's Statistics 101. I have added a small
 % explanation, however - JJ
 Either multiplicative or additive noise has
@@ -314,7 +314,7 @@ presented in the next section.
 %[Pedro] in the "Experiments and Results" the order of reporting the resulst is different to the previously proposed: (1)Ms.Pac-man (2)MADE (3)Planet Wars
 % in "Experiments and Results" section the order is (1)MADE (2)Planet Wars (3)Ms.Pac-man 
 % This is not so important, but I think it should be the same order...
-% Antonio - opino igual, pero habría que cambiar los textos (en los experimentos, o al principio de esta sección)
+% Antonio - opino igual, pero habrÃ­a que cambiar los textos (en los experimentos, o al principio de esta secciÃ³n)
 % The order is for the sake of argument. It does not matter that it is
 % different - JJ
 
@@ -324,10 +324,8 @@ presented in the next section.
 The game of Pac-Man, released in 1981, has resulted in several
 variants. One of the most famous is Ms. Pac-Man, that extends the
 mechanics of the original game with several features, the most
-interesting of which is the possibility of applying different
-strategies to the ghosts behavior; the original version included fixed
-and different behaviors for each of the four ghosts. Another extension is the inclusion of a
-random movement to prevent the use of patterns for clearing each round.
+interesting being the inclusion of a
+random event that reverses the direction of the ghosts.
 
 Recently, researchers are paying more attention to this game due to
 the Ms. Pac-Man vs Ghosts competition, where participants can submit
@@ -335,7 +333,7 @@ controllers for both Ms. Pac-Man and the Ghost Team. In this
 competition, the objective of Ms. Pac-Man is to maximize the final
 score, while the objective of the Ghost Team is to minimize it.  
 
-The method whose fitness has been analyzed in this paper follows the
+The framework used to test the methodology analyzed defines the
 following restrictions for the Ghost Team: 
 \begin{itemize}
  \item A ghost can never stop and if it is in a corridor it must move forward.
@@ -344,9 +342,8 @@ following restrictions for the Ghost Team:
  \item After 4000 game ticks, a level is considered completed and the game moves on to the next level.
 \end{itemize} 
 
-The fitness in this approach is computed as the maximum
-score obtained by eight different Ms. Pac-Man controllers (in 30
-different games each of them). Some of these controllers were the best
+Also, in this method, the fitness of each individual is computed as the maximum
+score obtained by eight different Ms. Pac-Man controllers. Some of these controllers were the best
 in past editions of the international competition, so they are very
 tough rivals for the ghost team.
 
