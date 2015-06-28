@@ -327,8 +327,8 @@ mechanics of the original game with several features, the most
 interesting being the inclusion of a
 random event that reverses the direction of the ghosts.
 
-Recently, researchers are paying more attention to this game due to
-the Ms. Pac-Man vs Ghosts competition, where participants can submit
+Recently, researchers have been paying more attention to this game due to
+the Ms. Pac-Man vs Ghosts competition \cite{lucas2007ms}, where participants can submit
 controllers for both Ms. Pac-Man and the Ghost Team. In this
 competition, the objective of Ms. Pac-Man is to maximize the final
 score, while the objective of the Ghost Team is to minimize it.  
@@ -339,10 +339,10 @@ following restrictions for the Ghost Team:
  \item A ghost can never stop and if it is in a corridor it must move forward.
  \item A ghost can choose its direction only at a junction.
  \item Every time a ghost is at a junction the controller has to provide a direction from the set of feasible directions.
- \item After 4000 game ticks, a level is considered completed and the game moves on to the next level.
+ \item After 4000 game ticks, a level is considered completed and the game moves on to the next one.
 \end{itemize} 
 
-Also, in this method, the fitness of each individual is computed as the maximum
+Also, in this method, which was published in \cite{liberatore:pacman}, the fitness of each individual is computed as the maximum
 score obtained by eight different Ms. Pac-Man controllers. Some of these controllers were the best
 in past editions of the international competition, so they are very
 tough rivals for the ghost team.
