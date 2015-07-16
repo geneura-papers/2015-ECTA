@@ -292,21 +292,18 @@ when working in noisy environments.
 \section{Problems used in this paper}
 \label{sec:problems}
 
+% Antonio - reescribo el texto para cambiar el orden
 The fitness of three different problems, all of them related to
 computational intelligence in games, has been used in this paper:
-optimization of the ghost team in Ms. Pac-Man, which will be described
-in subsection \ref{ss:pacman}, generation of character backstories in
-artificial worlds \ref{ss:made} and optimization of bots for playing
-the real time strategy game Planet Wars \ref{ss:pw}. These three
+generation of character backstories in artificial worlds, described in subsection \ref{ss:made}, optimization of bots for playing the real time strategy game Planet Wars in \ref{ss:pw}, and optimization of the ghost team in Ms. Pac-Man, which will be described in subsection \ref{ss:pacman}. These three
 problems have been chosen for several reasons, the most important of
 which is that we have been working on them and thus have data %[Pedro] should the word "we" appear before "have" ?
 % Why not? - JJ
 available; another reason is that the origin of the uncertainty is
-different in the three cases. In the case of Ms. Pac-Man, it is due to
-the nature of the game; in the case of MADE, fitness is computed
-through a simulation; finally, in the case of Planet Wars, the bot
+different in the three cases. In the case of MADE, fitness is computed
+through a simulation; in the case of Planet Wars, the bot
 themselves have a random component, with its representation including
-probabilities of different courses of action. It is not a complete
+probabilities of different courses of action; and finally in Ms. Pac-Man, it is due to the nature of the game itself. It is not a complete
 representation of all causes of uncertainty, but the sample is big
 enough so that we can generalize the results obtained, which will be
 presented in the next section. 
@@ -317,36 +314,6 @@ presented in the next section.
 % Antonio - opino igual, pero habrÃ­a que cambiar los textos (en los experimentos, o al principio de esta secciÃ³n)
 % The order is for the sake of argument. It does not matter that it is
 % different - JJ
-
-\subsection{Ghost team optimization}
-\label{ss:pacman}
-
-The game of Pac-Man, released in 1981, has resulted in several
-variants. One of the most famous is Ms. Pac-Man, that extends the
-mechanics of the original game with several features, the most
-interesting being the inclusion of a
-random event that reverses the direction of the ghosts.
-
-Recently, researchers have been paying more attention to this game due to
-the Ms. Pac-Man vs Ghosts competition \cite{lucas2007ms}, where participants can submit
-controllers for both Ms. Pac-Man and the Ghost Team. In this
-competition, the objective of Ms. Pac-Man is to maximize the final
-score, while the objective of the Ghost Team is to minimize it.  
-
-The framework used to test the methodology analyzed defines the
-following restrictions for the Ghost Team: 
-\begin{itemize}
- \item A ghost can never stop and if it is in a corridor it must move forward.
- \item A ghost can choose its direction only at a junction.
- \item Every time a ghost is at a junction the controller has to provide a direction from the set of feasible directions.
- \item After 4000 game ticks, a level is considered completed and the game moves on to the next one.
-\end{itemize} 
-
-Also, in this method, which was published in \cite{liberatore:pacman}, the fitness of each individual is computed as the maximum
-score obtained by eight different Ms. Pac-Man controllers. Some of these controllers were the best
-in past editions of the international competition, so they are very
-tough rivals for the ghost team.
-
 
 \subsection{Creation of character backstories}
 \label{ss:made}
@@ -369,8 +336,7 @@ to another in the FSM, each fitness evaluation is performed executing
 the virtual world five times per individual, obtaining the average
 fitness. Selection is, therefore, performed comparing this average
 fitness, using a binary tournament in this case. Fitness values range
-from 0 and $N_a$ and are calculated taking into account the rate of occurrence of
-the archetypes in the execution log. 
+from 0 and $N_a$ and are calculated taking into account the rate of occurrence of the archetypes in the execution log. 
 
 
 \subsection{Real time strategy: Planet Wars}
@@ -405,6 +371,36 @@ generated all the spaceships and won in the initial time. The fitness
 of an individual is the sum of all five results, and therefore being
 in the range $[-5,5]$. This fitness has been explained in more detail
 in \cite{Fernandez-Ares_COSECIVI14}.  
+
+% Antonio - cambio de orden la sección para que quede más congruente con el resto del artículo
+\subsection{Ghost team optimization}
+\label{ss:pacman}
+
+The game of Pac-Man, released in 1981, has resulted in several
+variants. One of the most famous is Ms. Pac-Man, that extends the
+mechanics of the original game with several features, the most
+interesting being the inclusion of a
+random event that reverses the direction of the ghosts.
+
+Recently, researchers have been paying more attention to this game due to
+the Ms. Pac-Man vs Ghosts competition \cite{lucas2007ms}, where participants can submit
+controllers for both Ms. Pac-Man and the Ghost Team. In this
+competition, the objective of Ms. Pac-Man is to maximize the final
+score, while the objective of the Ghost Team is to minimize it.  
+
+The framework used to test the methodology analyzed defines the
+following restrictions for the Ghost Team: 
+\begin{itemize}
+ \item A ghost can never stop and if it is in a corridor it must move forward.
+ \item A ghost can choose its direction only at a junction.
+ \item Every time a ghost is at a junction the controller has to provide a direction from the set of feasible directions.
+ \item After 4000 game ticks, a level is considered completed and the game moves on to the next one.
+\end{itemize} 
+
+Also, in this method, which was published in \cite{liberatore:pacman}, the fitness of each individual is computed as the maximum
+score obtained by eight different Ms. Pac-Man controllers. Some of these controllers were the best
+in past editions of the international competition, so they are very
+tough rivals for the ghost team.
 
 
 % ******************************************************************************
@@ -456,6 +452,8 @@ ggplot(s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous
 \label{fig:made}
 \end{figure}
 
+% Antonio - yo cambiaría los símbolos de cada serie de datos. Es difícil distinguirlas en las gráficas.
+
 Figure \ref{fig:made} represents them for the MADE problem for which
 we took measures for a variable amount of individuals every
 generation, from 100 in generation 64 to around 50 in the latest
@@ -466,7 +464,7 @@ correspond to arbitrary distribution (Beta or uniform), however, as
 the simulation proceeds, values approach zero. However, they do not
 converge exactly to 0, meaning that, even if uncertainty can be
 approached by a normal distribution, that approximation would only be
-correct for the latest simulation generations. In general, individual
+correct for the latest generations of the simulation. In general, individual
 fitness will follow an arbitrary distribution with a general shape and
 asymmetry. 
 
@@ -525,7 +523,7 @@ for ( i in c(1,25,50)) {
 ggplot(pm.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-2,10))+scale_y_continuous(limits=c(-5,100))
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
-  the Ms. Pac-Man problem. Different colors represent diffent generations.}
+  the Ms. Pac-Man problem. Different colors represent different generations.}
 \label{fig:pm}
 \end{figure}
 
@@ -555,7 +553,7 @@ uncertainty component.
 
 The study presented in this paper proves that hypothesis. %[Pedro] what paper do you refer to?
 % I meant this one :-) JJ
-The best way to describe statistical variables is using two parameters: kurtosis and skewness. These two parameters have been computed and ploted for each one of the problems, proving that not only distributions are asymmetrical and not bell-shaped, but that its shape changes within a sigle problem and in different stages of the computation. In some case, like MADE, it seems clear that due to the fact that averages are used as a representative for selection, those individuals whose fitness is closer to a central shape are oversampled and thus selected preferably, with almost-central individuals in the latest stages being a consequence of this fact. In other cases, when fitness is computed in a different way or selection takes another form, the effect is exactly the opposite. At any rate, using averages, after the study done in this paper, is discouraged since in many cases and almost always in the early stages of the evolution, fitness, being a random variable, does not pass a centrality test and it might not even have an average. A better way of comparing any fitness with uncertainty would be, as proposed by the authors, using non-parametric tests such as the Wilcoxon test that impose a partial order on the individuals \cite{merelo14:noisy}; this partial order can be used, in several different ways, for selection.
+The best way to describe statistical variables is using two parameters: kurtosis and skewness. These two parameters have been computed and plotted for each one of the problems, proving that not only distributions are asymmetrical and not bell-shaped, but that its shape changes within a single problem and in different stages of the computation. In some case, like MADE, it seems clear that due to the fact that averages are used as a representative for selection, those individuals whose fitness is closer to a central shape are oversampled and thus selected preferably, with almost-central individuals in the latest stages being a consequence of this fact. In other cases, when fitness is computed in a different way or selection takes another form, the effect is exactly the opposite. At any rate, using averages, after the study done in this paper, is discouraged since in many cases and almost always in the early stages of the evolution, fitness, being a random variable, does not pass a centrality test and it might not even have an average. A better way of comparing any fitness with uncertainty would be, as proposed by the authors, using non-parametric tests such as the Wilcoxon test that impose a partial order on the individuals \cite{merelo14:noisy}; this partial order can be used, in several different ways, for selection.
 
 The fact that there is no single model representing the distribution of fitness also implies that it is an error to use centrally distributed random variables added to a  crisp fitness to test operators and algorithms that operate in uncertainty. Either real values should be used, such as the ones proposed above, or a distribution with varying shape and symmetry such as Beta should be used. However, in this case we should take into account that ``true'' or ``crisp'' fitness {\em does not really exist}, so any modelization of uncertain fitness that uses noise added to crisp fitness is, in the more general case, wrong, although it might obviously be true in some cases. If the fitness evaluation is expensive and tests want to be performed for some new operators, the best way to model uncertainty would be to use {\em different} models applied to every individuals, with different skewness and kurtosis. However, this would be only a first-order approximation and it might favor methods that use averages. 
 
@@ -564,14 +562,13 @@ What remains to be done is to effectively apply Wilcoxon-based comparisons to th
 
 \section*{\uppercase{Acknowledgements}}
 
-\noindent This work has been supported in part by SIPESCA (Programa Operativo %[Pedro] SIPESCA ref. can be removed
-FEDER de Andaluc\'ia 2007-2013), TIN2014-56494-C4-3-P (Spanish
-Ministry of Economy and Competitiveness), SPIP2014-01437 (Direcci{\'o}n
+\noindent This work has been supported in part by projects TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitiveness), SPIP2014-01437 (Direcci{\'o}n
 General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
 Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de
 Investigaci{\'o}n), and project V17-2015 of the Microprojects program 2015 from CEI BioTIC Granada. 
 
-\vfill
+%\vfill
+% Antonio - salen las referencias muy separadas del resto
 
 \bibliographystyle{apalike}
 \bibliography{geneura,GA-general,noisy}
