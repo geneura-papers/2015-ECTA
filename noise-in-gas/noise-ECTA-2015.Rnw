@@ -1,6 +1,5 @@
 \documentclass[a4paper,twoside]{article}
 
-\usepackage{epsfig}
 \usepackage{subfigure}
 \usepackage{calc}
 \usepackage{amssymb}
@@ -29,7 +28,7 @@ pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noi
 planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
 @ 
 
-\title{There is Noisy Lunch: a study of noise in evolutionary optimization problems.} 
+\title{There is Noisy Lunch: a study of noise in evolutionary optimization problems} 
 
 \author{\authorname{Juan J. Merelo\sup{1}, 
     Federico Liberatore\sup{1},
