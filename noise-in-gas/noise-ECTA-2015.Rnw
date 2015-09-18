@@ -19,6 +19,7 @@
 
 \begin{document}
 <<setup, cache=FALSE,echo=FALSE>>=
+#You've got to install all these libraries if you want to compile the paper.
 library("ggplot2")
 library("RCurl") #To download stuff directly from the GitHub repo
 library(e1071) # for skewness and kurtosis
@@ -118,8 +119,9 @@ That is why, after some initial study of noise in a particular game in
 \cite{merelo14:noisy}, 
 where our findings indicated that, in some cases, noise followed a Gamma, that
 is a skewed normal distribution and proposing a solution to this using
-Wilcoxon \cite{wilcoxon:1945} comparison as a selection operator, 
+Wilcoxon comparison as a selection operator, 
 % Antonio - referencia a esto (Wilcoxon), para los no expertos
+% La quito para que no ocupe espacio
 we dug into data discovering that, even if the distribution in that particular case was always a gamma, the parameters of the distribution were different,
 which meant that the random variable behaved in different ways
 depending on the particular individual, the state of evolution and, of
@@ -375,18 +377,12 @@ in \cite{Fernandez-Ares_COSECIVI14}.
 \subsection{Ghost team optimization}
 \label{ss:pacman}
 
-The game of Pac-Man, released in 1981, has resulted in several
-variants. One of the most famous is Ms. Pac-Man, that extends the
-mechanics of the original game with several features, the most
-interesting being the inclusion of a
-random event that reverses the direction of the ghosts.
-
-Recently, researchers have been paying more attention to this game due to
-the Ms. Pac-Man vs Ghosts competition \cite{lucas2007ms}, where participants can submit
-controllers for both Ms. Pac-Man and the Ghost Team. In this
-competition, the objective of Ms. Pac-Man is to maximize the final
-score, while the objective of the Ghost Team is to minimize it.  
-
+Ms. Pac-Man is a variant of the famous Pac-Man game that extends its
+mechanics with features such as the inclusion of a random event that
+reverses the direction of the ghosts. This game is used in 
+the Ms. Pac-Man vs Ghosts competition, where participants can submit
+controllers for both Ms. Pac-Man and the Ghost Team, the first trying
+to maximize its score, the second trying to minimize Ms. Pac-Man's. 
 The framework used to test the methodology analyzed defines the
 following restrictions for the Ghost Team: 
 \begin{itemize}
@@ -443,7 +439,7 @@ for ( i in c(64,128,256)) {
     }
 }
 
-ggplot(s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))
+ggplot(s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))+theme_bw()
 
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
@@ -485,7 +481,7 @@ for ( i in c(1,50)) {
     }
 }
 
-ggplot(pw.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))
+ggplot(pw.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))+theme_bw()
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
   the Planet Wars problem. Different colors represent different generations.}
@@ -519,7 +515,7 @@ for ( i in c(1,25,50)) {
     }
 }
 
-ggplot(pm.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-2,10))+scale_y_continuous(limits=c(-5,100))
+ggplot(pm.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-2,10))+scale_y_continuous(limits=c(-5,100))+theme_bw()
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
   the Ms. Pac-Man problem. Different colors represent different generations.}
@@ -548,15 +544,64 @@ uncertainty component.
 \section{\uppercase{Conclusions}}
 \label{sec:conclusion}
 
-\noindent In this paper we set out to study the statistical distribution followed by the fitness of single individuals in several problems in the area of games in which we have worked. These problems: MADE, Planet Wars, and Ms. Pac-Man, have different natures and ways to compute the fitness, but all of them have in common that fitness is not a fixed number but a random variable. We have set out to do to prove the hypothesis that not only noise does not follow the normal, or Gaussian, distribution or other centrally-distributed models such as Cauchy, which have been used repeatedly in the literature, but that it does not follow a single distribution even considering a single problem.
+\noindent In this paper we set out to study the statistical
+distribution followed by the fitness of single individuals in several
+problems in the area of games in which we have worked. These problems:
+MADE, Planet Wars, and Ms. Pac-Man, have different natures and ways to
+compute the fitness, but all of them have in common that fitness is
+not a fixed number but a random variable. We have set out to do to
+prove the hypothesis that not only noise does not follow the normal,
+or Gaussian, distribution or other centrally-distributed models such
+as Cauchy, which have been used repeatedly in the literature, but that
+it does not follow a single distribution even considering a single
+problem. 
 
-The study presented in this paper proves that hypothesis. %[Pedro] what paper do you refer to?
-% I meant this one :-) JJ
-The best way to describe statistical variables is using two parameters: kurtosis and skewness. These two parameters have been computed and plotted for each one of the problems, proving that not only distributions are asymmetrical and not bell-shaped, but that its shape changes within a single problem and in different stages of the computation. In some case, like MADE, it seems clear that due to the fact that averages are used as a representative for selection, those individuals whose fitness is closer to a central shape are oversampled and thus selected preferably, with almost-central individuals in the latest stages being a consequence of this fact. In other cases, when fitness is computed in a different way or selection takes another form, the effect is exactly the opposite. At any rate, using averages, after the study done in this paper, is discouraged since in many cases and almost always in the early stages of the evolution, fitness, being a random variable, does not pass a centrality test and it might not even have an average. A better way of comparing any fitness with uncertainty would be, as proposed by the authors, using non-parametric tests such as the Wilcoxon test that impose a partial order on the individuals \cite{merelo14:noisy}; this partial order can be used, in several different ways, for selection.
+The study presented here proves that hypothesis. 
+The best way to describe statistical variables is using two
+parameters: kurtosis and skewness. These two parameters have been
+computed and plotted for each one of the problems, proving that not
+only distributions are asymmetrical and not bell-shaped, but that its
+shape changes within a single problem and in different stages of the
+computation. In some case, like MADE, it seems clear that due to the
+fact that averages are used as a representative for selection, those
+individuals whose fitness is closer to a central shape are oversampled
+and thus selected preferably, with almost-central individuals in the
+latest stages being a consequence of this fact. In other cases, when
+fitness is computed in a different way or selection takes another
+form, the effect is exactly the opposite. At any rate, using averages,
+after the study done in this paper, is discouraged since in many cases
+and almost always in the early stages of the evolution, fitness, being
+a random variable, does not pass a centrality test and it might not
+even have an average. A better way of comparing any fitness with
+uncertainty would be, as proposed by the authors, using non-parametric
+tests such as the Wilcoxon test that impose a partial order on the
+individuals \cite{merelo14:noisy}; this partial order can be used, in
+several different ways, for selection. 
 
-The fact that there is no single model representing the distribution of fitness also implies that it is an error to use centrally distributed random variables added to a  crisp fitness to test operators and algorithms that operate in uncertainty. Either real values should be used, such as the ones proposed above, or a distribution with varying shape and symmetry such as Beta should be used. However, in this case we should take into account that ``true'' or ``crisp'' fitness {\em does not really exist}, so any modelization of uncertain fitness that uses noise added to crisp fitness is, in the more general case, wrong, although it might obviously be true in some cases. If the fitness evaluation is expensive and tests want to be performed for some new operators, the best way to model uncertainty would be to use {\em different} models applied to every individuals, with different skewness and kurtosis. However, this would be only a first-order approximation and it might favor methods that use averages. 
+The fact that there is no single model representing the distribution
+of fitness also implies that it is an error to use centrally
+distributed random variables added to a  crisp fitness to test
+operators and algorithms that operate in uncertainty. Either real
+values should be used, such as the ones proposed above, or a
+distribution with varying shape and symmetry such as Beta should be
+used. However, in this case we should take into account that ``true''
+or ``crisp'' fitness {\em does not really exist}, so any modelization
+of uncertain fitness that uses noise added to crisp fitness is, in the
+more general case, wrong, although it might obviously be true in some
+cases. If the fitness evaluation is expensive and tests want to be
+performed for some new operators, the best way to model uncertainty
+would be to use {\em different} models applied to every individuals,
+with different skewness and kurtosis. However, this would be only a
+first-order approximation and it might favor methods that use
+averages.  
 
-What remains to be done is to effectively apply Wilcoxon-based comparisons to the problems above, but since they are costly to evaluate, we will try to create a benchmark for problems with uncertainty which reflects in the best possible way how fitness is organized in a wide array of problems. In order to do that we will try to examine as many uncertain problems as possible and deduce what would be the most general model.
+What remains to be done is to effectively apply Wilcoxon-based
+comparisons to the problems above, but since they are costly to
+evaluate, we will try to create a benchmark for problems with
+uncertainty which reflects in the best possible way how fitness is
+organized in a wide array of problems. In order to do that we will try
+to examine as many uncertain problems as possible and deduce what
+would be the most general model. 
 
 
 \section*{\uppercase{Acknowledgements}}
@@ -565,9 +610,6 @@ What remains to be done is to effectively apply Wilcoxon-based comparisons to th
 General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
 Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de
 Investigaci{\'o}n), and project V17-2015 of the Microprojects program 2015 from CEI BioTIC Granada. 
-
-%\vfill
-% Antonio - salen las referencias muy separadas del resto
 
 \bibliographystyle{apalike}
 \bibliography{geneura,GA-general,noisy}
