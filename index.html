@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
     
     <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/mine.css">
     <link rel="stylesheet" href="css/theme/league.css" id="theme">
     
     <!-- Code syntax highlighting -->
@@ -47,19 +48,37 @@
 	</section>
 	
 	<!-- slides start here -->
-	<section>
-	  <h1>Just a few things are certain in life</h1>
-	  <h2 class='fragment'>...<em>Fitness</em> is not one of them.</h2>
+	<section data-background='images/death-and-taxes.jpg'>
+	  <h1 class='bkg'>Just a few things are certain in life</h1>
+	  <h2 class='fragment bkg'>...<em>Fitness</em> is not one of them.</h2>
 	</section>
 
-	<section>
-	  <h2>There's no such thing as <em>crisp</em> fitness + noise</h2>
-	  <h1>Fitness is a statistical variable</h1>
+	<section data-background='images/noise.jpg' title='noise'>
+	  <h2 class='bkg'>There's no such thing as <em>crisp</em> fitness + noise</h2>
+	  <h1 class='bkg fragment'>Fitness is a statistical variable</h1>
 	</section>
 
-	<section>
-	  <h1>What's the shape and distribution of this variable</h1>
+	
+	<section data-background='images/other-noise.jpg'>
+	  <section><h2>Usual approaches to uncertainty</h2>
+	    <h2 class='fragment'>Implicit averaging</h2>
+	    <h2 class='fragment'><em>Explicit</em> averaging</h2>
+	    
+	  </section>
+	  
+	  <section>
+	    <h1>That <strong>will not</strong> work with
+	      non-gaussian</h1>
+	  </section>
+	  
+	  <section>
+	    <h1>What's the shape and distribution of this variable</h1>
 	  <h2>So far: Gamma</h2>
+	  </section>
+
+	  <section>
+	    <h1>Is it always like that?</h1>
+	  </section>
 	</section>
 
 	<section>
@@ -91,26 +110,29 @@
 	</section>
 
 	<section>
-	  <section><h2>Usual approaches to uncertainty</h2>
-	    <h1 class='fragment'>Implicit averaging</h1>
-	    <h1 class='fragment'><em>Explicit</em> averaging</h1>
+	  <h3>Skewness and kurtosis characterize a distribution</h3>
+	  <img src='images/Frechet_pdf.svg' alt='Frechet distribution'>
+	</section>
 
-	  </section>
-
-	  <section>
-	    <h1>That <strong>will not</strong> work with
-	    non-gaussian</h1>
-	  </section>
 <!-- slides end here -->
 			
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="http://slides.com">Try the online editor</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-					</p>
-				</section>
+<section style="text-align: left;">
+  <h1>Thanks!</h1>
+  <h2>Questions?</h2>
+  <h3>Follow us
+  at <a href='http://geneura.wordpress.com'><code>geneura.wordpress.com</code></a>
+  or <a href='http://github.com/geneura-papers'>our open papers
+  repo  <code>git.io/gpapers</code></a></h3> 
 
+</section>
+
+<!-- credits -->
+<section>
+  <h3>Credits</h3>
+  <ul><li><a href='https://www.flickr.com/photos/numberstumper/389666281/'>Death
+	and taxes by Paul Stumpr</a></li>
+    <li><a href="https://commons.wikimedia.org/wiki/File:Frechet_pdf.svg#/media/File:Frechet_pdf.svg">Frechet pdf</a>" by <a href="//commons.wikimedia.org/wiki/User:Arthena" title="User:Arthena">user:Arthena</a> - Self-made using python with numpy and matplotlib.. Licensed under <a title="GNU Free Documentation License" href="http://www.gnu.org/copyleft/fdl.html">GFDL</a> via <a href="https://commons.wikimedia.org/wiki/">Commons</a>.</li>
+  </ul>
 			</div>
 
 		</div>
