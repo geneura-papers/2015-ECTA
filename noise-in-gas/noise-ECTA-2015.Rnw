@@ -90,7 +90,7 @@ In many cases, however, the fitness or cost of a solution cannot be
 described by a crisp value. In those cases where there is
 \textit{uncertainty} in the measure, that is, in most real world,
 physical cases, such as the one described in \cite{esann94}, where a
-control system was optimized , or in the procedure 
+control system was optimized, or in the procedure 
 used to evaluate the solution, for instance, when using a stochastic procedure
 to make that measure, the best way to describe a solution will be a random
 variable, not a single, or even a vector, value. 
@@ -117,7 +117,8 @@ behavior of fitness as a random variable.
 
 That is why, after some initial study of noise in a particular game in
 \cite{merelo14:noisy}, 
-where our findings indicated that, in some cases, noise followed a Gamma, that
+where our findings indicated that, in some cases, noise followed a
+Gamma distribution, that
 is a skewed normal distribution and proposing a solution to this using
 Wilcoxon comparison as a selection operator, 
 % Antonio - referencia a esto (Wilcoxon), para los no expertos
