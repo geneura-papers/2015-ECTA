@@ -1,16 +1,12 @@
-\documentclass[a4paper,twoside]{article}
+\documentclass{llncs}
 
 \usepackage{subfigure}
 \usepackage{calc}
 \usepackage{amssymb}
 \usepackage{amstext}
 \usepackage{amsmath}
-\usepackage{amsthm}
 \usepackage{multicol}
 \usepackage{pslatex}
-\usepackage{apalike}
-\usepackage{SCITEPRESS}     % Please add other packages that you may
-                            % need BEFORE the SCITEPRESS.sty package.
 \usepackage{hyperref}
 
 \subfigtopskip=0pt
@@ -31,27 +27,30 @@ planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/
 
 \title{There is Noisy Lunch: a study of noise in evolutionary optimization problems} 
 
-\author{\authorname{Juan J. Merelo\sup{1}, 
-    Federico Liberatore\sup{1},
-    Antonio Fern{\'a}ndez Ares\sup{1}, 
-    Rub{\'e}n Garc{\'i}a\sup{2}, 
-    Zeineb Chelly\sup{3}, 
-    Carlos Cotta\sup{4}, 
-    Nuria Rico\sup{5}, 
-    Antonio M. Mora\sup{6}
-    and Pablo Garc{\'i}a-S{\'a}nchez\sup{1}} 
-\affiliation{\sup{1}Depto. ATC, University of Granada, Spain}
-\affiliation{\sup{2}Escuela de Doctorado, University of Granada, Spain}
-\affiliation{\sup{3}Lab. RODCP, Institut Sup\'erieur de Gestion, Tunisia}
-\affiliation{\sup{4}Depto. LCC, University of M{\'a}laga, Spain}
-\affiliation{\sup{5}Depto. EIO, University of Granada, Spain}
-\affiliation{\sup{6}Depto. TSTC, University of Granada, Spain}
-\email{{\tt jmerelo@geneura.ugr.es}}
-}
+\author{Juan J. Merelo\inst{1} \and 
+    Federico Liberatore\inst{1},
+    Antonio Fern{\'a}ndez Ares\inst{1} \and 
+    Rub{\'e}n Garc{\'i}a\inst{2} \and 
+    Zeineb Chelly\inst{3} \and 
+    Carlos Cotta\inst{4} \and 
+    Nuria Rico\inst{5} \and 
+    Antonio M. Mora\inst{1} \and
+    Pablo Garc{\'i}a-S{\'a}nchez\inst{1}}
 
-\keywords{Games, evolutionary optimization, noise, uncertainty, noisy fitness}
+\institute{Depto. ATC, University of Granada, Spain\\
+\email{\tt jmerelo@geneura.ugr.es} \and
+Escuela de Doctorado, University of Granada, Spain \and
+Lab. RODCP, Institut Sup\'erieur de Gestion, Tunisia \and
+Depto. LCC, University of M{\'a}laga, Spain \and
+Depto. EIO, University of Granada, Spain}
 
-\abstract{Noise or uncertainty appear in many optimization processes
+\maketitle 
+
+%\keywords{Games, evolutionary optimization, noise, uncertainty, noisy fitness}
+
+\begin{abstract}
+  
+  Noise or uncertainty appear in many optimization processes
   when there is not a single measure of optimality or fitness but a
   random variable representing it. These kind of problems
   have been known for a long time, but there has been no investigation
@@ -64,9 +63,11 @@ that have been addressed by means of Evolutionary Algorithms
  and prove that there is no single statistical model the evaluations
  of the fitness functions
   follow, being different not only from one problem to the next, but in
-different phases of the optimization in a single problem.}
+different phases of the optimization in a single problem.
 
-\onecolumn \maketitle \normalsize \vfill
+\end{abstract}
+
+
 
 % ******************************************************************************
 
@@ -136,11 +137,6 @@ Optimization Benchmarks \cite{hansen2009real} the uncertainty was
 simulated by adding noise centered in 0 and with a Cauchy
 that is, a centered, sharp bell shaped distribution,
 with different widths. 
-% Antonio - Referencia? (pos esto)
-% References to what? It's right there, Hansen and Arnold - JJ
-% No todo el mundo sabe lo que es una distribución de Cauchy
-% Everybody *should*. It's Statistics 101. I have added a small
-% explanation, however - JJ
 Either multiplicative or additive noise has
 been used in different occasions. 
 
@@ -605,14 +601,14 @@ to examine as many uncertain problems as possible and deduce what
 would be the most general model. 
 
 
-\section*{\uppercase{Acknowledgements}}
+\section{\uppercase{Acknowledgements}}
 
-\noindent This work has been supported in part by projects TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitiveness), SPIP2014-01437 (Direcci{\'o}n
+This work has been supported in part by projects TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitiveness), SPIP2014-01437 (Direcci{\'o}n
 General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
 Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de
 Investigaci{\'o}n), and project V17-2015 of the Microprojects program 2015 from CEI BioTIC Granada. 
 
-\bibliographystyle{apalike}
+\bibliographystyle{splncs03}
 \bibliography{geneura,GA-general,noisy}
 
 \end{document}
