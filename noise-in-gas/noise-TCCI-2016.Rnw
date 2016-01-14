@@ -25,7 +25,10 @@ pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noi
 planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
 @ 
 
-\title{There is Noisy Lunch: a study of noise in evolutionary optimization problems} 
+\title{Signal in noise: a study of uncertainty in in the context of
+  evolutionary optimization of games}
+
+% Don't like it too much, but at least it's honest and true. 
 
 \author{Juan J. Merelo\inst{1} \and 
     Federico Liberatore\inst{1},
