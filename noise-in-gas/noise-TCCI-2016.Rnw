@@ -356,7 +356,7 @@ In this paper we are
 using the results obtained from the Genebot algorithm \cite{EvoStar2014:GPBot}. This
 algorithm optimizes the parameters of a hand-coded FSM that indicates how many ships send from each
 planet to attack or reinforce another planet depending of some other values (such as the distance between planets). The generated bot is not
-deterministic, as some of the jumps of the states are based in
+deterministic, as some of the jumps of the states are based on
 probabilities. 
 Fitness is calculated confronting five times the bot obtained from the parameter set of the FSM against
 a competitive hand-coded bot. The result of each match takes into account the `slope' of the number of player spaceships
@@ -601,7 +601,7 @@ of uncertain fitness that uses noise added to crisp fitness is, in the
 more general case, wrong, although it might obviously be true in some
 cases. If the fitness evaluation is expensive and tests want to be
 performed for some new operators, the best way to model uncertainty
-would be to use {\em different} models applied to every individuals,
+would be to use {\em different} models applied to every individual,
 with different skewness and kurtosis. However, this would be only a
 first-order approximation and it might favor methods that use
 averages.  
