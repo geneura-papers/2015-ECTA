@@ -400,13 +400,26 @@ tough rivals for the ghost team.
 \subsection{A complex real time strategy game: StarCraft}
 \label{ss:starcraft}
 
-StarCraft has become a {\em de facto} testbed for AI research in complex RTS \cite{OntanonSURCP13}. In fact, given the complexity aspects of this successful game, researchers can deal with a high variety of topics, such as micro and macro management of units, temporal and spatial reasoning or uncertainty, among others.
+StarCraft has become a {\em de facto} testbed for AI research in complex RTS games \cite{OntanonSURCP13}. In fact, given the high variety of game features, such as configuration options, game modes, units, maps, etc; along with the existence of several frameworks and tools related with it; researchers can deal with a high variety of topics: micro and macro management of units, temporal and spatial reasoning, battle planning, combat results prediction, optimal paths or uncertainty addressing, among others.
 
-The individuals described in this subsection have been generated using StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP) framework that automatically generates the source code of high-level strategies of bots. As in previous examples, fitness of the individuals are generated confronting bots against different enemies, each one with a different strategy. In this case, each individual is confronted against 3 tiers of enemies (weak, medium and strong), each tier with 4 enemies. The fitness gives more weight to the stronger ones. In order to save execution time, at least one enemy of lower tiers must be defeated in order to confront the next tier, as it is predictable that if a bot do not win against weaker bots also it will not beat the stronger ones. Thus, fitness used in work \cite{Garcia15StarcraftGP} was used as hierarchical fitness, that is, one victory in a stronger tier is considered better than two in a lower one. However, for this work, we have calculated an aggregated fitness that respect this decision giving different weights to each tier. The next equation describes the fitness:
+The individuals described in this subsection have been generated using StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP) framework that automatically generates the source code of high-level strategies of bots. As in previous problems, the fitness of one individuals is generated confronting the bot against different enemies, each one following a different strategy. 
+Specifically, in this case every individual is confronted against three tiers of enemies (considered as weak, medium and strong rivals), each tier with four different enemies. 
+% Antonio - are they 'different' as a have written?
+The fitness function assigns a higher weight to the stronger ones, i.e. a hierarchical fitness has been used, so one victory in a stronger tier is considered better than two in a weaker one. 
+% Antonio - Check my rephrasing and please try to clarify this giving a more complete explanation. Is the paragrpah below explaining this? ;)
+
+However, for the present study, we have calculated an aggregated fitness function that respects this decision 
+% Antonio - Which decision do you refer to?
+giving different weights to each tier. The next equation describes the fitness:
 \begin{equation}
 F_{StarCraft}=21\times A + 5\times B + C + R
 \end{equation}
-Where $A$ is the number of victories against the enemies of the strongest tier, $B$ is the number of victories against the medium tier and $C$ is the number of victories against the weakest enemies. Also, a coefficient of the aggregated score at the end of all the games has been added to deal with ties in number of victories.
+
+Where $A$ is the number of victories against the enemies of the strongest tier, $B$ is the number of victories against the medium tier, and $C$ is the number of victories against the weakest enemies. Also, a coefficient of the aggregated score at the end of all the games, $R$ has been added, in order to deal with ties in number of victories.
+% Antonio - Please, explain this better. ;)
+
+Moreover, the evaluation process is quite heavy-consuming, so, in order to save execution time, at least one enemy of the weak tiers must be defeated before confronting the following (in difficulty) tier. To this end we have considered that if a bot do not win against weaker rivals, logically, it will not beat the stronger ones, so, the evaluation finishes at that point.
+% Antonio - with the current score, right?
 
 
 % ******************************************************************************
