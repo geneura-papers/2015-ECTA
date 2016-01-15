@@ -72,7 +72,7 @@ We demonstrate that the evaluations of the fitness functions do not follow any s
 Optimization methods usually need a crisp and fixed value to work
 correctly. This value, usually called {\em cost} or {\em fitness},
 informs the procedure on how good is the solution and is used to
-select particular solution over others. This does not imply that these
+select a particular solution over others. This does not imply that these
 methods need a single floating point number; since they are based on
 comparisons, it is usually enough that the values can be partially
 ordered. Multiobjective optimization, for instance, just need to know
@@ -89,11 +89,12 @@ control system was optimized, or in the procedure
 used to evaluate the solution, for instance, when using a stochastic procedure
 to make that measure, the best way to describe a solution will be a random
 variable, not a single, or even a vector, value. 
-In our research we have found this happens in many different
+In our research, we have found this happens in many different
 optimization problems:
 \begin{itemize}
   \item When optimizing the layout of a web-page using Simulated
-  Annealing (SA) \cite{jj-ppsn98}. Since SA is a stochastic procedure, the fitness obtained by a solution will be a random variable.
+  Annealing (SA) \cite{jj-ppsn98}. Since SA is a stochastic procedure, the fitness  from an obtained solution will be a random variable.
+  %PABLO: at a first glance I thought each solutions had stochastic fitness, but it is the value of the 'obtained' final solution, so I moved "obtained".
 \item When training any kind of neural network, such as those in
   \cite{esann94,merelo:ESNN}; in the second case we dealt with a
   physical installation, introducing another kind of randomness. Since training a neural network is a   stochastic procedure, the error rate obtained after every training run will also follow  a statistical distribution.
@@ -107,10 +108,10 @@ optimization problems:
 In all these cases it cannot be said that there is {\em noise} added to
 a {\em crisp} fitness. The fitness itself is a statistical variable
 whose value arises from a stochastic process, evaluation or
-training, however, we have not seen an exhaustive research of the
+training. However, we have not seen an exhaustive research of the
 behavior of fitness as a random variable.
 
-That is why, after some initial study of noise in a particular game in
+That is why, after some initial study of noise in a specific game in
 \cite{merelo14:noisy}, 
 where our findings indicated that, in some cases, noise followed a
 Gamma distribution, that
@@ -119,10 +120,11 @@ Wilcoxon comparison \ref{wilcoxon:1945} as a selection operator,
 % Antonio - referencia a esto (Wilcoxon), para los no expertos
 % La quito para que no ocupe espacio
 % Antonio - I add it again
-we dug into data discovering that, even if the distribution in that particular case was always a gamma, the parameters of the distribution were different,
-which meant that the random variable behaved in different ways
+we dug into data discovering that, even if the distribution in that particular case was always a gamma, the parameters of the distribution were different.
+%PABLO: I've divided this phrase, it was too long
+This meant that the random variable behaved in different ways
 depending on the particular individual, the state of evolution and, of
-course, the particular problem.
+course, the specific problem.
 
 This initial conclusion disagrees with the usual assumptions in
 optimization in uncertain environments, where it is frequent to assume
@@ -135,7 +137,7 @@ with different widths.
 Either multiplicative or additive noise has
 been used in different occasions. 
 
-That is why in this paper we have collected data from three different
+That is why, in this paper, we have collected data from three different
 problems, which will be presented later on in this paper
 and tried to find a model for the fitness using statistical
 tools. Our aim is to eventually find a model that is as general
