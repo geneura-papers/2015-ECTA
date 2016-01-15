@@ -173,7 +173,9 @@ uncertainty, noise or uncertainty in fitness evaluation, although it could be ar
 category; however, we do not think that is the case and, in general,
 that third issue refers to the case in which expensive fitness
 functions are substituted by surrogate functions which carry a certain
-amount of error. They suggest several methods, based either on using
+amount of error. 
+%PABLO: I do not know when to use the semicolons in pharses, but I think the previous one is quite large
+They suggest several methods, based either on using
 averaging or using a selection threshold over which one or other
 individual is selected. But since then, several other solutions have
 been proposed.
@@ -184,7 +186,7 @@ modification of existing tools and methodologies, an usual approach is
 just to disregard the fact that the fitness is noisy and use whatever  %[Pedro] I don't understand this sentence. What's is the subject for "use" in this sentence? (check the correspondence).
 value is returned by a single evaluation or after re-evaluation each
 generation. This was the option in our previous research in
-games although one evaluation in some of those works consists, in
+games, although one evaluation in some of those works consists, in
   fact, in an average of several evaluations, in different maps or
   considering different opponents, for instance. 
 \cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,liberatore:pacman}  
@@ -194,7 +196,7 @@ mentioned in \cite{Jin2005303}.
 In fact, selection used in evolutionary algorithms
 is also stochastic, so noise in fitness evaluation
 will have the same effect as randomness in selection or a higher mutation
-rate, which might make the evolution process easier and not harder
+rate, which might make the evolutionary process easier and not harder
 in some particular cases
 \cite{DBLP:journals/corr/QianYZ13}. 
 In fact, Miller and Goldberg proved that an infinite population would not
@@ -205,7 +207,7 @@ that an elitist genetic algorithm finds at least one solution, although with a l
 But real populations are finite, so the usual approach to dealing with
 fitness with a degree of randomness is to increase the population size
 to a value bigger than would be needed in a non-noisy environment.  
-In fact, it has been recently proved that using {\em sex}, that is, crossover, 
+In fact, it has been recently proved that using {\em sex}, that is, crossover, %PABLO: Well, the "sex" thing is kinda... funny :P I suggest removing it, just in case
 is able to deal successfully with noise \cite{2015arXiv150202793F}, while an
 evolutionary algorithm based mainly on mutation,
 such as the $\mu$+1 EA, or evolutionary programming, 
@@ -220,10 +222,10 @@ indicator, which is usually the {\em average}; which happens to be
 equal to the median in the case of the random variable following the
 normal distribution. This strategy is called
 {\em explicit averaging} by Jin and Branke and is used, for instance,
-in \cite{Junhua20136780}. Averaging decreases the variance of fitness but
+in \cite{Junhua20136780}. Averaging decreases the variance of fitness, but
 the problem is that it is not clear in advance what would be the
 sample size used for averaging \cite{aizawa1994scheduling}. We have
-used it in some cases but in a different way: not re-evaluating
+used it in some cases, but in a different way: not re-evaluating
 individuals every additional generation and computing the average but
 computing the fitness using the average of several evaluations,
 usually five or more \cite{DBLP:journals/jcst/MoraFGGF12}. 
@@ -239,7 +241,7 @@ distributions such as Gamma or Cauchy, but not
 necessarily for all distributions. 
 
 To the best of our knowledge, 
-other measures like the median which might be more adequate for
+other measures such as the median which might be more adequate for 
 certain noise models, but which is the same for the normal
 distribution usually attributed to noise, have not been tested; the median always exists,
 while the average might not exist for non-centrally distributed
@@ -276,10 +278,10 @@ the fitness of an individual. This is what we are going to use in this
 paper, where we present a method that uses resampling via an
 individual memory and use either explicit averaging or statistical
 tests like the non-parametric Wilcoxon test. 
-First we will examine and try to find the shape of the noise that
+First, we will examine and try to find the shape of the noise that
 actually appears in some games and other optimization problems; 
 then we will check in this paper what is the influence on the quality of
-results of these two strategies and which one, if any, is the best
+the results of these two strategies and which one, if any, is the best
 when working in noisy environments.  
 
 % ******************************************************************************
