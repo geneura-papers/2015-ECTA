@@ -114,7 +114,7 @@ That is why, after some initial study of noise in a particular game in
 where our findings indicated that, in some cases, noise followed a
 Gamma distribution, that
 is a skewed normal distribution and proposing a solution to this using
-Wilcoxon comparison \ref{wilcoxon:194} as a selection operator, 
+Wilcoxon comparison \ref{wilcoxon:1945} as a selection operator, 
 % Antonio - referencia a esto (Wilcoxon), para los no expertos
 % La quito para que no ocupe espacio
 % Antonio - I add it again
