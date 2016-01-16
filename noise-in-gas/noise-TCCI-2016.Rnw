@@ -83,12 +83,13 @@ and in others drifting apart from it.
 
 % ******************************************************************************
 
-\section{\uppercase{Introduction}}
+\section{Introduction}
 \label{sec:introduction}
 
 Optimization methods usually need a crisp and fixed value to work
 correctly. This value, usually called {\em cost} or {\em fitness},
-informs the procedure on how good is the solution and is used to
+informs the algorithm on the level of optimality the solution has
+achieved and, when facing different alternatives, is used to
 select a particular solution over others. This does not imply that these
 methods need a single floating point number; since they are based on
 comparisons, it is usually enough that the values can be partially
@@ -105,7 +106,7 @@ physical cases, such as the one described in \cite{esann94}, where a
 control system was optimized, or in the procedure 
 used to evaluate the solution, for instance, when using a stochastic procedure
 to make that measure, the best way to describe a solution will be a random
-variable, not a single, or even a vector, value. 
+variable, not a single value or a vector of crisp values. 
 In our research, we have found this happens in many different
 optimization problems:
 \begin{itemize}
@@ -114,9 +115,16 @@ optimization problems:
   %PABLO: at a first glance I thought each solutions had stochastic fitness, but it is the value of the 'obtained' final solution, so I moved "obtained".
 \item When training any kind of neural network, such as those in
   \cite{esann94,merelo:ESNN}; in the second case we dealt with a
-  physical installation, introducing another kind of randomness. Since training a neural network is a   stochastic procedure, the error rate obtained after every training run will also follow  a statistical distribution.
+  physical installation, introducing another kind of randomness. Since
+  training a neural network is a stochastic procedure, the error rate
+  obtained after every training run will also follow  a statistical
+  distribution. 
 \item When evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
-  uncertainty arises from the problem itself; in games, several factors such as the initial positions of the players or the opponent's behavior add certain stochastic component so that final score will also be {\em uncertain} or {\em noisy}; in some cases, too, the bot itself will rely on probabilities to
+  uncertainty arises from the problem itself; in games, several
+  factors such as the initial positions of the players or the
+  opponent's behavior add certain stochastic component so that final
+  score will also be {\em uncertain} or {\em noisy}; in some cases,
+  too, the bot itself will rely on probabilities to 
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
   case two different runs with exactly the same initial conditions and
   opponent will also yield different scores.
@@ -125,42 +133,50 @@ optimization problems:
 In all these cases it cannot be said that there is {\em noise} added to
 a {\em crisp} fitness. The fitness itself is a statistical variable
 whose value arises from a stochastic process, evaluation or
-training. However, we have not seen an exhaustive research of the
-behavior of fitness as a random variable.
+training. 
 
+The main problem we try to solve in this problem is the lack
+of an exhaustive research of the behavior of fitness as a random variable.
 That is why, after some initial study of noise in a specific game in
 \cite{merelo14:noisy}, 
 where our findings indicated that, in some cases, noise followed a
 Gamma distribution, that
-is a skewed normal distribution and proposing a solution to this using
+is, a skewed normal distribution and proposing a solution to this using
 Wilcoxon comparison \ref{wilcoxon:1945} as a selection operator, 
-% Antonio - referencia a esto (Wilcoxon), para los no expertos
-% La quito para que no ocupe espacio
-% Antonio - I add it again
-we dug into data discovering that, even if the distribution in that particular case was always a gamma, the parameters of the distribution were different.
-%PABLO: I've divided this phrase, it was too long
+we dug into data discovering that, even if the distribution in that
+particular case was always a Gamma, the parameters of the distribution
+were different. 
 This meant that the random variable behaved in different ways
 depending on the particular individual, the state of evolution and, of
 course, the specific problem.
 
-This initial conclusion disagrees with the usual assumptions in
-optimization in uncertain environments, where it is frequent to assume
+But, more importantly, this initial conclusion disagrees with the usual assumptions in
+optimization in uncertain environments, where it is frequent to take
+as the initial hypothesis 
 that the noise is normally distributed and with a fixed sigma
 \cite{arnold2001evolution}. For instance, in the Black Box
 Optimization Benchmarks \cite{hansen2009real} the uncertainty was
 simulated by adding noise centered in 0 and with a Cauchy
 that is, a centered, sharp bell shaped distribution,
-with different widths. 
-Either multiplicative or additive noise has
-been used in different occasions. 
+with different widths. Either multiplicative or additive noise has
+been used in different occasions. However, our initial work concluded
+that that was not the case in real optimization problems, rendering
+the conclusions achieved on the goodness of one or other method not
+applicable. Besides, we also proved in \cite{merelo14:noisy} that
+depending on the shape of the statistical distribution of the fitness,
+different methods could yield the best results. While methods that
+used the median or average would work well in centered distributions,
+other methods such as our method, based on Wilcoxon test, was better
+in more uncertain environments or, of course, in the case the
+distribution was not centered. 
 
-That is why, in this paper, we have collected data from three different
-problems, which will be presented later on in this paper
-and tried to find a model for the fitness using statistical
-tools. Our aim is to eventually find a model that is as general
+That is why, in this paper, we have collected data from several different
+problems, which will be presented later on, and tried to find a model
+for the fitness using statistical 
+tools. Our final objective is to eventually find a model that is as general
 as possible and that is able to account for most sources of
 uncertainty; failing that, to try and find selection operators that
-are able to work with random variables in a natural way. However, this
+are able to work with random fitness in a natural way. However, this
 is not the focus of this paper and, if it is eventually needed, is
 left as future work. 
 
