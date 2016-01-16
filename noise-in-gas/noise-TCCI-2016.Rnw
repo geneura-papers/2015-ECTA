@@ -54,11 +54,29 @@ Depto. EIO, University of Granada, Spain}
 
 \begin{abstract}
 % Antonio - I rewrite the abstract (It tells the same but in other words)  
-  It is usual in many optimization processes that the fitness or the considered measure of optimality for the potential solutions presents the so-called \textit{uncertainty} or more commonly \textit{noise}. It arises due to the nature of the function that represents this measure, which is a random variable.
-This paper describes a study of these kind of variables, and more specifically, on the statistical distribution they show. We consider that the variables follow a normal distribution, so they can be modelled as a mathematical operation (adding or multiplication) over a common (non-noisy) fitness function.
-The work analyzes four different problems, all of them enclosed in the videogames context where Evolutionary Computation methods have been applied, and where the evaluation of any individual is performed playing the game (which is a noisy environment itself).
+  It is usual in many optimization processes that the fitness or the
+  considered measure of optimality for the potential solutions
+  presents \textit{uncertainty}, that is, it yields different
+  values when measured repeatedly, due to the evaluation process or to
+  the solution itself. This happens quite often in the context of
+  computational intelligence in games, when either bots behave
+  stochastically or they fight against opponents or in arenas that do
+  so. This paper looks at the statistical behavior of these fitness
+  functions, and more specifically, on the statistical distribution
+  they show. The work analyzes four different problems, all of them
+  enclosed in the videogames context where Evolutionary Computation
+  methods have been applied, and where the evaluation of any
+  individual is performed playing the game (which is a noisy
+  environment itself). 
 % Antonio - check if this asseveration is correct
-We demonstrate that the evaluations of the fitness functions do not follow any statistical model, being different not only from one problem to the next, but also in different phases of the optimization in a single problem.
+  % It is not. Deleted.
+In order to try to find a pattern in the statistical behavior of the
+variables, we look at the main features of the distributions, skewness
+and kurtosis, finding that, in general, they do not follow a normal
+distribution as is usually the assumption in this kind of problems,
+but they do have a certain common behavior that changes as evolution
+proceeds, getting in some cases closer to the standard distribution
+and in others drifting apart from it. 
 % Antonio - add a line with the conclusion. What does this mean?
 \end{abstract}
 
