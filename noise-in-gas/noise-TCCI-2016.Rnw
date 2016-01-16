@@ -189,16 +189,17 @@ uncertainty whose measures will be used in this paper in Section
 
 % ******************************************************************************
 
-\section{\uppercase{State of the Art}}
+\section{State of the Art}
 \label{sec:soa}
 
-\sloppypar The most recent and comprehensive review of the state of the art in 
+\sloppypar The most  comprehensive, although no longer recent, review of the state of the art in 
 % Antonio - el mas reciente es de 2005?
 % Pues si. No he encontrado mas. - JJ
 evolutionary algorithms in {\em uncertain} environments 
 was done by \cite{Jin2005303}, although recent
 papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and
-\cite{Qian:sampling} include brief updates. In that first survey  
+\cite{Qian:sampling} include brief updates; a similar paper focused in
+multiobjective optmization was published by Goh and Tan \cite{goh2007investigation}. In that first survey  
 the authors state that uncertainty is categorized into noise,
 robustness issues, fitness approximation, and time-varying fitness functions, and then, different options for dealing with it are proposed. In principle, the
 approach presented in this paper was designed to deal with the first kind of
