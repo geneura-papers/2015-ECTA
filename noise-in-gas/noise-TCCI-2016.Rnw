@@ -26,8 +26,7 @@ pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noi
 planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
 @ 
 
-\title{Signal in noise: a study of uncertainty in the context of
-  evolutionary optimization in games}
+\title{The Uncertainty Quandary: A Study in the Context of the Evolutionary Optimization of Games}
 
 % Don't like it too much, but at least it's honest and true.
 % Antonio - I fix it and propose a change "Noise plays: a study of uncertainty in the context of evolutionary optimization in games"
