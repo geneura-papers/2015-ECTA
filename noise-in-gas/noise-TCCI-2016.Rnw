@@ -44,7 +44,7 @@ planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/
 \institute{Depto. ATC, University of Granada, Spain\\
 \email{\tt jmerelo@geneura.ugr.es} \and
 Escuela de Doctorado, University of Granada, Spain \and
-Lab. RODCP, Institut Sup\'erieur de Gestion, Tunisia \and
+Lab. LARODEC, Institut Sup\'erieur de Gestion, Tunisia \and
 Depto. LCC, University of M{\'a}laga, Spain \and
 Depto. EIO, University of Granada, Spain}
 
@@ -137,7 +137,7 @@ training.
 
 The main problem we try to solve in this problem is the lack
 of an exhaustive research of the behavior of fitness as a random variable.
-That is why, after some initial study of noise in a specific game in
+That is why, after an initial study of noise in a specific game in
 \cite{merelo14:noisy}, 
 where our findings indicated that, in some cases, noise followed a
 Gamma distribution, that
