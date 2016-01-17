@@ -492,21 +492,21 @@ StarCraft has become a {\em de facto} testbed for AI research in complex RTS gam
 The individuals described in this subsection have been generated using StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP) framework that automatically generates the source code of high-level strategies of bots. As in previous problems, the fitness of one individuals is computed confronting the bot against different enemies, each one following a different strategy. 
 Specifically, in this case every individual is confronted against three tiers of enemies (considered as weak, medium and strong rivals), each tier with four different enemies. 
 % Antonio - are they 'different' as a have written?
-The fitness function assigns a higher weight to the stronger ones, i.e. a hierarchical fitness has been used, so one victory in a stronger tier is considered better than two in a weaker one. 
-% Antonio - Check my rephrasing and please try to clarify this giving a more complete explanation. Is the paragrpah below explaining this? ;)
+The fitness function assigns a higher weight to the stronger ones, i.e. a hierarchical fitness was used in the original, so one victory in a stronger tier was considered better than four in the inmediately weaker one. 
+% Antonio - Check my rephrasing and please try to clarify this giving a more complete explanation. Is the paragrpah below explaining this? ;) Pablo: fixed and explained below again
 
-However, for the present study, we have calculated an aggregated fitness function that respects this decision 
-% Antonio - Which decision do you refer to?
+However, for the present study, we have calculated an aggregated fitness function that respects this decision, that is, priorizing victories of higher tiers, 
+% Antonio - Which decision do you refer to? Pablo: explained
 giving different weights to each tier. The next equation describes the fitness:
 \begin{equation}
 F_{StarCraft}=21\times A + 5\times B + C + R
 \end{equation}
 
-Where $A$ is the number of victories against the enemies of the strongest tier, $B$ is the number of victories against the medium tier, and $C$ is the number of victories against the weakest enemies. Also, a coefficient of the aggregated score at the end of all the games, $R$ has been added, in order to deal with ties in number of victories.
-% Antonio - Please, explain this better. ;)
+Where $A$ is the number of victories against the enemies of the strongest tier, $B$ is the number of victories against the medium tier, and $C$ is the number of victories against the weakest enemies. Thus, one victory in medium tier gives more points (5 points) than 4 victories in the weak tier (4 points), for example. Also, a coefficient of the aggregated score at the end of all the games, $R$ has been added, in order to deal with ties in number of victories. This score, calculated by the game, takes into account all the aspects of the game, such as number of kills or units built. 
+% Antonio - Please, explain this better. ;) Pablo: Done
 
 Moreover, the evaluation process is quite heavy-consuming, so, in order to save execution time, at least one enemy of the weak tiers must be defeated before confronting the following (in difficulty) tier. To this end we have considered that if a bot do not win against weaker rivals, logically, it will not beat the stronger ones, so, the evaluation finishes at that point.
-% Antonio - with the current score, right?
+% Antonio - with the current score, right? Pablo: yes, yes.
 
 
 % ******************************************************************************
