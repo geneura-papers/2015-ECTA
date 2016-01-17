@@ -192,43 +192,57 @@ uncertainty whose measures will be used in this paper in Section
 \section{State of the Art}
 \label{sec:soa}
 
-\sloppypar The most  comprehensive, although no longer recent, review of the state of the art in 
-% Antonio - el mas reciente es de 2005?
-% Pues si. No he encontrado mas. - JJ
+\sloppypar The most comprehensive, although no longer up to date, review of the state of the art in 
 evolutionary algorithms in {\em uncertain} environments 
 was done by \cite{Jin2005303}, although recent
 papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and
 \cite{Qian:sampling} include brief updates; a similar paper focused in
-multiobjective optmization was published by Goh and Tan \cite{goh2007investigation}. In that first survey  
-the authors state that uncertainty is categorized into noise,
-robustness issues, fitness approximation, and time-varying fitness functions, and then, different options for dealing with it are proposed. In principle, the
-approach presented in this paper was designed to deal with the first kind of
-uncertainty, noise or uncertainty in fitness evaluation, although it could be argued that there is uncertainty in the true fitness as stated in the third
+multiobjective optmization was published by Goh and Tan
+\cite{goh2007investigation}. Increasinly more papers are concerned
+with this type of optimization, so this makes more interesting any
+advance in this field. 
+
+In his survey, Jin and Branke  state that uncertainty is categorized into noise,
+robustness issues, fitness approximation, and time-varying fitness
+functions, and then, different options for dealing with it are
+proposed. In principle, the 
+approach presented in this paper was designed to model this first kind of
+uncertainty, noise or uncertainty in fitness evaluation, although it
+could be argued that there is uncertainty in the true fitness as
+stated in the third 
 category; however, we do not think that is the case and, in general,
 that third issue refers to the case in which expensive fitness
 functions are substituted by surrogate functions which carry a certain
-amount of error. 
-%PABLO: I do not know when to use the semicolons in pharses, but I think the previous one is quite large
-They suggest several methods, based either on using
-averaging or using a selection threshold over which one or other
-individual is selected. But since then, several other solutions have
-been proposed.
+amount of error, and whose value varies as the surrogate models are
+updated. Whatever the origin of uncertainty, Jin adn Branke suggest
+several methods, based either on {\em implicit} or explicit
+averaging over fitness measures \cite{hansen2009method,esteban2015implicit} or using a selection threshold over which one or other
+individual is selected. Papers such as Stroud's
+\cite{stroud2001kalman}, Esteban-Díaz's \cite{esteban2015implicit} or Di Mario's \cite{di2015distributed} use
+this kind of approach to deal with noise. 
 
-\sloppypar For scientists not concerned on solving the problem of noise, but on
+But since then, several other solutions have
+been proposed. For scientists concerned not on solving the problem of noise, but on
 a straightforward solution of the optimization problem without
 modification of existing tools and methodologies, an usual approach is
-just to disregard the fact that the fitness is noisy and use whatever  %[Pedro] I don't understand this sentence. What's is the subject for "use" in this sentence? (check the correspondence).
+just to disregard the fact that the fitness is noisy and take whatever  %[Pedro] I don't understand this sentence. What's is the subject for "use" in this sentence? (check the correspondence).
+% take, as in using it as the real fitness.
 value is returned by a single evaluation or after re-evaluation each
-generation. This was the option in our previous research in
+generation. This option works specially well if the population is
+large \cite{hansen2009method}, since the selective pressure is lower
+and solutions have the chance to be evaluated several times before
+being selected or eliminated; this leads, if the population is large
+enough, to an {\em implicit averaging} as mentioned in \cite{Jin2005303}
+This was the option in our previous research in
 games, although one evaluation in some of those works consists, in
   fact, in an average of several evaluations, in different maps or
   considering different opponents, for instance. 
 \cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,liberatore:pacman}  
-and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN} and leads, if the population is large enough, to an {\em implicit averaging} as
-mentioned in \cite{Jin2005303}.
+and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN}. 
 
-In fact, selection used in evolutionary algorithms
-is also stochastic, so noise in fitness evaluation
+The key to the efficiency of this approach stems from the fact that
+selection used in evolutionary algorithms 
+is usually stochastic, so uncertainty in fitness evaluation
 will have the same effect as randomness in selection or a higher mutation
 rate, which might make the evolutionary process easier and not harder
 in some particular cases
@@ -236,12 +250,20 @@ in some particular cases
 In fact, Miller and Goldberg proved that an infinite population would not
 be affected by noise \cite{miller1996genetic} and Jun-Hua and Ming studied the
 effect of noise in convergence rates \cite{Junhua20136780}, proving
-that an elitist genetic algorithm finds at least one solution, although with a lowered convergence rate. 
+that an elitist genetic algorithm finds at least one solution,
+although with a lowered convergence rate. This possible positive
+effect of uncertainty in evaluation leads to some authors calling it
+``a blessing and the curse'' in the context of surrogate models
+\cite{ong2006curse}, which, as we have seen before, carry a degree of
+uncertainty and randomness. 
 
-But real populations are finite, so the usual approach to dealing with
+But real populations are finite and in fact using large populations
+will decrease de algorithm efficiency and be time consuming, so the usual approach to dealing with
 fitness with a degree of randomness is to increase the population size
-to a value bigger than would be needed in a non-noisy environment.  
-In fact, it has been recently proved that using {\em sex}, that is, crossover, %PABLO: Well, the "sex" thing is kinda... funny :P I suggest removing it, just in case
+to a value bigger than would be needed in a non-noisy environment but
+still manageable.   
+In fact, it has been recently proved that using two parents to
+generate offspring, that is, crossover, 
 is able to deal successfully with noise \cite{2015arXiv150202793F}, while an
 evolutionary algorithm based mainly on mutation,
 such as the $\mu$+1 EA, or evolutionary programming, 
@@ -249,19 +271,28 @@ would suffer a considerable degradation of performance.
 However, crossover is part of the standard kit of evolutionary
 algorithms, so using it and increasing the population size has the
 advantage that no special provision or change in the implementation
-has to be made, just different values of the standard parameters.
+has to be made, just different values of the standard parameters;
+there is not big decrease in efficiency as long as oversized
+populations are not used; using oversized populations, however, might
+have a good effect in the algorithm in general, if the resources are
+available \cite{DBLP:conf/lion/LaredoDFGB13}. 
 
-Another more theoretically sound way is using a statistical central tendency
+Besides using implicit averaging with oversized populations, another
+more theoretically sound way is using {\em real} averaging: a statistical central tendency
 indicator, which is usually the {\em average}; which happens to be
 equal to the median in the case of the random variable following the
 normal distribution. This strategy is called
-{\em explicit averaging} by Jin and Branke and is used, for instance,
-in \cite{Junhua20136780}. Averaging decreases the variance of fitness, but
+{\em explicit averaging} by Jin and Branke, and it is used, for instance,
+in \cite{Junhua20136780}. Averaging decreases the variance of fitness,
+thus reducing uncertainty, but
 the problem is that it is not clear in advance what would be the
-sample size used for averaging \cite{aizawa1994scheduling}. We have
-used it in some cases, but in a different way: not re-evaluating
+sample size used for averaging \cite{aizawa1994scheduling} and,
+besides, this central tendency might not be representative if the
+noise is not centrally distributed, as proved in \cite{merelo2016statistical}.
+Our research group has 
+used this approach in some cases, but in a different way: not re-evaluating
 individuals every additional generation and computing the average but
-computing the fitness using the average of several evaluations,
+making fitness the average of several evaluations,
 usually five or more \cite{DBLP:journals/jcst/MoraFGGF12}. 
 Most authors use several measures of fitness for each new individual
 \cite{costa2013using}, although other averaging strategies have also
@@ -272,10 +303,12 @@ number which is decided heuristically
 an average of the 
 fitness values which is true for Gaussian random noise and other
 distributions such as Gamma or Cauchy, but not
-necessarily for all distributions. 
+necessarily for all distributions. In this paper, precisely, we are
+going to model these distributions in order to check whether this
+assumption is really true. 
 
 To the best of our knowledge, 
-other measures such as the median which might be more adequate for 
+other central tendency measures such as the median which might be more adequate for 
 certain noise models, but which is the same for the normal
 distribution usually attributed to noise, have not been tested; the median always exists,
 while the average might not exist for non-centrally distributed
@@ -288,11 +321,14 @@ proposed {\em resampling},
 which will effectively increase the number of
 evaluations and thus slow down the search. In any case, using average is
 also a small change to the algorithm framework, requiring only
-using as new fitness function the average of several evaluations.
+using as new fitness function the average of several evaluations and
+thus it is usually the method preferred for those using off-the-shelf
+libraries such as ECJ. 
 
-These two approaches that are focused on the evaluation process might
+In order to improve the efficiency of the algorithm, or the running
+time, these two averaging approaches that are focused on the evaluation process might
 be complemented with changes to the selection process. For instance,
-using a threshold \cite{Rudolph2001318,6900521} that is related to the noise characteristics to
+a threshold \cite{Rudolph2001318,6900521} that is related to the noise characteristics to
 avoid making comparisons of individuals that might, in fact, be very
 similar or statistically the same; this is usually called {\em
   threshold selection} and can be applied either to explicit or
@@ -305,18 +341,19 @@ some types of evolutionary algorithms, adding running time without an
 additional benefit in terms of performance. This is one lead we will
 use in the current paper. 
 
-Any of these approaches do have the problem of statistical
+Any of these approaches still have the problem of statistical
 representation of the {\em true} fitness, even more so if there is not
 such a thing, but several measures that represent, {\em as a set}
-the fitness of an individual. This is what we are going to use in this
-paper, where we present a method that uses resampling via an
+the fitness of an individual, such as the one presented by the authors
+in \cite{merelo2016statistical} are probably much better. This is what
+we have been using so far: a method that uses resampling via an
 individual memory and use either explicit averaging or statistical
 tests like the non-parametric Wilcoxon test. 
-First, we will examine and try to find the shape of the noise that
-actually appears in some games and other optimization problems; 
-then we will check in this paper what is the influence on the quality of
-the results of these two strategies and which one, if any, is the best
-when working in noisy environments.  
+However, in order to test this approach on benchmark problems that are
+more realistic that the ones used so far, we need
+to find the the shape of the noise that
+actually appears in some games and other optimization problems. We
+will do so in the next sections. 
 
 % ******************************************************************************
 
@@ -326,7 +363,16 @@ when working in noisy environments.
 % Antonio - reescribo el texto para cambiar el orden
 The fitness of four different problems, all of them related to
 computational intelligence in games, has been used in this paper:
-generation of character backstories in artificial worlds, described in subsection \ref{ss:made}, optimization of bots for playing the real time strategy game (RTS) Planet Wars in \ref{ss:pw}, optimization of the ghost team in Ms. Pac-Man, which will be described in subsection \ref{ss:pacman}, and automatic generation of autonomous players for the famous RTS StarCraft, explained in subsection \ref{ss:starcraft}. These four problems have been chosen for several reasons, the most important of which is that we have been working on them and thus have data %[Pedro] should the word "we" appear before "have" ?
+generation of character backstories in artificial worlds, described in
+subsection \ref{ss:made}, optimization of bots for playing the real
+time strategy game (RTS) Planet Wars in \ref{ss:pw}, optimization of
+the ghost team in Ms. Pac-Man, which will be described in subsection
+\ref{ss:pacman}, and automatic generation of autonomous players for
+the famous RTS StarCraft, explained in subsection
+\ref{ss:starcraft}. These four problems have been chosen for several
+reasons, the most important of which is that we have been working on
+them and thus have data %[Pedro] should the word "we" appear before
+                        %"have" ? 
 % Why not? - JJ
 available; another reason is that the origin of the uncertainty is
 different in the four cases. In the case of MADE, fitness is computed
