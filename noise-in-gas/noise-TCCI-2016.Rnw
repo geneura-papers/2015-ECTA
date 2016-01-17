@@ -216,10 +216,17 @@ functions are substituted by surrogate functions which carry a certain
 amount of error, and whose value varies as the surrogate models are
 updated. Whatever the origin of uncertainty, Jin adn Branke suggest
 several methods, based either on {\em implicit} or explicit
-averaging over fitness measures \cite{hansen2009method,esteban2015implicit} or using a selection threshold over which one or other
+averaging over fitness measures \cite{hansen2009method,esteban2015implicit} 
+or using a selection threshold over which one or other
 individual is selected. Papers such as Stroud's
 \cite{stroud2001kalman}, Esteban-Díaz's \cite{esteban2015implicit} or Di Mario's \cite{di2015distributed} use
 this kind of approach to deal with noise. 
+% [Pedro] Add here the reference to the work by Flores2011
+In another hand, some authors \cite{Flores2011} propose using 
+a new rank-based selection operator and a new rank-based mutation operator 
+in order to evolve the neural network topology
+used as a controller for a robot. Results show that those operators were 
+suitable for this kind of problems where the fitness landscape is noisy.
 
 But since then, several other solutions have
 been proposed. For scientists concerned not on solving the problem of noise, but on
