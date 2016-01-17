@@ -27,6 +27,7 @@ planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/
 @ 
 
 \title{The Uncertainty Quandary: A Study in the Context of the Evolutionary Optimization of Games}
+% Antonio - 'of games' -> 'in games' or in another type of problems if we include MLP results
 
 % Don't like it too much, but at least it's honest and true.
 % Antonio - I fix it and propose a change "Noise plays: a study of uncertainty in the context of evolutionary optimization in games"
@@ -489,7 +490,7 @@ tough rivals for the ghost team.
 
 StarCraft has become a {\em de facto} testbed for AI research in complex RTS games \cite{OntanonSURCP13}. In fact, given the high variety of game features, such as configuration options, game modes, units, maps, etc; along with the existence of several frameworks and tools related with it; researchers can deal with a high variety of topics: micro and macro management of units, temporal and spatial reasoning, battle planning, combat results prediction, optimal paths or uncertainty addressing, among others.
 
-The individuals described in this subsection have been generated using StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP) framework that automatically generates the source code of high-level strategies of bots. As in previous problems, the fitness of one individuals is computed confronting the bot against different enemies, each one following a different strategy. 
+The individuals described in this subsection have been generated using StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP) framework that automatically generates the source code of high-level strategies of bots. As in previous problems, the fitness of one individual is computed confronting the bot against different enemies, each one following a different strategy. 
 Specifically, in this case every individual is confronted against three tiers of enemies (considered as weak, medium and strong rivals), each tier with four different enemies. 
 % Antonio - are they 'different' as a have written?
 The fitness function assigns a higher weight to the stronger ones, i.e. a hierarchical fitness was used in the original, so one victory in a stronger tier was considered better than four in the inmediately weaker one. 
