@@ -25,6 +25,8 @@ made.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-
 pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/ms-pacman/pacman-fitness.csv"))
 planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
 starcraft.data <- read.csv("../data/starcraftdata/starcraft-data.csv")
+mlp.data <- read.csv("../data/MLP/data-mlp.csv")
+
 @ 
 
 \title{The Uncertainty Quandary: A Study in the Context of the Evolutionary Optimization of Games}
@@ -674,6 +676,33 @@ ggplot(sc.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continu
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
   the Starcraft problem. Different colors (or shades of gray) represent different generations.}
+\label{fig:pw}
+\end{figure}
+%
+%
+\begin{figure}[htb]
+  \centering
+<<mlp,cache=FALSE,echo=FALSE,warning=FALSE>>=
+mlp.s.k <- data.frame(Gen=character(), 
+                      Skewness=character(),
+                      Kurtosis=character(),
+                      stringsAsFactors=FALSE)
+
+for ( i in c(0,49,99)) {
+    for ( j in unique(subset(mlp.data,Gen==i)$ID) ) {
+        this.data <- subset(mlp.data,Gen==i & ID==j)$Fitness
+        mlp.s.k <- rbind( mlp.s.k
+                      , data.frame(Gen=paste("Gen",i)
+                                 , Skewness=skewness(this.data)
+                                 , Kurtosis=kurtosis(this.data)))
+    }
+}
+
+ggplot(mlp.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous()+scale_y_continuous()+theme_bw()
+@ 
+\caption{Skewness and kurtosis for fitness in several generations of
+  the MLP training problem. Different colors (or shades of gray)
+  represent different generations.} 
 \label{fig:pw}
 \end{figure}
 
