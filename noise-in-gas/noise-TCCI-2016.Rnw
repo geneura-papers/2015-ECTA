@@ -718,10 +718,12 @@ would be the most general model.
 
 \section{\uppercase{Acknowledgements}}
 
-This work has been supported in part by projects TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitiveness), SPIP2014-01437 (Direcci{\'o}n
-General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
-Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de
-Investigaci{\'o}n), and project V17-2015 of the Microprojects program 2015 from CEI BioTIC Granada. 
+This work has been supported in part by projects TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitiveness), 
+SPIP2014-01437 (Direcci{\'o}n General de Tr{\'a}fico), 
+PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de
+Investigaci{\'o}n), 
+PROY-PP2015-06 (Plan Propio 2015 UGR), 
+and project V17-2015 of the Microprojects program 2015 from CEI BioTIC Granada. 
 
 \bibliographystyle{splncs03}
 \bibliography{geneura,GA-general,noisy}
