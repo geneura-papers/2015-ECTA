@@ -14,7 +14,7 @@
 \subfigbottomskip=0pt
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+%\SweaveOpts{concordance=TRUE}
 <<setup, cache=FALSE,echo=FALSE>>=
 #You've got to install all these libraries if you want to compile the paper.
 library("ggplot2")
@@ -24,6 +24,7 @@ library(e1071) # for skewness and kurtosis
 made.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/MADE/made-data.csv"))
 pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/ms-pacman/pacman-fitness.csv"))
 planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
+starcraft.data <- read.csv("../data/starcraftdata/starcraft-data.csv")
 @ 
 
 \title{The Uncertainty Quandary: A Study in the Context of the Evolutionary Optimization of Games}
@@ -634,7 +635,7 @@ ggplot(pm.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continu
 \label{fig:pm}
 \end{figure}
 
-The graph for the final problem, Ms. Pac-Man, is different in several
+The graph for this problem, Ms. Pac-Man, is different in several
 aspects, and is shown in Figure \ref{fig:pm}. First we have to take
 into account, as explained in \ref{ss:pacman}, that differently from
 the previous cases, the fitness for a ghost team is the maximum, not
@@ -650,6 +651,31 @@ Beta distribution. Even if the trend is different from the other two
 problems, the overall aspect is the same: there is no single
 distribution that is able to describe the shape of fitness with an
 uncertainty component. 
+
+\begin{figure}[htb]
+  \centering
+<<starcraft,cache=FALSE,echo=FALSE,warning=FALSE>>=
+sc.s.k <- data.frame(Gen=character(), 
+                     Skewness=character(),
+                     Kurtosis=character(),
+                     stringsAsFactors=FALSE)
+
+for ( i in c(1,15,30)) {
+    for ( j in unique(subset(starcraft.data,Gen==i)$ID) ) {
+        this.data <- subset(starcraft.data,Gen==i & ID==j)$Fitness
+        sc.s.k <- rbind( sc.s.k
+                      , data.frame(Gen=paste("Gen",i)
+                                 , Skewness=skewness(this.data)
+                                 , Kurtosis=kurtosis(this.data)))
+    }
+}
+
+ggplot(sc.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous()+scale_y_continuous()+theme_bw()
+@ 
+\caption{Skewness and kurtosis for fitness in several generations of
+  the Planet Wars problem. Different colors represent different generations.}
+\label{fig:pw}
+\end{figure}
 
 % ******************************************************************************%
 
