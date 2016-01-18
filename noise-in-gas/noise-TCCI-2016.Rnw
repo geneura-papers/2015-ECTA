@@ -43,7 +43,8 @@ mlp.data <- read.csv("../data/MLP/data-mlp.csv")
     Carlos Cotta\inst{4} \and 
     Nuria Rico\inst{5} \and 
     Antonio M. Mora\inst{1} \and
-    Pablo Garc{\'i}a-S{\'a}nchez\inst{1}}
+    Pablo Garc{\'i}a-S{\'a}nchez\inst{1} \and 
+    Pedro A. Castillo\inst{1}}
 
 \institute{Depto. ATC, University of Granada, Spain\\
 \email{\tt jmerelo@geneura.ugr.es} \and
@@ -517,6 +518,24 @@ Moreover, the evaluation process is quite heavy-consuming, so, in order to save 
 \subsection{Artificial Neural Networks Optimization Using an EA: GProp}
 \label{ss:gprop}
 
+Designing an artificial neural network is not an easy process. 
+It requires setting a layer structure with connections among the different 
+components, tuning several parameters (such as initial weights) 
+and defining a set of learning constants. Then, a training method must be used, 
+which is usually an iterative gradient descent algorithm.
+
+G-Prop (''genetic backpropagation'') \cite{CastilloNPL,castilloNC,ieeeanova2002} 
+attempts to solve the problem of finding 
+appropriate initial weights and learning parameters for a single hidden layer 
+Multilayer Perceptron (MLP) by combining an EA and QuickProp \cite{FahlmanQP}. 
+The EA selects the MLP initial weights, the learning rate and changes the 
+number of neurons in the hidden layer through the application of specific genetic operators.
+
+G-Prop is a hybrid algorithm that leverages the capabilities of two classes 
+of algorithms: the ability of the EA to find a solution close to the global 
+optimum, and the ability of the QuickProp algorithm to tune a solution and reach 
+the nearest local minimum by means of a local search performed from the 
+solution found by the EA.
 
 
 % ******************************************************************************
