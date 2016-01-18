@@ -673,7 +673,7 @@ for ( i in c(1,15,30)) {
 ggplot(sc.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous()+scale_y_continuous()+theme_bw()
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
-  the Planet Wars problem. Different colors represent different generations.}
+  the Starcraft problem. Different colors (or shades of gray) represent different generations.}
 \label{fig:pw}
 \end{figure}
 

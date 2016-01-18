@@ -644,6 +644,7 @@
  c1= 0.679245
  c1= 0.716981
 
+
 ----- resultados con los 10 individuos en la última generación (99)
 
 0	ID= 11	c1= 0.735849
