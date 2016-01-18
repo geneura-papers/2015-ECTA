@@ -58,7 +58,7 @@ Depto. EIO, University of Granada, Spain}
   It is usual in many optimization processes that the fitness or the
   considered measure of optimality for the potential solutions
   presents \textit{uncertainty}, that is, it yields different
-  values when measured repeatedly, due to the evaluation process or to
+  values when repeatedly measured, due to the evaluation process or to
   the solution itself. This happens quite often in the context of
   computational intelligence in games, when either bots behave
   stochastically or they fight against opponents or in arenas that do
@@ -67,7 +67,7 @@ Depto. EIO, University of Granada, Spain}
   they show. The work analyzes four different problems, all of them
   enclosed in the videogames context where Evolutionary Computation
   methods have been applied, and where the evaluation of any
-  individual is performed playing the game (which is a noisy
+  individual is performed by playing the game (which is a noisy
   environment itself). 
 % Antonio - check if this asseveration is correct
   % It is not. Deleted.
@@ -94,21 +94,21 @@ achieved and, when facing different alternatives, is used to
 select a particular solution over others. This does not imply that these
 methods need a single floating point number; since they are based on
 comparisons, it is usually enough that the values can be partially
-ordered. Multiobjective optimization, for instance, just need to know
+ordered. Multiobjective optimization, for instance, just needs to know
 when comparing two solutions whether one or the other is the best or there
 can be no comparison between them. In either case, the answer to the
 question ``Is this solution better than the other?'' needs to be either a crisp
 `Yes' or `No', or simply ``Impossible to know''.
 
+
+
 In many cases, however, the fitness or cost of a solution cannot be
-described by a crisp value. In those cases where there is
-\textit{uncertainty} in the measure, that is, in most real world,
-physical cases, such as the one described in \cite{esann94}, where a
-control system was optimized, or in the procedure 
-used to evaluate the solution, for instance, when using a stochastic procedure
-to make that measure, the best way to describe a solution will be a random
-variable, not a single value or a vector of crisp values. 
-In our research, we have found this happens in many different
+described by a crisp value, because there is  \textit{uncertainty} in the measure. 
+For example, in most real world, physical cases, such as the one described in \cite{esann94}, where a
+control system was optimized and a stochastic method procedure was used. 
+In these cases, the best way to describe a solution will be a random
+variable, not a single value or a vector or crisp values.
+In our research, we have found that this happens in many different
 optimization problems:
 \begin{itemize}
   \item When optimizing the layout of a web-page using Simulated
@@ -124,7 +124,7 @@ optimization problems:
   uncertainty arises from the problem itself; in games, several
   factors such as the initial positions of the players or the
   opponent's behavior add certain stochastic component so that final
-  score will also be {\em uncertain} or {\em noisy}; in some cases,
+  score will also be {\em uncertain} or {\em noisy}. In some cases,
   too, the bot itself will rely on probabilities to 
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
   case two different runs with exactly the same initial conditions and
@@ -132,12 +132,12 @@ optimization problems:
 \end{itemize}
 
 In all these cases it cannot be said that there is {\em noise} added to
-a {\em crisp} fitness. The fitness itself is a statistical variable
-whose value arises from a stochastic process, evaluation or
+a {\em crisp} fitness. Instead, the fitness itself is a statistical variable
+whose value arises from a stochastic process, evaluation, or
 training. 
 
-The main problem we try to solve in this problem is the lack
-of an exhaustive research of the behavior of fitness as a random variable.
+The main issue we try to solve in this problem is the lack
+of an exhaustive research on the behavior of fitness as a random variable.
 That is why, after an initial study of noise in a specific game in
 \cite{merelo14:noisy}, 
 where our findings indicated that, in some cases, noise followed a
@@ -174,9 +174,9 @@ distribution was not centered.
 That is why, in this paper, we have collected data from several different
 problems, which will be presented later on, and tried to find a model
 for the fitness using statistical 
-tools. Our final objective is to eventually find a model that is as general
+tools. Our final objective is to eventually find a model as general
 as possible and that is able to account for most sources of
-uncertainty; failing that, to try and find selection operators that
+uncertainty; failing that, to try and find selection operators that %PABLO: paloma told me in the mail that this "failing that" is weird. Other option?
 are able to work with random fitness in a natural way. However, this
 is not the focus of this paper and, if it is eventually needed, is
 left as future work. 
@@ -197,13 +197,13 @@ uncertainty whose measures will be used in this paper in Section
 evolutionary algorithms in {\em uncertain} environments 
 was done by \cite{Jin2005303}, although recent
 papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and
-\cite{Qian:sampling} include brief updates; a similar paper focused in
+\cite{Qian:sampling} include brief updates. A similar paper focused in
 multiobjective optmization was published by Goh and Tan
-\cite{goh2007investigation}. Increasinly more papers are concerned
+\cite{goh2007investigation}. Increasingly more papers are concerned
 with this type of optimization, so this makes more interesting any
 advance in this field. 
 
-In his survey, Jin and Branke  state that uncertainty is categorized into noise,
+For example, in his survey, Jin and Branke  state that uncertainty is categorized into noise, %Pablo: Paloma suggested connect this paragraph, I added "For example", sounds right?
 robustness issues, fitness approximation, and time-varying fitness
 functions, and then, different options for dealing with it are
 proposed. In principle, the 
@@ -223,16 +223,16 @@ individual is selected. Papers such as Stroud's
 \cite{stroud2001kalman}, Esteban-Díaz's \cite{esteban2015implicit} or Di Mario's \cite{di2015distributed} use
 this kind of approach to deal with noise. 
 % [Pedro] Add here the reference to the work by Flores2011
-In another hand, some authors \cite{Flores2011} propose using 
+On the other hand, some authors \cite{Flores2011} propose using 
 a new rank-based selection operator and a new rank-based mutation operator 
 in order to evolve the neural network topology
-used as a controller for a robot. Results show that those operators were 
+used as a controller for a robot. Results show that those operators are 
 suitable for this kind of problems where the fitness landscape is noisy.
 
 But since then, several other solutions have
 been proposed. For scientists concerned not on solving the problem of noise, but on
 a straightforward solution of the optimization problem without
-modification of existing tools and methodologies, an usual approach is
+modification of existing tools and methodologies, a usual approach is
 just to disregard the fact that the fitness is noisy and take whatever  %[Pedro] I don't understand this sentence. What's is the subject for "use" in this sentence? (check the correspondence).
 % take, as in using it as the real fitness.
 value is returned by a single evaluation or after re-evaluation each
@@ -240,13 +240,13 @@ generation. This option works specially well if the population is
 large \cite{hansen2009method}, since the selective pressure is lower
 and solutions have the chance to be evaluated several times before
 being selected or eliminated; this leads, if the population is large
-enough, to an {\em implicit averaging} as mentioned in \cite{Jin2005303}
+enough, to an {\em implicit averaging} as mentioned in \cite{Jin2005303}.
 This was the option in our previous research in
 games, although one evaluation in some of those works consists, in
   fact, in an average of several evaluations, in different maps or
-  considering different opponents, for instance. 
-\cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,liberatore:pacman}  
-and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN}. 
+  considering different opponents, for instance 
+  \cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,liberatore:pacman},  
+or the evolution of neural networks \cite{castilloGECCO99,merelo:ESNN}. 
 
 The key to the efficiency of this approach stems from the fact that
 selection used in evolutionary algorithms 
