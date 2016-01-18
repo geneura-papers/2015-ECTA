@@ -378,21 +378,21 @@ generation of character backstories in artificial worlds, described in
 subsection \ref{ss:made}, optimization of bots for playing the real
 time strategy game (RTS) Planet Wars in \ref{ss:pw}, optimization of
 the ghost team in Ms. Pac-Man, which will be described in subsection
-\ref{ss:pacman}, and automatic generation of autonomous players for
-the famous RTS StarCraft, explained in subsection
-\ref{ss:starcraft}. These four problems have been chosen for several
-reasons, the most important of which is that we have been working on
-them and thus have data %[Pedro] should the word "we" appear before
-                        %"have" ? 
-% Why not? - JJ
+\ref{ss:pacman}, automatic generation of autonomous players for
+the famous RTS StarCraft, explained in subsection \ref{ss:starcraft}
+and an artificial neural network optimization problem using an EA \ref{ss:gprop}. 
+These five problems have been chosen for several reasons, the most important of 
+which is that we have been working on them and thus have data 
 available; another reason is that the origin of the uncertainty is
 different in the four cases. In the case of MADE, fitness is computed
 through a simulation; in the case of Planet Wars, the bot
 themselves have a random component, with its representation including
-probabilities of different courses of action;  in Ms. Pac-Man, it is due to the nature of the game itself; and the huge amount of possibilities in StarCraft, with a big amount of units behaving independently meaning that the source of uncertainty is extremely high. Of course, it is not a complete
-representation of all causes of uncertainty, but the sample is big
-enough so that we can generalize the results obtained, which will be
-presented in the next section. 
+probabilities of different courses of action;  in Ms. Pac-Man, it is due to the 
+nature of the game itself; and the huge amount of possibilities in StarCraft, 
+with a big amount of units behaving independently meaning that the source of 
+uncertainty is extremely high. Of course, it is not a complete representation 
+of all causes of uncertainty, but the sample is big enough so that we can 
+generalize the results obtained, which will be presented in the next section. 
 
 %[Pedro] in the "Experiments and Results" the order of reporting the resulst is different to the previously proposed: (1)Ms.Pac-man (2)MADE (3)Planet Wars
 % in "Experiments and Results" section the order is (1)MADE (2)Planet Wars (3)Ms.Pac-man 
@@ -511,6 +511,12 @@ Where $A$ is the number of victories against the enemies of the strongest tier, 
 
 Moreover, the evaluation process is quite heavy-consuming, so, in order to save execution time, at least one enemy of the weak tiers must be defeated before confronting the following (in difficulty) tier. To this end we have considered that if a bot do not win against weaker rivals, logically, it will not beat the stronger ones, so, the evaluation finishes at that point with the current score.
 % Antonio - with the current score, right? Pablo: yes, yes.
+
+
+%---------------------------------------------------------
+\subsection{Artificial Neural Networks Optimization Using an EA: GProp}
+\label{ss:gprop}
+
 
 
 % ******************************************************************************
