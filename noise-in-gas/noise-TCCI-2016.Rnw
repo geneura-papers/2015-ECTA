@@ -45,7 +45,9 @@ mlp.data <- read.csv("../data/MLP/data-mlp.csv")
     Carlos Cotta\inst{4} \and 
     Nuria Rico\inst{5} \and 
     Antonio M. Mora\inst{1} \and
-    Pablo Garc{\'i}a-S{\'a}nchez\inst{1} \and 
+    Pablo Garc{\'i}a-S{\'a}nchez\inst{1} \and
+    Alberto Tonda\inst{6} \and
+    Paloma de las Cuevas\inst{1} \and 
     Pedro A. Castillo\inst{1}}
 
 \institute{Depto. ATC, University of Granada, Spain\\
@@ -53,7 +55,9 @@ mlp.data <- read.csv("../data/MLP/data-mlp.csv")
 Escuela de Doctorado, University of Granada, Spain \and
 Lab. LARODEC, Institut Sup\'erieur de Gestion, Tunisia \and
 Depto. LCC, University of M{\'a}laga, Spain \and
-Depto. EIO, University of Granada, Spain}
+Depto. EIO, University of Granada, Spain \and
+UMR 782 GMPA, INRA, Thiverval-Grignon, France
+}
 
 \maketitle 
 
@@ -220,21 +224,21 @@ multiobjective optimization.
 In their survey, Jin and Branke state that uncertainty is categorized into noise, %Pablo: Paloma suggested connect this paragraph, I added "For example", sounds right?
 %Alberto - nah, I think it kind of follows from above
 robustness issues, fitness approximation, and time-varying fitness
-functions; then, different options for dealing with it are
+functions. In addition, different options for dealing with the uncertainty are
 discussed. In principle, the 
 approach presented in this paper is designed to model the first kind of
-uncertainty, noise or uncertainty in fitness evaluation, although it
+uncertainty, namely, noise or uncertainty in fitness evaluation. It
 can be argued that there is uncertainty in the true fitness as
 stated in the third 
-category; however, we think that, in general,
+category. However, we think that, in general,
 the third issue refers to the case in which expensive fitness
 functions are replaced by surrogate functions which carry a certain
 amount of error, and whose value varies as the surrogate models are
 updated. Independently from the origin of uncertainty, Jin and Branke suggest
-several methods to tackle it, based either on {\em implicit} / explicit
+several methods to tackle it, based either on {\em implicit} / explicit 
 averaging over fitness measures \cite{hansen2009method,esteban2015implicit} 
 or on a threshold imposed during the selection phase. Papers such as Stroud's
-\cite{stroud2001kalman}, Esteban-Díaz's \cite{esteban2015implicit} or Di Mario's \cite{di2015distributed} use
+\cite{stroud2001kalman}, Esteban-D{\'i}az's \cite{esteban2015implicit} or Di Mario's \cite{di2015distributed} use
 this kind of approach to deal with noise. 
 % [Pedro] Add here the reference to the work by Flores2011
 Other authors \cite{Flores2011} propose to use 
@@ -258,17 +262,17 @@ and solutions have the chance to be evaluated several times before
 being selected or discarded; this leads, if the population is large
 enough, to an {\em implicit averaging} as mentioned in \cite{Jin2005303}.
 This solution is exploited in our previous research in
-games, although one evaluation in some of those works consists, in
+games, although one evaluation in some of these works consists, in
   fact, of an average of several evaluations, on different maps or
   considering different opponents, see for instance 
   \cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,liberatore:pacman},  
-or the evolution of neural networks \cite{castilloGECCO99,merelo:ESNN}. 
+or in the evolution of neural networks \cite{castilloGECCO99,merelo:ESNN}. 
 
 The key to the efficiency of this approach stems from the fact that
 selection used in evolutionary algorithms 
 is usually stochastic, so uncertainty in fitness evaluation
 could have the same effect as randomness in selection or a higher mutation
-rate, which might make the evolutionary process easier and not harder
+rate, which might make the evolutionary process easier 
 in some particular cases
 \cite{DBLP:journals/corr/QianYZ13}. 
 In fact, Miller and Goldberg proved that an infinite population would not
@@ -286,18 +290,18 @@ In real-world problems, however, populations are finite: in fact, using large po
 decreases the algorithm's efficiency and can be time consuming, so the usual approach for dealing with
 fitness with a degree of randomness is to enlarge the population
 to a value bigger than would normally be needed in a non-noisy environment, while keeping it to a manageable size.   
-In fact, it has been recently proved that using two parents to
+Furthermore, it has been recently proved that using two parents to
 generate offspring, that is, crossover, 
-is able to deal successfully with noise \cite{2015arXiv150202793F}, while an
+is able to successfully deal  with noise \cite{2015arXiv150202793F}, while an
 evolutionary algorithm based mainly on mutation,
 such as the $\mu$+1 EA [REFERENCE NEEDED], or evolutionary programming, 
 would suffer a considerable degradation of performance. 
 However, crossover is part of the standard kit of evolutionary
 algorithms, so using it and increasing the population size has the
 advantage that no special provision or change in the implementation
-has to be made; %just different values of the standard parameters;
-there is no big decrease in efficiency as long as oversized
-populations are not used; using oversized populations, however, might
+has to be made. %just different values of the standard parameters;
+There is no big decreasing in efficiency as long as oversized
+populations are not used. Using oversized populations, however, might
 have a good effect on the algorithm in general, if appropriate computational resources are available \cite{DBLP:conf/lion/LaredoDFGB13}. 
 
 %Besides using implicit averaging with oversized populations, another
@@ -305,9 +309,9 @@ Another way to deal with uncertainty,
 more theoretically sound, is using {\em real} averaging: 
 % Alberto - the part that begins with "a statistical central tendency" is not very clear, what do we want to tell the reader?
 a statistical central tendency
-indicator, which is usually the {\em average}; which happens to be
+indicator, which usually is  the {\em average}, and this happens to be
 equal to the median in the case of the random variable following the
-normal distribution. This strategy is called
+normal distribution. This strategy has been called
 {\em explicit averaging} by Jin and Branke, and it is used, for instance,
 in \cite{Junhua20136780}. Explicit averaging decreases the fitness variance,
 thus reducing uncertainty, but defining the appropriate sample size for the averaging
