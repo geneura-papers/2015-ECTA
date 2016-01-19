@@ -28,6 +28,7 @@ planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/
 
 \title{The Uncertainty Quandary: A Study in the Context of the Evolutionary Optimization of Games}
 % Antonio - 'of games' -> 'in games' or in another type of problems if we include MLP results
+% Alberto: this is a test
 
 % Don't like it too much, but at least it's honest and true.
 % Antonio - I fix it and propose a change "Noise plays: a study of uncertainty in the context of evolutionary optimization in games"
