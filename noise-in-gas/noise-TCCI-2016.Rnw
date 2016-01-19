@@ -14,6 +14,7 @@
 \subfigbottomskip=0pt
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 %\SweaveOpts{concordance=TRUE}
 <<setup, cache=FALSE,echo=FALSE>>=
 #You've got to install all these libraries if you want to compile the paper.
@@ -31,7 +32,7 @@ mlp.data <- read.csv("../data/MLP/data-mlp.csv")
 
 \title{The Uncertainty Quandary: A Study in the Context of the Evolutionary Optimization of Games}
 % Antonio - 'of games' -> 'in games' or in another type of problems if we include MLP results
-% Alberto: this is a test
+% Alberto - I am writing inside the master branch as if it there wes no tomorrow.
 
 % Don't like it too much, but at least it's honest and true.
 % Antonio - I fix it and propose a change "Noise plays: a study of uncertainty in the context of evolutionary optimization in games"
@@ -60,30 +61,32 @@ Depto. EIO, University of Granada, Spain}
 
 \begin{abstract}
 % Antonio - I rewrite the abstract (It tells the same but in other words)  
-  It is usual in many optimization processes that the fitness or the
-  considered measure of optimality for the potential solutions
-  presents \textit{uncertainty}, that is, it yields different
-  values when repeatedly measured, due to the evaluation process or to
+% Alberto - I also rewrote the abstract :-)
+  In many optimization processes, the fitness or the
+  considered measure of goodness for the candidate solutions
+  presents \textit{uncertainty}, that is, yields different
+  values when repeatedly measured, due to the nature of the evaluation 
+  process or
   the solution itself. This happens quite often in the context of
   computational intelligence in games, when either bots behave
-  stochastically or they fight against opponents or in arenas that do
-  so. This paper looks at the statistical behavior of these fitness
-  functions, and more specifically, on the statistical distribution
-  they show. The work analyzes four different problems, all of them
-  enclosed in the videogames context where Evolutionary Computation
-  methods have been applied, and where the evaluation of any
-  individual is performed by playing the game (which is a noisy
-  environment itself). 
+  stochastically, or the target game possesses intrinsic random elements. 
+  Thus, it is important to examine the statistical behavior of such
+  performance measurements and, more specifically, the statistical distribution
+  they show. This work analyzes four different problems, all of them
+  related to intelligence in videogames, where Evolutionary Computation
+  methods have been applied, and the evaluation of each
+  individual is performed by playing the game. 
 % Antonio - check if this asseveration is correct
   % It is not. Deleted.
-In order to try to find a pattern in the statistical behavior of the
-variables, we look at the main features of the distributions, skewness
-and kurtosis, finding that, in general, they do not follow a normal
-distribution as is usually the assumption in this kind of problems,
-but they do have a certain common behavior that changes as evolution
+In order to find a pattern in the statistical behavior of the
+variables, we track the main features of the distributions, \textit{skewness}
+and \textit{kurtosis}. Contrary to the usual assumption in this kind of problems,
+we prove that, in general, these two features not follow a normal
+distribution, but they do present a certain common behavior that changes as evolution
 proceeds, getting in some cases closer to the standard distribution
 and in others drifting apart from it. 
 % Antonio - add a line with the conclusion. What does this mean?
+% Alberto - also, are we sure that in some cases skewness and kurtosis are moving away from a normal distribution, and not just happily jumping around?
 \end{abstract}
 
 
@@ -92,43 +95,43 @@ and in others drifting apart from it.
 \section{Introduction}
 \label{sec:introduction}
 
-Optimization methods usually need a crisp and fixed value to work
+Optimization methods usually need a crisp and reliable feedback to work
 correctly. This value, usually called {\em cost} or {\em fitness},
-informs the algorithm on the level of optimality the solution has
-achieved and, when facing different alternatives, is used to
-select a particular solution over others. This does not imply that these
-methods need a single floating point number; since they are based on
-comparisons, it is usually enough that the values can be partially
-ordered. Multiobjective optimization, for instance, just needs to know
-when comparing two solutions whether one or the other is the best or there
-can be no comparison between them. In either case, the answer to the
-question ``Is this solution better than the other?'' needs to be either a crisp
-`Yes' or `No', or simply ``Impossible to know''.
+informs the algorithm on the goodness of the solution and, when facing different alternatives, it is used to
+select a particular solution over others. This does not imply the necessity of a single floating point number as feedback; since these methodology are based on
+comparisons, it is usually enough if the values can be partially
+ordered. In multiobjective optimization [REF NEEDED], for instance, two solutions can even be considered {\em non-comparable}, based on the set of fitness values they possess.
+%Multiobjective optimization, for instance, just needs to know
+%when comparing two solutions whether one or the other is the best or there
+%can be no comparison between them.
+In either case, the answer to the
+question ``Is this solution better than the other?'' needs to be either a
+`Yes', or `No', or `It's impossible to know'.
 
 
 
 In many cases, however, the fitness or cost of a solution cannot be
 described by a crisp value, because there is  \textit{uncertainty} in the measure. 
-For example, in most real world, physical cases, such as the one described in \cite{esann94}, where a
-control system was optimized and a stochastic method procedure was used. 
+Such uncertainty is inherent to most real-world physical systems, such as the one described in \cite{esann94}, where a
+control system is optimized through a stochastic procedure. 
 In these cases, the best way to describe a solution will be a random
-variable, not a single value or a vector or crisp values.
-In our research, we have found that this happens in many different
-optimization problems:
+variable, not a single value or a vector of deterministic values.
+In our research, we routinely find this phenomenon in different
+optimization problems, such as:
 \begin{itemize}
-  \item When optimizing the layout of a web-page using Simulated
-  Annealing (SA) \cite{jj-ppsn98}. Since SA is a stochastic procedure, the fitness  from an obtained solution will be a random variable.
+  \item optimizing the layout of a web-page using Simulated
+  Annealing (SA) \cite{jj-ppsn98}. Since SA is a stochastic procedure, the fitness  of an obtained solution will be a random variable.
   %PABLO: at a first glance I thought each solutions had stochastic fitness, but it is the value of the 'obtained' final solution, so I moved "obtained".
-\item When training any kind of neural network, such as those in
+\item training any kind of neural network
   \cite{esann94,merelo:ESNN}; in the second case we dealt with a
   physical installation, introducing another kind of randomness. Since
   training a neural network is a stochastic procedure, the error rate
   obtained after every training run will also follow  a statistical
   distribution. 
-\item When evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
+\item evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
   uncertainty arises from the problem itself; in games, several
   factors such as the initial positions of the players or the
-  opponent's behavior add certain stochastic component so that final
+  opponent's behavior add further stochastic components, so that the final
   score will also be {\em uncertain} or {\em noisy}. In some cases,
   too, the bot itself will rely on probabilities to 
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
@@ -136,58 +139,63 @@ optimization problems:
   opponent will also yield different scores.
 \end{itemize}
 
-In all these cases it cannot be said that there is {\em noise} added to
-a {\em crisp} fitness. Instead, the fitness itself is a statistical variable
+In all these examples, it cannot be said that there is actually {\em noise} added to
+a {\em crisp} fitness. Instead, the fitness itself can be represented with a statistical variable,
 whose value arises from a stochastic process, evaluation, or
 training. 
 
-The main issue we try to solve in this problem is the lack
-of an exhaustive research on the behavior of fitness as a random variable.
+%The main issue we try to solve in this problem is the lack
+%of an exhaustive research on the behavior of fitness as a random variable.
+Despite a considerable amount of literature on problems with stochastic fitness values, there is a distinct lack of exhaustive research on the behavior of fitness functions, seen as random variables.
 That is why, after an initial study of noise in a specific game in
 \cite{merelo14:noisy}, 
-where our findings indicated that, in some cases, noise followed a
-Gamma distribution, that
-is, a skewed normal distribution and proposing a solution to this using
-Wilcoxon comparison \ref{wilcoxon:1945} as a selection operator, 
+%where our findings indicated that, in some cases, noise followed a
+%Gamma distribution, that
+%is, a skewed normal distribution and proposing a solution to this using
+%Wilcoxon comparison \ref{wilcoxon:1945} as a selection operator, 
 we dug into data discovering that, even if the distribution in that
 particular case was always a Gamma, the parameters of the distribution
-were different. 
+were different. In that study, we proposed a solution to the noise issue, based on using the Wilcoxon comparison \ref{wilcoxon:1945} as a selection operator.
 This meant that the random variable behaved in different ways
 depending on the particular individual, the state of evolution and, of
 course, the specific problem.
 
-But, more importantly, this initial conclusion disagrees with the usual assumptions in
-optimization in uncertain environments, where it is frequent to take
-as the initial hypothesis 
-that the noise is normally distributed and with a fixed sigma
-\cite{arnold2001evolution}. For instance, in the Black Box
-Optimization Benchmarks \cite{hansen2009real} the uncertainty was
-simulated by adding noise centered in 0 and with a Cauchy
-that is, a centered, sharp bell shaped distribution,
+But, more importantly, this initial conclusion disagrees with the usual assumptions of
+optimization in uncertain environments, where it is frequent to take a normal distribution of noise with fixed $\sigma$ as the initial hypothesis \cite{arnold2001evolution}. For instance, in the functions of the Black Box
+Optimization Benchmarks \cite{hansen2009real}, uncertainty was
+simulated by adding a Cauchy noise function centered in 0,
+that is, a centered, sharp bell-shaped distribution,
 with different widths. Either multiplicative or additive noise has
-been used in different occasions. However, our initial work concluded
-that that was not the case in real optimization problems, rendering
-the conclusions achieved on the goodness of one or other method not
-applicable. Besides, we also proved in \cite{merelo14:noisy} that
+been used in different occasions. However, our initial work hints
+that this is not the case in real-world optimization problems, 
+ultimately invalidating the generality of the conclusions 
+on different optimization methods
+obtained through the usual benchmarks.
+%rendering
+%the conclusions achieved on the goodness of one or other method not
+%applicable. 
+Besides, we also prove in \cite{merelo14:noisy} that,
 depending on the shape of the statistical distribution of the fitness,
 different methods could yield the best results. While methods that
-used the median or average would work well in centered distributions,
-other methods such as our method, based on Wilcoxon test, was better
+use the median or average would work well in centered distributions,
+other methods such as our technique, based on the Wilcoxon test, are better
 in more uncertain environments or, of course, in the case the
-distribution was not centered. 
+noise distribution is not centered. 
 
-That is why, in this paper, we have collected data from several different
-problems, which will be presented later on, and tried to find a model
+In this paper, we collect data from several different
+case studies, which will be presented later on, to find a stochastic model
 for the fitness using statistical 
-tools. Our final objective is to eventually find a model as general
-as possible and that is able to account for most sources of
-uncertainty; failing that, to try and find selection operators that %PABLO: paloma told me in the mail that this "failing that" is weird. Other option?
-are able to work with random fitness in a natural way. However, this
-is not the focus of this paper and, if it is eventually needed, is
-left as future work. 
+tools. Our final objective is to eventually build a model as general
+as possible, able to account for most sources of
+uncertainty; failing that, to devise selection operators that %PABLO: paloma told me in the mail that this "failing that" is weird. Other option?
+are able to work with random fitness in a natural way. 
+%However, this
+%is not the focus of this paper and, if it is eventually needed, is
+%left as future work.
+This second part, if needed, will be the focus of future research.
 
-The rest of the paper is organized as follows. Next we present the
-state of the art in evolutionary algorithms in uncertain environments,
+The rest of the paper is organized as follows. In Section \ref{sec:soa} we present the
+state of the art for evolutionary algorithms in uncertain environments,
 to be followed by a short presentation of the four problems with
 uncertainty whose measures will be used in this paper in Section
 \ref{sec:problems}. Results will be presented in Section
