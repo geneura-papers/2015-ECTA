@@ -27,10 +27,11 @@ pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noi
 planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
 starcraft.data <- read.csv("../data/starcraftdata/starcraft-data.csv")
 mlp.data <- read.csv("../data/MLP/data-mlp.csv")
-
 @ 
 
-\title{The Uncertainty Quandary: A Study in the Context of the Evolutionary Optimization of Games}
+
+\title{The Uncertainty Quandary: A Study in the Context of the
+  Evolutionary Optimization of Games and other uncertain environments} 
 % Antonio - 'of games' -> 'in games' or in another type of problems if we include MLP results
 % Alberto - I am writing some general observations inside the master branch as if it there was no tomorrow. Also, as a general observation, the word 'crisp' is repeated about 10^80 times. You might want to find some synonyms. Also, when we speak about "fitness", IMHO is kindof weird. We should speak either of "fitness functions" or "fitness values", to be more understandable.
 
@@ -534,7 +535,7 @@ More specifically, in this case every individual faces three {\em tiers} of enem
 The original fitness function assigns a higher weight to a victory against the stronger enemies, so one victory in a higher tier is considered better than four in the immediately lower one. 
 % Antonio - Check my rephrasing and please try to clarify this giving a more complete explanation. Is the paragrpah below explaining this? ;) Pablo: fixed and explained below again
 
-Conversely, to ease comparisions among noise in the present study, we have calculated an aggregated fitness function that still respects this decision, that is, priorizing victories of harder tiers, 
+Conversely, to ease comparisons among noise in the present study, we have calculated an aggregated fitness function that still respects this decision, that is, prioritizing victories of harder tiers, 
 % Antonio - Which decision do you refer to? Pablo: explained
 giving different weights to each tier. The following equation describes the fitness function:
 \begin{equation}
@@ -581,7 +582,7 @@ solution found by the EA.
 With the case studies presented above, data on fitness values is collected by
 selecting a few random individuals in every generation of the considered EAs,
 and measuring
-their fitness 100 times, intentionally using much more repetitions than a normal optimizationg method would. Thus, every individual is represented by a
+their fitness 100 times, intentionally using much more repetitions than a normal optimization method would. Thus, every individual is represented by a
 random variable with the 100 measures taken with its
 fitness. % Alberto - can we replace "with the 100 measures taken with its fitness" with "sampled 100 times"? Would it make sense?
 According to the usual assumptions, this random variable
@@ -621,7 +622,7 @@ ggplot(s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous
 
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
-  the MADE problem. Different colors represent diffent generations.}
+  the MADE problem. Different colors represent different generations.}
 \label{fig:made}
 \end{figure}
 
