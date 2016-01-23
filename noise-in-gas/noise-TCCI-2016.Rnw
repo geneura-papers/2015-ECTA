@@ -66,6 +66,7 @@ UMR 782 GMPA, INRA, Thiverval-Grignon, France
 \begin{abstract}
 % Antonio - I rewrite the abstract (It tells the same but in other words)  
 % Alberto - I also rewrote the abstract :-)
+  % Too many rewrites spoil the soup - JJ 
   In many optimization processes, the fitness or the
   considered measure of goodness for the candidate solutions
   presents \textit{uncertainty}, that is, yields different
@@ -76,19 +77,25 @@ UMR 782 GMPA, INRA, Thiverval-Grignon, France
   stochastically, or the target game possesses intrinsic random elements. 
   Thus, it is important to examine the statistical behavior of such
   performance measurements and, more specifically, the statistical distribution
-  they show. This work analyzes four different problems, all of them
-  related to intelligence in videogames, where Evolutionary Computation
+  that better fits them. This work analyzes four different problems
+  related to computational intelligence in videogames, where Evolutionary Computation
   methods have been applied, and the evaluation of each
-  individual is performed by playing the game. 
-% Antonio - check if this asseveration is correct
-  % It is not. Deleted.
+  individual is performed by playing the game, and compares it to
+  other problem, neural network optimization, where the solution is
+  also certain. 
 In order to find a pattern in the statistical behavior of the
 variables, we track the main features of the distributions, \textit{skewness}
 and \textit{kurtosis}. Contrary to the usual assumption in this kind of problems,
-we prove that, in general, these two features not follow a normal
+we prove that, in general, these two features do not follow a normal
 distribution, but they do present a certain common behavior that changes as evolution
 proceeds, getting in some cases closer to the standard distribution
-and in others drifting apart from it. 
+and in others drifting apart from it. A clear behavior in this case
+cannot be concluded, other than the fact that the statistical
+distribution that fitness variables follow is affected by selection in
+different directions, that parameters vary in a single generation
+across them, and that, in general, this kind of behavior will have to
+be taken into account to adequately address uncertainty in fitness in
+evolutionary algorithms. 
 % Antonio - add a line with the conclusion. What does this mean?
 % Alberto - also, are we sure that in some cases skewness and kurtosis are moving away from a normal distribution, and not just happily jumping around?
 \end{abstract}
@@ -159,7 +166,7 @@ That is why, after an initial study of noise in a specific game in
 %Wilcoxon comparison \ref{wilcoxon:1945} as a selection operator, 
 we dug into data discovering that, even if the distribution in that
 particular case was always a Gamma, the parameters of the distribution
-were different. In that study, we proposed a solution to the noise issue, based on using the Wilcoxon comparison \ref{wilcoxon:1945} as a selection operator.
+were different. In that study, we proposed a solution to the noise issue, based on using the Wilcoxon comparison \cite{wilcoxon:1945} as a selection operator.
 This meant that the random variable behaved in different ways
 depending on the particular individual, the state of evolution and, of
 course, the specific problem.
@@ -192,6 +199,7 @@ for the fitness using statistical
 tools. Our final objective is to eventually build a model as general
 as possible, able to account for most sources of
 uncertainty; failing that, to devise selection operators that %PABLO: paloma told me in the mail that this "failing that" is weird. Other option?
+% not really. Tell Paloma to change it here - JJ
 are able to work with random fitness in a natural way. 
 %However, this
 %is not the focus of this paper and, if it is eventually needed, is
@@ -220,6 +228,7 @@ multiobjective optimization.
 %Increasingly more papers are concerned
 %with this type of optimization, so this makes more interesting any
 %advance in this field. 
+% right - JJ
 
 In their survey, Jin and Branke state that uncertainty is categorized into noise, %Pablo: Paloma suggested connect this paragraph, I added "For example", sounds right?
 %Alberto - nah, I think it kind of follows from above
@@ -278,8 +287,11 @@ in some particular cases
 In fact, Miller and Goldberg proved that an infinite population would not
 be affected by noise \cite{miller1996genetic} and Jun-Hua and Ming studied the
 effect of noise in convergence rates \cite{Junhua20136780}, proving
-that an elitist genetic algorithm finds at least one solution,
+that an elitist genetic algorithm finds at least one solution in noisy
+environments with probability one,
 % Alberto - "finds at least one solution"? What does it mean?
+% beats me. I'll have to check out the paper - JJ
+% Checked it out. It says exactly that. - JJ
 although with a lowered convergence rate. This possible positive
 effect of uncertainty in evaluation leads to some authors calling it
 ``a blessing and the curse'' in the context of surrogate models
@@ -305,13 +317,16 @@ populations are not used. Using oversized populations, however, might
 have a good effect on the algorithm in general, if appropriate computational resources are available \cite{DBLP:conf/lion/LaredoDFGB13}. 
 
 %Besides using implicit averaging with oversized populations, another
-Another way to deal with uncertainty,
-more theoretically sound, is using {\em real} averaging: 
+Another way to deal with uncertainty which is
+more theoretically sound is using {\em real} averaging, that is, 
 % Alberto - the part that begins with "a statistical central tendency" is not very clear, what do we want to tell the reader?
 a statistical central tendency
-indicator, which usually is  the {\em average}, and this happens to be
+indicator, which usually is  the {\em average}; average happens to be
 equal to the median in the case of the random variable following the
-normal distribution. This strategy has been called
+normal distribution. In this case, resampling is used to acquire a
+statistically significant amount of measures and then the average is
+computed over them. 
+This strategy has been called
 {\em explicit averaging} by Jin and Branke, and it is used, for instance,
 in \cite{Junhua20136780}. Explicit averaging decreases the fitness variance,
 thus reducing uncertainty, but defining the appropriate sample size for the averaging
@@ -339,6 +354,7 @@ going to model these distributions in order to verify whether this
 assumption is indeed correct. 
 
 % Alberto - now, in this paragraph below and in the one before, we talk about resampling, but every time it gives me the impression it was supposed to be the first time (or maybe the only time)
+% Can't understand you here - JJ
 To the best of our knowledge, 
 other central tendency measures such as the median, which might be more adequate for 
 certain noise models, %but which is the same for the normal
@@ -366,22 +382,25 @@ similar or statistically the same; this is usually called {\em
   threshold selection} and can be applied either to explicit or
 implicit averaging fitness functions. 
 % Alberto - I don't understand the phrases below, until the end of the paragraph. "The algorithms used for solution"? Also, is it not re-sampling all over again?
-The algorithms used for
-solution, themselves, can be also tested, with some authors proposing, instead of taking more measures,  
+Uncertainty can also be used to compare different algorithms, with some authors proposing,
+instead of taking more measures,   
 testing different solvers \cite{cauwet2014algorithm}, some of which
 might be more affected by noise than others. However, recent papers
 have proved that sampling might be ineffective \cite{Qian:sampling} in
 some types of evolutionary algorithms, adding running time without an
 additional benefit in terms of performance. This is one lead we will
-use in the current paper. 
+try to follow in the current paper, by modeling noise in order to
+eventually design an algorithm that behaves correctly in that environment.
+% Is this better? - JJ 
 
 All the aforementioned approaches still face the issue of the statistical
 representation of the {\em true} fitness, even more so if there are instead
 several measures that represent, {\em as a set}
 the fitness of an individual, such as the case study described 
 in \cite{merelo2016statistical}. This is what
-we have been using so far: a method that uses resampling via an
-individual memory % Alberto - what is "an individual memory"?
+we have been using in many of our papers: a method that uses resampling via an
+ memory attached to every individual that stores all fitness measures % Alberto - what is "an individual memory"?
+ % all fitness measurements - JJ
 and uses either explicit averaging or statistical
 tests like the non-parametric Wilcoxon test. 
 In order to test this approach on benchmark problems
@@ -476,6 +495,7 @@ and they are used to conquer enemy planets, the main way to defeat the enemy.
 %as this is the objective of the game. 
 
 In this paper we are % Alberto - which paper? The current, or the Planet Wars one?
+%this one - JJ
 using the results obtained from the Genebot algorithm \cite{EvoStar2014:GPBot}. This
 algorithm optimizes the parameters of a hand-coded FSM that indicates how many ships send from each
 planet to attack or reinforce another planet depending of some other values (such as the distance between planets). The generated bot is not
@@ -496,6 +516,9 @@ in \cite{Fernandez-Ares_COSECIVI14}.
 %---------------------------------------------------------
 
 % Alberto - for the Ms. Pac-Man case study, the structure of an individual is not explained at all, maybe it should be added?
+% Don't know if its worth the while. We are only concerned with the
+% fact that the fitness behaves that way - JJ
+
 \subsection{Ghost team optimization}
 \label{ss:pacman}
 
@@ -550,6 +573,7 @@ Moreover, the evaluation process is quite time-consuming, so, in order to save e
 
 %---------------------------------------------------------
 % Alberto - here, you should probably explain better the structure of an individual and the characteristics of the fitness function...right?
+% Please, Alberto, do it yourself - JJ
 \subsection{Artificial Neural Networks Optimization Using an EA: GProp}
 \label{ss:gprop}
 
@@ -582,18 +606,25 @@ With the case studies presented above, data on fitness values is collected by
 selecting a few random individuals in every generation of the considered EAs,
 and measuring
 their fitness 100 times, intentionally using much more repetitions than a normal optimization method would. Thus, every individual is represented by a
-random variable with the 100 measures taken with its
-fitness. % Alberto - can we replace "with the 100 measures taken with its fitness" with "sampled 100 times"? Would it make sense?
+random variable sampled 100 times. % Alberto - can we replace "with the 100 measures taken with its fitness" with "sampled 100 times"? Would it make sense?
+% Done. Thanks - JJ
 According to the usual assumptions, this random variable
 should follow a normal distribution, with a certain $\sigma$
 and centered on the {\em true} fitness value. In order to verify this
-hypothesis, we plotted the distribution's {\em skewness}, that is, its asymmetry, and its {\em kurtosis}, which is a parameter related to its shape. 
+hypothesis, we plotted the distribution's {\em skewness}, that is, its
+asymmetry, and its {\em kurtosis}, which is a parameter related to its
+shape \cite{groeneveld1984measuring}
 % Alberto - is there a reference for skewness and kurtosis?
+% Added citation - JJ
 A symmetrical distribution, like the normal
 distribution, has skewness and kurtosis equal to 0; asymmetric
 distributions, such as the Gamma that we had found in previous papers
 \cite{merelo14:noisy}, have non-zero skewness and kurtosis,
-related to their $\alpha$ and $\kappa$ parameters, for instance.
+related to their $\theta$ and $\kappa$ parameters, for instance. These
+parameters are what defines the statistical distribution; $\kappa$ is
+the shape parameter and skewness is $2/\sqrt{\kappa}$, which means
+that it is only 0, corresponding to normality, if $\kappa$ is too
+big. Kurtosis is $6/\kappa$, implying the same. 
 % Alberto - yes, but what are \alpha and \kappa? They are introduced here, but not explained
 A random variable can have skewness and kurtosis fixed at any value: thus, we present
 these values in the following figures, with skewness
@@ -631,7 +662,11 @@ Figure \ref{fig:made} represents skewness and kurtosis in the MADE case study,
 for which
 we took measures of a variable amount of individuals every
 generation, from 100 in generation 64 to around 50 in the latest
-generation. % Alberto - ok, but why? Why didn't you take 50 individuals in every generation?
+generation. The number was variable because some of them stopped
+before finishing. Anyway, the number of measurements is enough for the
+statistical analysis.
+% Alberto - ok, but why? Why didn't you take 50 individuals in every generation?
+% It takes a good while to do so - JJ
 As generations proceed, a curious convergence towards the normal
 distribution is observed; in the first
 generations, values of skewness and kurtosis are quite high and
@@ -676,7 +711,14 @@ with the shape of the distribution becoming closer to the normal distribution in
 50. Nevertheless, the initial kurtosis is quite high and values above 2 and
 below 0 are found even later in the evolution. Noise is, thus, {\em
   noisy} and does not conform to a single shape, even less a normal
-one. % Alberto - I am not sure I understood this phrase...
+one; this implies that using a single statistical model to represent
+noise will never be too close to reality, since the shapes of the
+statistical distribution are, in general, away from normal
+distribution and then different among themselves even for a single
+problem, that is, the shape of the statistical distribution of fitness
+values in uncertain environments is, itself, uncertain or {\em noisy}.
+% Alberto - I am not sure I understood this phrase...
+% Explained a bit. Thanks for the suggestions - JJ
 
 \begin{figure}[htb]
   \centering
@@ -711,8 +753,12 @@ an average of several values. This causes a curious behavior of
 fitness: in the first generation, several individuals have {\em crisp}
 values; however, this is less and less true, becoming more ``random'' as
 generations proceed, that is, the set of values the fitness has got
-starts to have many different values while in the first generations it
-had one or a few. % Alberto - I could not understand the last phrase ^_^;
+begins to have many different values while in the first generations it
+had one or a few. To put it in another words, in the first generation
+the set of fitness measures could look like $x x x y x x x$. As
+evolution proceeds, the measures in the set tend to be all different
+% Alberto - I could not understand the last phrase ^_^;
+% Hope it works now - JJ 
 That is why the behavior shown in the graph is
 completely different: distributions get increasingly asymmetric and
 their shape grows further away from a normal distribution and closer to a
@@ -743,7 +789,7 @@ ggplot(sc.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continu
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
   the Starcraft problem. Different colors (or shades of gray) represent different generations.}
-\label{fig:pw}
+\label{fig:sc}
 \end{figure}
 %
 %
@@ -770,7 +816,7 @@ ggplot(mlp.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_contin
 \caption{Skewness and kurtosis for fitness in several generations of
   the MLP training problem. Different colors (or shades of gray)
   represent different generations.} 
-\label{fig:pw}
+\label{fig:mlp}
 \end{figure}
 
 % ******************************************************************************%
@@ -826,11 +872,12 @@ of uncertain values that uses noise added to a crisp fitness is, in the
 more general case, wrong, although it might still return correct results in some cases. 
 % Alberto - I could not understand the paragraph below
 If the fitness evaluation is expensive and tests want to be
-performed for some new operators, the best way to model uncertainty
-would be to use {\em different} models applied to every individual,
+performed for some new selection operators, the best way to model uncertainty
+would be to use {\em different} statistical models applied to every individual,
 with different skewness and kurtosis. However, this would be only a
-first-order approximation and it might favor methods that use
-averages.  
+first-order approximation and it might still favor methods that use
+averages.
+%Hope it works now - JJ
 
 What remains to be done is to effectively apply Wilcoxon-based
 comparisons to the case studies above. Since real-world case studies are computationally expensive to
@@ -853,4 +900,8 @@ and project CEI2015-MP-V17 of the Microprojects program 2015 from CEI BioTIC Gra
 \bibliography{geneura,GA-general,noisy}
 
 \end{document}
+%%% Local Variables:
+%%% ispell-local-dictionary: "english"
+%%% hunspell-local-dictionary: "english"
+%%% End:
 
