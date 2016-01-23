@@ -819,29 +819,63 @@ ggplot(mlp.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_contin
 \label{fig:mlp}
 \end{figure}
 
+The last game we have evaluated is StarCraft, with kurtosis and
+skewness shown in Figure \ref{fig:sc}. In this case evaluation takes a
+very long time, that is why only a few samples were available. That
+might be the reason it is not quite clear if there is a trend. The
+latest generation seems to be a bit closer to normal distribution, but
+intermediate generations tend to have a high value. However, even if
+values seem to be closer in generation 30, they are in some cases
+positive and in other negative, indicating a distribution that is
+flatter than the Gaussian and with the {\em bump} more loaded to the
+right of the center. Once again, this proves that using non-parametric
+methods like Wilcoxon are a better approach than using central
+measures such as the average.
+
+For the sake of completeness, we have also included in this paper a
+problem that comes from a different area: genetic optimization of
+neural networks. The skewness/kurtosis graph is included in Figure
+\ref{fig:mlp}. Since the problem is completely different, the
+distribution of the values is also completely different. For starters,
+skewness tends to be negative, indicating distributions with a long
+tail to the right; that means that, even if the value is centered
+along a particular value, there are many values that are larger that
+this central value. Once again, resampling cannot change the fact that
+the average will not be an accurate description for the whole
+data. Besides, values tend to get closer to 0, 0, but in every
+generation there is values quite far away from them; in the last
+generation, a neural net whose fitness distribution has kurtosis of
+15, indicating a very sharp bump, is present, but it also has a low
+kurtosis of almost -4, indicating a long tail to the right. The
+conclusion in this case is similar: values tend to change, but they
+keep away from a single kurtosis and skewness, even less so if both of
+them are 0. 
+
 % ******************************************************************************%
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusion}
 
 \noindent In this paper we set out to study the statistical
-distribution followed by the stochastic fitness values of single individuals 
-in several
-case studies in the area of games.
+distribution that best fits  the stochastic fitness values of single individuals 
+in several case studies in the area of games; we have also included a
+genetically optimized neural network for the sake of comparison.
 Stochastic optimization algorithms applied to
 MADE, Planet Wars, Ms. Pac-Man, and StarCraft exploit different ways to
 compute the fitness values, but for all of them the fitness value is
-not a fixed number but a random variable. We
+not a fixed number but a random variable; this is also the case in
+G-Prop, the genetically optimized multilayer perceptron. We
 prove the hypothesis that not only noise does not follow the normal,
 or Gaussian, distribution, or other centrally-distributed models such
-as Cauchy, which have been used repeatedly in the literature; but 
+as Cauchy, which have been used repeatedly in the literature; but also
 it does not follow a single, particular distribution even when considering a single
-case study. 
+case study or a single generation.
 
 %The study presented here proves that hypothesis. 
-The best way to describe statistical variables is using two
+This conclusion follows from our study of the parameters of the
+statistical variables that describe fitness. The best way to describe them is using two
 parameters: kurtosis and skewness. These two parameters have been
-computed and plotted for candidate solutions from each one of the case studies, 
+computed and plotted for candidate solutions extracted from each one of the case studies, 
 proving that not
 only distributions are asymmetrical and not bell-shaped, but that their
 shape changes within a single problem and in different stages of the
@@ -851,11 +885,13 @@ individuals whose fitness is closer to a central shape are oversampled
 and thus selected preferably, with almost-central individuals in the
 latest stages being a consequence of this fact. In other cases, when
 fitness is computed in a different way or selection takes another
-form, the effect is exactly the opposite. At any rate, using averages,
-after the study done in this paper, is discouraged since in many cases
+form, the effect is exactly the opposite. At any rate, using averages
+or other central measures like the median is discouraged 
+after the study done in this paper since in many cases
 and almost always in the early stages of the evolution, fitness, being
 a random variable, does not pass a centrality test and it might not
-even possess a reliable average. A better way of comparing any fitness with
+even possess a reliable, that is, statistically significant,
+average. A better way of comparing any fitness with 
 uncertainty would be, as proposed by the authors, using non-parametric
 tests such as the Wilcoxon test that impose a partial order on the
 individuals \cite{merelo14:noisy}; this partial order can be used, in
@@ -866,7 +902,8 @@ of fitness also implies that it is an error to use centrally
 distributed random variables added to a  crisp fitness to test
 operators and algorithms that operate in uncertainty. Either real
 values should be used, such as the ones proposed above, or a
-distribution with varying shape and symmetry such as Beta. However, in this case we should take into account that ``true''
+distribution with varying shape and symmetry such as Beta. However, in
+this case we should take into account that ``true'' 
 or ``crisp'' fitness {\em does not really exist}, so any modelization
 of uncertain values that uses noise added to a crisp fitness is, in the
 more general case, wrong, although it might still return correct results in some cases. 
