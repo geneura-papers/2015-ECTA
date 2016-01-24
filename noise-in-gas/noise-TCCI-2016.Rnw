@@ -499,7 +499,7 @@ strategy games, in RTS all choices have to be performed in real time.
 %Computational intelligence
 %methods have been applied to 
 Planet Wars provides a
-simplification of the elements of the RTS: one kind of unit
+simplification of the usual elements in RTS games: one kind of unit
 (spaceships) and one kind of resources and structures
 (planets). Spaceships are automatically generated on the planets controlled by a player,
 and they are used to conquer enemy planets, the main way to defeat the enemy.
@@ -851,7 +851,7 @@ for ( i in c(1,15,30)) {
 ggplot(sc.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous()+scale_y_continuous()+theme_bw()
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
-  the Starcraft game. Different colors (or shades of gray) represent different generations.}
+  the StarCraft game. Different colors (or shades of gray) represent different generations.}
 \label{fig:sc}
 \end{figure}
 %
