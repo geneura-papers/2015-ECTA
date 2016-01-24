@@ -256,11 +256,12 @@ or on a threshold imposed during the selection phase. Papers such as Stroud's
 \cite{stroud2001kalman}, Esteban-D{\'i}az's \cite{esteban2015implicit} or Di Mario's \cite{di2015distributed} use
 this kind of approach to deal with noise. 
 % [Pedro] Add here the reference to the work by Flores2011
-Other authors \cite{Flores2011} propose to use 
-a new rank-based selection operator and a new rank-based mutation operator 
-in order to evolve a neural network topology
+Other authors \cite{Flores2011} propose to use new rank-based
+selection  and mutation operators in order to evolve a neural network topology
 used as a controller for a robot. Results show that those operators are 
-suitable for problems where the fitness landscape is noisy.
+suitable for problems where the fitness landscape is noisy, but it is
+still using a central value for the fitness that might not be always
+valid. 
 
 Since then, several other solutions for uncertainty have
 been proposed. A usual approach for scientists more focused
