@@ -14,6 +14,7 @@
 \subfigbottomskip=0pt
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 %\SweaveOpts{concordance=TRUE}
 <<setup, cache=FALSE,echo=FALSE>>=
 #You've got to install all these libraries if you want to compile the paper.
@@ -111,7 +112,7 @@ correctly. This value, usually called {\em cost} or {\em fitness},
 informs the algorithm on the goodness of the solution and, when facing different alternatives, it is used to
 select a particular solution over others. This does not imply the necessity of a single floating point number as feedback; since these methodology are based on
 comparisons, it is usually enough if the values can be partially
-ordered. In multiobjective optimization [REF NEEDED], for instance, two solutions can even be considered {\em non-comparable}, based on the set of fitness values they possess.
+ordered. In multiobjective optimization \cite{Deb2001}, for instance, two solutions can even be considered {\em non-comparable}, based on the set of fitness values they possess.
 %Multiobjective optimization, for instance, just needs to know
 %when comparing two solutions whether one or the other is the best or there
 %can be no comparison between them.
@@ -292,6 +293,7 @@ environments with probability one,
 % Alberto - "finds at least one solution"? What does it mean?
 % beats me. I'll have to check out the paper - JJ
 % Checked it out. It says exactly that. - JJ
+% Alberto - uh...but is the solution a global optimum, a local optimum...?
 although with a lowered convergence rate. This possible positive
 effect of uncertainty in evaluation leads to some authors calling it
 ``a blessing and the curse'' in the context of surrogate models
@@ -306,7 +308,7 @@ Furthermore, it has been recently proved that using two parents to
 generate offspring, that is, crossover, 
 is able to successfully deal  with noise \cite{2015arXiv150202793F}, while an
 evolutionary algorithm based mainly on mutation,
-such as the $\mu$+1 EA [REFERENCE NEEDED], or evolutionary programming, 
+such as the $\mu$+1 EA, or evolutionary programming \cite{Fogel1966}, 
 would suffer a considerable degradation of performance. 
 However, crossover is part of the standard kit of evolutionary
 algorithms, so using it and increasing the population size has the
@@ -355,6 +357,7 @@ assumption is indeed correct.
 
 % Alberto - now, in this paragraph below and in the one before, we talk about resampling, but every time it gives me the impression it was supposed to be the first time (or maybe the only time)
 % Can't understand you here - JJ
+% Alberto - basically, we are re-explaining what resampling is, multiple times.
 To the best of our knowledge, 
 other central tendency measures such as the median, which might be more adequate for 
 certain noise models, %but which is the same for the normal
@@ -371,7 +374,7 @@ which will effectively increase the number of
 evaluations and thus slow down the search. In any case, using explicit averaging usually requires just a small change to the algorithm framework, by
 using the average of several evaluations as the new fitness function.
 Thus, it is usually the method preferred by researchers and practitioners using off-the-shelf
-libraries such as ECJ [REFERENCE OR LINK NEEDED].
+libraries such as ECJ\footnote{\url{https://cs.gmu.edu/~eclab/projects/ecj/}}.
 
 In order to improve the efficiency of the algorithm, or the running
 time, these two averaging approaches that are focused on the evaluation process might
@@ -391,7 +394,8 @@ some types of evolutionary algorithms, adding running time without an
 additional benefit in terms of performance. This is one lead we will
 try to follow in the current paper, by modeling noise in order to
 eventually design an algorithm that behaves correctly in that environment.
-% Is this better? - JJ 
+% Is this better? - JJ
+% Alberto - Much better!
 
 All the aforementioned approaches still face the issue of the statistical
 representation of the {\em true} fitness, even more so if there are instead
@@ -518,15 +522,16 @@ in \cite{Fernandez-Ares_COSECIVI14}.
 % Alberto - for the Ms. Pac-Man case study, the structure of an individual is not explained at all, maybe it should be added?
 % Don't know if its worth the while. We are only concerned with the
 % fact that the fitness behaves that way - JJ
+% Alberto - but it could be useful to the reader, just to know whether it's a fixed-length vector of real values, or something more complex.
 
 \subsection{Ghost team optimization}
 \label{ss:pacman}
 
-Ms. Pac-Man [REFERENCE NEEDED] is a variant of the famous Pac-Man game [REFERENCE NEEDED] that extends its
+Ms. Pac-Man is a variant of the famous Pac-Man game that extends its
 mechanics with several extra features, the most interesting being
 the inclusion of a random event that
 reverses the direction of the ghosts. This game is used in 
-the Ms. Pac-Man vs Ghosts competition [REFERENCE NEEDED], where participants can submit
+the Ms. Pac-Man vs Ghosts competition\footnote{\url{http://wcci12.herokuapp.com/}} \cite{Lucas2009}, where participants can submit
 controllers for both Ms. Pac-Man and the Ghost Team, the first trying
 to maximize its score, the second trying to minimize Ms. Pac-Man's. 
 The framework used to test the methodology analyzed defines the
@@ -574,6 +579,7 @@ Moreover, the evaluation process is quite time-consuming, so, in order to save e
 %---------------------------------------------------------
 % Alberto - here, you should probably explain better the structure of an individual and the characteristics of the fitness function...right?
 % Please, Alberto, do it yourself - JJ
+% Alberto - I was referring to the Artificial Neural Networks project (below), to which I did not participate, and of which I know nothing about :-)
 \subsection{Artificial Neural Networks Optimization Using an EA: GProp}
 \label{ss:gprop}
 
@@ -667,6 +673,7 @@ before finishing. Anyway, the number of measurements is enough for the
 statistical analysis.
 % Alberto - ok, but why? Why didn't you take 50 individuals in every generation?
 % It takes a good while to do so - JJ
+% Alberto - I see; but this is a weak point that some reviewers might dislike...
 As generations proceed, a curious convergence towards the normal
 distribution is observed; in the first
 generations, values of skewness and kurtosis are quite high and
@@ -713,7 +720,7 @@ below 0 are found even later in the evolution. Noise is, thus, {\em
   noisy} and does not conform to a single shape, even less a normal
 one; this implies that using a single statistical model to represent
 noise will never be too close to reality, since the shapes of the
-statistical distribution are, in general, away from normal
+statistical distribution are, in general, away from the normal
 distribution and then different among themselves even for a single
 problem, that is, the shape of the statistical distribution of fitness
 values in uncertain environments is, itself, uncertain or {\em noisy}.
@@ -755,10 +762,11 @@ values; however, this is less and less true, becoming more ``random'' as
 generations proceed, that is, the set of values the fitness has got
 begins to have many different values while in the first generations it
 had one or a few. To put it in another words, in the first generation
-the set of fitness measures could look like $x x x y x x x$. As
+the set of fitness measures could look like \texttt{\{x x x y x x x\}}. As
 evolution proceeds, the measures in the set tend to be all different
 % Alberto - I could not understand the last phrase ^_^;
 % Hope it works now - JJ 
+% Alberto - Yes, it works!
 That is why the behavior shown in the graph is
 completely different: distributions get increasingly asymmetric and
 their shape grows further away from a normal distribution and closer to a
@@ -908,13 +916,14 @@ or ``crisp'' fitness {\em does not really exist}, so any modelization
 of uncertain values that uses noise added to a crisp fitness is, in the
 more general case, wrong, although it might still return correct results in some cases. 
 % Alberto - I could not understand the paragraph below
-If the fitness evaluation is expensive and tests want to be
-performed for some new selection operators, the best way to model uncertainty
+If the fitness evaluation is expensive and tests have to be
+performed for new selection operators, the best way to model uncertainty
 would be to use {\em different} statistical models applied to every individual,
 with different skewness and kurtosis. However, this would be only a
 first-order approximation and it might still favor methods that use
 averages.
 %Hope it works now - JJ
+% Alberto - Yes, now I get it.
 
 What remains to be done is to effectively apply Wilcoxon-based
 comparisons to the case studies above. Since real-world case studies are computationally expensive to
