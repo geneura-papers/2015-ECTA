@@ -523,6 +523,8 @@ in \cite{Fernandez-Ares_COSECIVI14}.
 % Don't know if its worth the while. We are only concerned with the
 % fact that the fitness behaves that way - JJ
 % Alberto - but it could be useful to the reader, just to know whether it's a fixed-length vector of real values, or something more complex.
+% Beats me. I think it is just score. Will have to read over again the
+% paper, and there's no time - JJ
 
 \subsection{Ghost team optimization}
 \label{ss:pacman}
@@ -531,7 +533,7 @@ Ms. Pac-Man is a variant of the famous Pac-Man game that extends its
 mechanics with several extra features, the most interesting being
 the inclusion of a random event that
 reverses the direction of the ghosts. This game is used in 
-the Ms. Pac-Man vs Ghosts competition\footnote{\url{http://wcci12.herokuapp.com/}} \cite{Lucas2009}, where participants can submit
+the Ms. Pac-Man vs Ghosts competition \cite{Lucas2009}, where participants can submit
 controllers for both Ms. Pac-Man and the Ghost Team, the first trying
 to maximize its score, the second trying to minimize Ms. Pac-Man's. 
 The framework used to test the methodology analyzed defines the
