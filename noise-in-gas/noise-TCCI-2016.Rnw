@@ -630,22 +630,30 @@ point, with the current score.
 
 Designing an artificial neural network is not an easy process, as 
 it requires setting a layer structure with connections among the different 
-components, tuning several parameters (such as the initial weights) 
+components, tuning several parameters, such as the initial weights, 
 and defining a set of learning constants. Then, a training method must be used, 
-which is usually an iterative gradient descent algorithm.
+which is usually an iterative gradient descent algorithm. 
+% Man, I wrote that sentence like 20 years ago. You should have
+% changed it already - JJ
 
 G-Prop (''genetic backpropagation'') \cite{CastilloNPL,castilloNC,ieeeanova2002} 
 attempts to solve the problem of finding 
 appropriate initial weights and learning parameters for a single hidden layer 
 of a Multilayer Perceptron (MLP), by combining an EA and QuickProp method \cite{FahlmanQP}. 
 The EA selects the MLP's initial weights, picks its learning rate, and changes the 
-number of neurons in the hidden layer through the application of specific genetic operators.
+number of neurons in the hidden layer through the application of
+specific genetic operators. 
 
 G-Prop is a hybrid algorithm that leverages the capabilities of two classes 
 of algorithms: the ability of the EA to find a solution close to the global 
 optimum, and the ability of the QuickProp algorithm to tune a solution and reach 
 the nearest local minimum by means of a local search performed from the 
 solution found by the EA.
+
+In this case, training is not deterministic and results in different
+models, the success rate, which is used as a fitness value, achieved during test will be different for
+each training run. This uncertainty makes this method amenable to
+analysis in the paper.
 
 
 % ******************************************************************************
