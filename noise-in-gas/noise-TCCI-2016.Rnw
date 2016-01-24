@@ -15,7 +15,7 @@
 
 \begin{document}
 %\SweaveOpts{concordance=TRUE}
-<<setup, cache=FALSE,echo=FALSE>>=
+<<setup, cache=FALSE,echo=FALSE,warning=FALSE>>=
 #You've got to install all these libraries if you want to compile the paper.
 library("ggplot2")
 library("RCurl") #To download stuff directly from the GitHub repo
