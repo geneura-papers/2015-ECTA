@@ -560,26 +560,63 @@ tough rivals for the ghost team.
 \subsection{A complex real-time strategy game: StarCraft}
 \label{ss:starcraft}
 
-StarCraft has become a {\em de facto} testbed for AI research in complex RTS games \cite{OntanonSURCP13}. In fact, given the high variety of game features, such as configuration options, game modes, units, maps, etc; along with the existence of several frameworks and tools related with it; researchers have exploited the game for a great variety of topics: micro and macro management of units, temporal and spatial reasoning, battle planning, combat results prediction, optimal paths and uncertainty addressing, among others. % Alberto - what is "uncertainty addressing" in this context?
+StarCraft has become a {\em de facto} testbed for AI research in
+complex RTS games \cite{OntanonSURCP13}. In fact, given the high
+variety of game features, such as configuration options, game modes,
+units, maps, etc; along with the existence of several frameworks and
+tools related with it; researchers have exploited the game for a great
+variety of topics: micro and macro management of units, temporal and
+spatial reasoning, battle planning, combat results prediction, optimal
+paths and dealing with problems such as the one that is the topic of
+this paper, uncertainty in the evaluation of the fitness, among others. % Alberto - what is
+                                        % "uncertainty addressing" in
+                                        % this context? 
+%Added, although I didn't write this - JJ
 
-The individuals described in this subsection have been generated using StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP) [Koza1994] framework that automatically generates the source code of high-level strategies of bots. As in previous problems, the fitness of one individual is computed pitting the bot against different enemies, each one following a different strategy. 
-More specifically, in this case every individual faces three {\em tiers} of enemies (considered as weak, medium and strong rivals), each tier with four different enemies. 
+The individuals described in this subsection have been generated using
+StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP)
+[Koza1994] framework that automatically generates the source code of
+high-level strategies of bots. As in some of the games described
+above, the fitness of one individual is computed pitting the bot
+against different enemies, each one following a different strategy.  
+More specifically, in this case every individual faces three {\em
+  divisions} of enemies (considered as weak, medium and strong rivals),
+each division containing four different enemies.  
 % Antonio - are they 'different' as I have written?
 % Alberto - Yes, you have 4 different bots in each tier, for a total of 12 bots
-The original fitness function assigns a higher weight to a victory against the stronger enemies, so one victory in a higher tier is considered better than four in the immediately lower one. 
+The original fitness function assigns a higher weight to a victory
+against the stronger enemies, so one victory in a higher tier is
+considered better than four in the immediately lower one.  
 % Antonio - Check my rephrasing and please try to clarify this giving a more complete explanation. Is the paragrpah below explaining this? ;) Pablo: fixed and explained below again
 
-Conversely, to ease comparisons among noise in the present study, we have calculated an aggregated fitness function that still respects this decision, that is, prioritizing victories of harder tiers, 
+Conversely, to ease comparisons among noise in the present study, we
+have calculated an aggregated fitness function that still respects
+this decision, that is, prioritizing victories of harder divisions,  
 % Antonio - Which decision do you refer to? Pablo: explained
-giving different weights to each tier. The following equation describes the fitness function:
+by giving different weights to each one. The following equation
+describes the fitness function: 
 \begin{equation}
 F_{StarCraft}=21\times A + 5\times B + C + R
 \end{equation}
 
-Where $A$ is the number of victories against enemies in the strongest tier, $B$ is the number of victories against the middle tier, and $C$ is the number of victories against the weakest enemies. Thus, for example, one victory in the middle tier is worth more points (5 points) than 4 victories in the weak tier (4 points). Also, a coefficient of the aggregated score at the end of all the games, $R$ has been added, in order to deal with ties in number of victories. This is in fact an internal score computed by the game, that takes into account all the aspects of a match, ranging from the number of kills to the type and quality of units built. 
+Where $A$ is the number of victories against enemies in the strongest
+tier, $B$ is the number of victories against the middle tier, and $C$
+is the number of victories against the weakest enemies. Thus, for
+example, one victory in the middle tier is worth more points (5
+points) than 4 victories in the weak tier (4 points). Also, a
+coefficient of the aggregated score at the end of all the games, $R$
+has been added, in order to deal with ties in number of
+victories. This is in fact an internal score computed by the game,
+that takes into account all the aspects of a match, ranging from the
+number of kills to the type and quality of units built.  
 % Antonio - Please, explain this better. ;) Pablo: Done
 
-Moreover, the evaluation process is quite time-consuming, so, in order to save execution time, at least one enemy of the weak tiers must be defeated before allowing the individual access the higher tier. To this end, if a bot does not win against weaker rivals, we consider it cannot defeat the stronger ones: so, the evaluation terminates at that point, with the current score.
+Moreover, the evaluation process is quite time-consuming, so, in order
+to save execution time, at least one enemy of the weak tiers must be
+defeated before allowing the individual to proceed to fight the next one. To
+this end, if a bot does not win against weaker rivals, we consider it
+cannot defeat the stronger ones: so, the evaluation terminates at that
+point, with the current score. 
 % Antonio - with the current score, right? Pablo: yes, yes.
 
 
@@ -587,6 +624,7 @@ Moreover, the evaluation process is quite time-consuming, so, in order to save e
 % Alberto - here, you should probably explain better the structure of an individual and the characteristics of the fitness function...right?
 % Please, Alberto, do it yourself - JJ
 % Alberto - I was referring to the Artificial Neural Networks project (below), to which I did not participate, and of which I know nothing about :-)
+% Don't know much either, this was written by Pedro - JJ
 \subsection{Artificial Neural Networks Optimization Using an EA: GProp}
 \label{ss:gprop}
 
@@ -803,7 +841,7 @@ for ( i in c(1,15,30)) {
 ggplot(sc.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous()+scale_y_continuous()+theme_bw()
 @ 
 \caption{Skewness and kurtosis for fitness in several generations of
-  the Starcraft problem. Different colors (or shades of gray) represent different generations.}
+  the Starcraft game. Different colors (or shades of gray) represent different generations.}
 \label{fig:sc}
 \end{figure}
 %
