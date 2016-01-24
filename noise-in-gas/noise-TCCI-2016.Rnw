@@ -850,21 +850,20 @@ tail to the right; that means that, even if the value is centered
 along a particular value, there are many values that are larger that
 this central value. Once again, resampling cannot change the fact that
 the average will not be an accurate description for the whole
-data. Besides, values tend to get closer to 0, 0, but in every
-generation there is values quite far away from them; in the last
-generation, a neural net whose fitness distribution has kurtosis of
-15, indicating a very sharp bump, is present, but it also has a low
-kurtosis of almost -4, indicating a long tail to the right. The
-conclusion in this case is similar: values tend to change, but they
-keep away from a single kurtosis and skewness, even less so if both of
-them are 0. 
+data. Besides, values tend to get closer to 0 although in every generation 
+there are values quite far away from them; e.g in the last generation, 
+a neural net whose fitness distribution has kurtosis of 15, indicating a 
+very sharp bump, is present, but it also has a low kurtosis of almost -4 indicating a long tail to the right.
+The conclusion in this case is similar in the sense that values tend to change while they
+keep away from a single kurtosis and skewness; even having less values than the latter 
+if both of them are set to 0.
 
 % ******************************************************************************%
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusion}
 
-\noindent In this paper we set out to study the statistical
+\noindent In this paper, we set out to study the statistical
 distribution that best fits  the stochastic fitness values of single individuals 
 in several case studies in the area of games; we have also included a
 genetically optimized neural network for the sake of comparison.
@@ -875,7 +874,7 @@ not a fixed number but a random variable; this is also the case in
 G-Prop, the genetically optimized multilayer perceptron. We
 prove the hypothesis that not only noise does not follow the normal,
 or Gaussian, distribution, or other centrally-distributed models such
-as Cauchy, which have been used repeatedly in the literature; but also
+as Cauchy, which have been used repeatedly in literature; but also
 it does not follow a single, particular distribution even when considering a single
 case study or a single generation.
 
