@@ -32,7 +32,13 @@ mlp.data <- read.csv("../data/MLP/data-mlp.csv")
 \title{The Uncertainty Quandary: A Study in the Context of the
   Evolutionary Optimization of Games and other uncertain environments} 
 % Antonio - 'of games' -> 'in games' or in another type of problems if we include MLP results
-% Alberto - I am writing some general observations inside the master branch as if it there was no tomorrow. Also, as a general observation, the word 'crisp' is repeated about 10^80 times. You might want to find some synonyms. Also, when we speak about "fitness", IMHO is kindof weird. We should speak either of "fitness functions" or "fitness values", to be more understandable.
+% Alberto - I am writing some general observations inside the master
+% branch as if it there was no tomorrow. Also, as a general
+% observation, the word 'crisp' is repeated about 10^80 times. You
+% might want to find some synonyms. Also, when we speak about
+% "fitness", IMHO is kindof weird. We should speak either of "fitness
+% functions" or "fitness values", to be more understandable. 
+% Just go ahead and change them. I'll look crisp up.
 
 % Don't like it too much, but at least it's honest and true.
 % Antonio - I fix it and propose a change "Noise plays: a study of uncertainty in the context of evolutionary optimization in games"
@@ -106,7 +112,7 @@ evolutionary algorithms.
 \section{Introduction}
 \label{sec:introduction}
 
-Optimization methods usually need a crisp and reliable feedback to work
+Optimization methods usually need a single-valued and reliable feedback to work
 correctly. This value, usually called {\em cost} or {\em fitness},
 informs the algorithm on the goodness of the solution and, when facing different alternatives, it is used to
 select a particular solution over others. This does not imply the necessity of a single floating point number as feedback; since these methodology are based on
@@ -122,7 +128,7 @@ question ``Is this solution better than the other?'' needs to be either a
 
 
 In many cases, however, the fitness or cost of a solution cannot be
-described by a crisp value, because there is  \textit{uncertainty} in the measure. 
+described by a scalar value, because there is  \textit{uncertainty} in the measure. 
 Such uncertainty is inherent to most real-world physical systems, such as the one described in \cite{esann94}, where a
 control system is optimized through a stochastic procedure. 
 In these cases, the best way to describe a solution will be a random
@@ -151,7 +157,7 @@ optimization problems, such as:
 \end{itemize}
 
 In all these examples, it cannot be said that there is actually {\em noise} added to
-a {\em crisp} fitness. Instead, the fitness itself can be represented with a statistical variable,
+a {\em real} fitness. Instead, the fitness itself can be represented with a statistical variable,
 whose value arises from a stochastic process, evaluation, or
 training. 
 
@@ -907,13 +913,13 @@ several different ways, for selection.
 
 The fact that there is no single model representing the distribution
 of fitness also implies that it is an error to use centrally
-distributed random variables added to a  crisp fitness to test
+distributed random variables added to an actual fitness to test
 operators and algorithms that operate in uncertainty. Either real
 values should be used, such as the ones proposed above, or a
 distribution with varying shape and symmetry such as Beta. However, in
 this case we should take into account that ``true'' 
 or ``crisp'' fitness {\em does not really exist}, so any modelization
-of uncertain values that uses noise added to a crisp fitness is, in the
+of uncertain values that uses noise added to a fitness value is, in the
 more general case, wrong, although it might still return correct results in some cases. 
 % Alberto - I could not understand the paragraph below
 If the fitness evaluation is expensive and tests have to be
