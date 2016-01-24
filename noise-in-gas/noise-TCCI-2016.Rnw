@@ -574,10 +574,12 @@ this paper, uncertainty in the evaluation of the fitness, among others. % Albert
                                         % "uncertainty addressing" in
                                         % this context? 
 %Added, although I didn't write this - JJ
+%Pablo: it was referred to the "fog of war" thing, but as you have 
+%rewritten to match with the paper topic let keep it as it is now.
 
 The individuals described in this subsection have been generated using
 StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP)
-[Koza1994] framework that automatically generates the source code of
+\cite{Koza93} framework that automatically generates the source code of
 high-level strategies of bots. As in some of the games described
 above, the fitness of one individual is computed pitting the bot
 against different enemies, each one following a different strategy.  
@@ -586,9 +588,16 @@ More specifically, in this case every individual faces three {\em
 each division containing four different enemies.  
 % Antonio - are they 'different' as I have written?
 % Alberto - Yes, you have 4 different bots in each tier, for a total of 12 bots
-The original fitness function assigns a higher weight to a victory
-against the stronger enemies, so one victory in a higher tier is
-considered better than four in the immediately lower one.  
+
+
+The original fitness function assigned a higher weight to a victory 
+against the stronger enemies, i.e. it used a lexicographical fitness, 
+so one victory in a higher tier 
+was considered better than more victories in the immediately lower one. 
+For example, one individual that wins 1 time against one enemy of 
+every tier was considered better than one individual that beats all
+ individuals from medium and weak tier, but none in the strong one.
+
 % Antonio - Check my rephrasing and please try to clarify this giving a more complete explanation. Is the paragrpah below explaining this? ;) Pablo: fixed and explained below again
 
 Conversely, to ease comparisons among noise in the present study, we
@@ -925,7 +934,7 @@ genetically optimized neural network for the sake of comparison.
 Stochastic optimization algorithms applied to
 MADE, Planet Wars, Ms. Pac-Man, and StarCraft exploit different ways to
 compute the fitness values, but for all of them the fitness value is
-not a fixed number but a random variable; this is also the case in
+not a fixed number but a random variable. This is also the case in
 G-Prop, the genetically optimized multilayer perceptron. We
 prove the hypothesis that not only noise does not follow the normal,
 or Gaussian, distribution, or other centrally-distributed models such
@@ -956,7 +965,7 @@ even possess a reliable, that is, statistically significant,
 average. A better way of comparing any fitness with 
 uncertainty would be, as proposed by the authors, using non-parametric
 tests such as the Wilcoxon test that impose a partial order on the
-individuals \cite{merelo14:noisy}; this partial order can be used, in
+individuals \cite{merelo14:noisy}. This partial order can be used, in
 several different ways, for selection. 
 
 The fact that there is no single model representing the distribution
@@ -983,7 +992,7 @@ What remains to be done is to effectively apply Wilcoxon-based
 comparisons to the case studies above. Since real-world case studies are computationally expensive to
 evaluate, we plan to create a benchmark for problems with
 uncertainty which reflects in the best possible way how fitness is
-organized in a wide array of problems. In order attain this goal, we will 
+organized in a wide array of problems. In order to attain this goal, we will 
 examine as many uncertain problems as possible, in the attempt to deduce a model of noise what as general as possible. 
 
 
