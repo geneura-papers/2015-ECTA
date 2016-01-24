@@ -374,7 +374,7 @@ which will effectively increase the number of
 evaluations and thus slow down the search. In any case, using explicit averaging usually requires just a small change to the algorithm framework, by
 using the average of several evaluations as the new fitness function.
 Thus, it is usually the method preferred by researchers and practitioners using off-the-shelf
-libraries such as ECJ\footnote{\url{https://cs.gmu.edu/~eclab/projects/ecj/}}.
+libraries such as ECJ\cite{luke2006ecj}.
 
 In order to improve the efficiency of the algorithm, or the running
 time, these two averaging approaches that are focused on the evaluation process might
