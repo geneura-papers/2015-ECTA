@@ -556,7 +556,7 @@ tough rivals for the ghost team.
 
 StarCraft has become a {\em de facto} testbed for AI research in complex RTS games \cite{OntanonSURCP13}. In fact, given the high variety of game features, such as configuration options, game modes, units, maps, etc; along with the existence of several frameworks and tools related with it; researchers have exploited the game for a great variety of topics: micro and macro management of units, temporal and spatial reasoning, battle planning, combat results prediction, optimal paths and uncertainty addressing, among others. % Alberto - what is "uncertainty addressing" in this context?
 
-The individuals described in this subsection have been generated using StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP) [REFERENCE NEEDED, Koza1994?] framework that automatically generates the source code of high-level strategies of bots. As in previous problems, the fitness of one individual is computed pitting the bot against different enemies, each one following a different strategy. 
+The individuals described in this subsection have been generated using StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP) [Koza1994] framework that automatically generates the source code of high-level strategies of bots. As in previous problems, the fitness of one individual is computed pitting the bot against different enemies, each one following a different strategy. 
 More specifically, in this case every individual faces three {\em tiers} of enemies (considered as weak, medium and strong rivals), each tier with four different enemies. 
 % Antonio - are they 'different' as I have written?
 % Alberto - Yes, you have 4 different bots in each tier, for a total of 12 bots
