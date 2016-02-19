@@ -30,7 +30,9 @@ mlp.data <- read.csv("../data/MLP/data-mlp.csv")
 
 
 \title{The Uncertainty Quandary: A Study in the Context of the
-  Evolutionary Optimization of Games and other uncertain environments} 
+  Evolutionary Optimization of Games and Other Uncertain Environments}
+% Antonio - The last part of the title sounds a bit strange, could not be better something like '...of the Evolutionary Optimization of Games and Neural Networks'? or '...of the Evolutionary Optimization in Uncertain Environments'
+
 % Antonio - 'of games' -> 'in games' or in another type of problems if we include MLP results
 % Alberto - I am writing some general observations inside the master
 % branch as if it there was no tomorrow. Also, as a general
@@ -639,16 +641,19 @@ point, with the current score.
 \subsection{Artificial Neural Networks Optimization Using an EA: GProp}
 \label{ss:gprop}
 
-Designing an artificial neural network is not an easy process, as 
-it requires setting a layer structure with connections among the different 
-components, tuning several parameters, such as the initial weights, 
-and defining a set of learning constants. Then, a training method must be used, 
-which is usually an iterative gradient descent algorithm. 
+%Designing an artificial neural network is not an easy process, as 
+%it requires setting a layer structure with connections among the different 
+%components, tuning several parameters, such as the initial weights, 
+%and defining a set of learning constants. Then, a training method must be used, 
+%which is usually an iterative gradient descent algorithm. 
 % Man, I wrote that sentence like 20 years ago. You should have
 % changed it already - JJ
 
-G-Prop (''genetic backpropagation'') \cite{CastilloNPL,castilloNC,ieeeanova2002} 
-attempts to solve the problem of finding 
+The design of an Artificial Neural Network (ANN) \cite{Haykin98_NNC} requires to set both, the structure of its set of hidden layers, along with the parameters it uses (weights and learning constants).
+% Antonio - I have rewritten it.
+
+G-Prop (``genetic backpropagation'') \cite{CastilloNPL,castilloNC,ieeeanova2002} 
+aims to solve the problem of finding 
 appropriate initial weights and learning parameters for a single hidden layer 
 of a Multilayer Perceptron (MLP), by combining an EA and QuickProp method \cite{FahlmanQP}. 
 The EA selects the MLP's initial weights, picks its learning rate, and changes the 
