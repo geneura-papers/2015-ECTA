@@ -24,6 +24,7 @@ library(e1071) # for skewness and kurtosis
 made.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/MADE/made-data.csv"))
 pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/ms-pacman/pacman-fitness.csv"))
 planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
+#Or from this same repo
 starcraft.data <- read.csv("../data/starcraftdata/starcraft-data.csv")
 mlp.data <- read.csv("../data/MLP/data-mlp.csv")
 @ 
@@ -56,12 +57,8 @@ UMR 782 GMPA, INRA, Thiverval-Grignon, France
 
 \maketitle 
 
-%\keywords{Games, evolutionary optimization, noise, uncertainty, noisy fitness}
-
 \begin{abstract}
-% Antonio - I rewrite the abstract (It tells the same but in other words)  
-% Alberto - I also rewrote the abstract :-)
-  % Too many rewrites spoil the soup - JJ 
+
   In many optimization processes, the fitness or the considered
 measure of goodness for the candidate solutions presents
 \textit{uncertainty}, that is, it yields different values when
@@ -71,29 +68,27 @@ computational intelligence in games, when either bots behave
 stochastically, or the target game possesses intrinsic random
 elements, but it shows up also in other problems as long as there is
 some random component.  Thus, it is important to examine the
-statistical behavior 
-of repeated measurements of performance and, more specifically, the
-statistical distribution that better fits them. This work analyzes
-four different problems related to computational intelligence in
-videogames, where Evolutionary Computation methods have been applied,
-and the evaluation of each individual is performed by playing the
-game, and compares it to other problem, neural network optimization,
-where performance is also a statistical variable.  In order to find a
-pattern in the 
-statistical behavior of the variables, we track the main features of
-its distributions, \textit{skewness} and \textit{kurtosis}. Contrary
-to the usual assumption in this kind of problems, we prove that, in
-general, the values of two features imply that fitness values do not
-follow a normal distribution; 
-they do present a certain common behavior that changes as evolution
-proceeds, getting in some cases closer to the standard distribution
-and in others drifting apart from it. A clear behavior in this case
-cannot be concluded, other than the fact that the statistical
-distribution that fitness variables follow is affected by selection in
-different directions, that parameters vary in a single generation
-across them, and that, in general, this kind of behavior will have to
-be taken into account to adequately address uncertainty in fitness in
-evolutionary algorithms.
+statistical behavior of repeated measurements of performance and, more
+specifically, the statistical distribution that better fits them. This
+work analyzes four different problems related to computational
+intelligence in videogames, where Evolutionary Computation methods
+have been applied, and the evaluation of each individual is performed
+by playing the game, and compares it to other problem, neural network
+optimization, where performance is also a statistical variable.  In
+order to find a pattern in the statistical behavior of the variables,
+we track the main features of its distributions, \textit{skewness} and
+\textit{kurtosis}. Contrary to the usual assumption in this kind of
+problems, we prove that, in general, the values of two features imply
+that fitness values do not follow a normal distribution; they do
+present a certain common behavior that changes as evolution proceeds,
+getting in some cases closer to the standard distribution and in
+others drifting apart from it. A clear behavior in this case cannot be
+concluded, other than the fact that the statistical distribution that
+fitness variables follow is affected by selection in different
+directions, that parameters vary in a single generation across them,
+and that, in general, this kind of behavior will have to be taken into
+account to adequately address uncertainty in fitness in evolutionary
+algorithms.
 \end{abstract}
 
 
@@ -102,19 +97,18 @@ evolutionary algorithms.
 \section{Introduction}
 \label{sec:introduction}
 
-Optimization methods usually need a single-valued and reliable feedback to work
-correctly. This value, usually called {\em cost} or {\em fitness},
-informs the algorithm on the goodness of the solution and, when facing different alternatives, it is used to
-select a particular solution over others. This does not imply the necessity of a single floating point number as feedback; since these methodology are based on
-comparisons, it is usually enough if the values can be partially
-ordered. In multiobjective optimization \cite{Deb2001}, for instance, two solutions can even be considered {\em non-comparable}, based on the set of fitness values they possess.
-%Multiobjective optimization, for instance, just needs to know
-%when comparing two solutions whether one or the other is the best or there
-%can be no comparison between them.
-In either case, the answer to the
-question ``Is this solution better than the other?'' needs to be either a
-`Yes', or `No', or `It's impossible to know'.
-
+Optimization methods usually need a single-valued and reliable
+feedback to work correctly. This value, usually called {\em cost} or
+{\em fitness}, informs the algorithm on the goodness of the solution
+and, when facing different alternatives, it is used to select a
+particular solution over others. This does not imply the necessity of
+a single floating point number as feedback; since these methodology
+are based on comparisons, it is usually enough if the values can be
+partially ordered. In multiobjective optimization \cite{Deb2001}, for
+instance, two solutions can even be considered {\em non-comparable},
+based on the set of fitness values they possess.  In either case, the
+answer to the question ``Is this solution better than the other?''
+needs to be either a 'Yes', or 'No', or 'It is impossible to know'.
 
 
 In many cases, however, the fitness or cost of a solution cannot be
@@ -126,7 +120,7 @@ variable, not a single value or a vector of deterministic values.
 In our research, we routinely find this phenomenon in different
 optimization problems, such as:
 \begin{itemize}
-  \item optimizing the layout of a web-page using Simulated
+  \item Optimizing the layout of a web-page using Simulated
   Annealing (SA) \cite{jj-ppsn98}. Since SA is a stochastic procedure, the fitness  of an obtained solution will be a random variable.
   %PABLO: at a first glance I thought each solutions had stochastic fitness, but it is the value of the 'obtained' final solution, so I moved "obtained".
 \item training any kind of neural network
@@ -135,7 +129,7 @@ optimization problems, such as:
   training a neural network is a stochastic procedure, the error rate
   obtained after every training run will also follow  a statistical
   distribution. 
-\item evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
+\item Evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
   uncertainty arises from the problem itself; in games, several
   factors such as the initial positions of the players or the
   opponent's behavior add further stochastic components, so that the final
@@ -144,6 +138,10 @@ optimization problems, such as:
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
   case two different runs with exactly the same initial conditions and
   opponent will also yield different scores.
+  \item In coevolutionary algorithms \cite{paredis1995coevolutionary},
+    individuals are evaluated by randomly choosing opponents from a
+    pool, thus resulting in a fitness that is variable in a single
+    generation and across generations \cite{DBLP:journals/jcst/MoraFGGF12}.
 \end{itemize}
 
 In all these examples, it cannot be said that there is actually {\em noise} added to
