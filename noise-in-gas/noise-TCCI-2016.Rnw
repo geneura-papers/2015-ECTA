@@ -98,33 +98,40 @@ algorithms.
 \label{sec:introduction}
 
 Optimization methods usually need a single-valued and reliable
-feedback to work correctly. This value, usually called {\em cost} or
-{\em fitness}, informs the algorithm on the goodness of the solution
-and, when facing different alternatives, it is used to select a
-particular solution over others. This does not imply the necessity of
-a single floating point number as feedback; since these methodology
-are based on comparisons, it is usually enough if the values can be
-partially ordered. In multiobjective optimization \cite{Deb2001}, for
-instance, two solutions can even be considered {\em non-comparable},
-based on the set of fitness values they possess.  In either case, the
-answer to the question ``Is this solution better than the other?''
-needs to be either a `Yes', or `No', or `Not decidable'.
+feedback on the quality of possible solutions to work correctly. This
+value, usually called {\em cost} or {\em fitness}, informs the
+algorithm on the goodness of the solution and, when facing different
+alternatives, it is used to select a particular solution over
+others. This does not imply the necessity of a single floating point
+number as feedback; since these methodologies are based on
+comparisons, it is usually enough if the values can be partially
+ordered. In multiobjective optimization \cite{Deb2001}, for instance,
+two solutions can even be considered {\em non-comparable}, based on
+the set of fitness values they possess.  In either case, the answer to
+the question ``Is this solution better than the other?''  needs to be
+either a `Yes', or `No', or `Not decidable' in most optimization
+algorithms.
 
 
-In many cases, however, the fitness or cost of a solution cannot be
-described by a scalar value, because there is  \textit{uncertainty} in the measure. 
-Such uncertainty is inherent to most real-world physical systems, such as the one described in \cite{esann94}, where a
-control system is optimized through a stochastic procedure. 
-In these cases, the best way to describe a solution will be a random
+For many problems, however, the fitness or cost of a solution cannot be
+described by a single value or vector, because there is
+\textit{uncertainty} when measuring it. Such uncertainty is inherent
+to most real-world physical systems, such as the one described in
+\cite{esann94}, where a 
+control system is optimized through a stochastic procedure, but it
+also shows in machine learning and, in general, when the optimization
+algorithm uses a lower-level method which is, itself, stochastic.
+In these cases, the best way to describe the quality of a solution will be a random
 variable, not a single value or a vector of deterministic values.
 In our research, we routinely find this phenomenon in different
 optimization problems, such as:
 \begin{itemize}
-  \item Optimizing the layout of a web-page using Simulated
-  Annealing (SA) \cite{jj-ppsn98}. Since SA is a stochastic procedure, the fitness  of an obtained solution will be a random variable.
-  %PABLO: at a first glance I thought each solutions had stochastic fitness, but it is the value of the 'obtained' final solution, so I moved "obtained".
-\item training any kind of neural network
-  \cite{esann94,merelo:ESNN}; in the second case we dealt with a
+\item Optimizing the layout of a web-page using Simulated
+  Annealing (SA) \cite{jj-ppsn98}. Since SA is a stochastic procedure,
+  the fitness  of an obtained solution will be a random variable. 
+  
+\item Training any kind of neural network
+  \cite{esann94,merelo:ESNN}; in the first case, also mentioned above, we dealt with a
   physical installation, introducing another kind of randomness. Since
   training a neural network is usually a stochastic procedure, the error rate
   obtained after every training run will also follow  a statistical
@@ -138,74 +145,77 @@ optimization problems, such as:
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
   case two different runs with exactly the same initial conditions and
   opponent will also yield different scores.
-  \item In coevolutionary algorithms \cite{paredis1995coevolutionary},
-    individuals are evaluated by randomly choosing opponents from a
+  
+\item In coevolutionary algorithms
+  \cite{paredis1995coevolutionary,EvoStar2014:CoEvolutionary,DBLP:journals/soco/Parras-GutierrezARJ12}, 
+    individuals are evaluated by randomly choosing opponents from a 
     pool, thus resulting in a fitness that is variable in a single
     generation and across generations \cite{DBLP:journals/jcst/MoraFGGF12}.
 \end{itemize}
 
-In all these examples, it cannot be said that there is actually {\em noise} added to
-a {\em real} fitness. Instead, the fitness itself can be represented with a statistical variable,
-whose value arises from a stochastic process, evaluation, or
-training. 
+In all these examples, it cannot be said that there is actually {\em
+noise} added to a {\em real} fitness. Instead, the fitness itself can
+be represented with a statistical variable, whose value arises from a
+stochastic process, evaluation, or training. In this sense, we are not
+concerned with the origin of this uncertainty. It could be noise in
+the measuring process, uncertainty in the fitness itself, or
+incomplete information like, for instance, what appears when surrogate
+models are used. It might be the case that the statistical nature of
+the fitness as a random variable might be different,
+distribution-wise, but we think that, except in the case that
+uncertainty is created by adding noise to fitness, the results
+obtained here will hold. In the problems used here, the randomness
+arises from the inherent stochasticity of the methods used to measure
+fitness, which, themselves, have a random element. 
 
-%The main issue we try to solve in this problem is the lack
-%of an exhaustive research on the behavior of fitness as a random variable.
-Despite a considerable amount of literature on problems with stochastic fitness values, there is a distinct lack of exhaustive research on the behavior of fitness functions, seen as random variables.
-That is why, after an initial study of noise in a specific game in
-\cite{merelo14:noisy}, 
-%where our findings indicated that, in some cases, noise followed a
-%Gamma distribution, that
-%is, a skewed normal distribution and proposing a solution to this using
-%Wilcoxon comparison \ref{wilcoxon:1945} as a selection operator, 
-we dug into data discovering that, even if the distribution in that
-particular case was always a Gamma, the parameters of the distribution
-were different. In that study, we proposed a solution to the noise issue, based on using the Wilcoxon comparison \cite{wilcoxon:1945} as a selection operator.
+Despite a considerable amount of literature on problems with
+stochastic fitness values, there is a distinct lack of exhaustive
+research on the behavior of fitness functions, seen as random
+variables.  That is why, after an initial study of noise in a specific
+game in \cite{merelo14:noisy}, we dug into experimental data
+discovering that, even if the distribution in that particular case was
+always a Gamma, the parameters of the distribution were different. In
+that study, we proposed a solution to the noise issue, based on using
+the Wilcoxon comparison \cite{wilcoxon:1945} as a selection operator.
 This meant that the random variable behaved in different ways
 depending on the particular individual, the state of evolution and, of
 course, the specific problem.
 
-But, more importantly, this initial conclusion disagrees with the usual assumptions of
-optimization in uncertain environments, where it is usual to take a normal distribution of noise with fixed $\sigma$ as the initial hypothesis \cite{arnold2001evolution}. For instance, in the functions of the Black Box
-Optimization Benchmarks \cite{hansen2009real}, uncertainty was
-simulated by adding a Cauchy noise function centered in 0,
-that is, a centered, sharp bell-shaped distribution,
-with different widths. Either multiplicative or additive noise has
-been used in different occasions. However, our initial work hints
-that this is not the case in real-world optimization problems, 
-ultimately invalidating the generality of the conclusions 
-on different optimization methods
-obtained through the usual benchmarks.
-%rendering
-%the conclusions achieved on the goodness of one or other method not
-%applicable. 
-Besides, we also prove in \cite{merelo14:noisy} that,
-depending on the shape of the statistical distribution of the fitness,
-different methods could yield the best results. While methods that
-use the median or average would work well in centered distributions,
-other methods such as our technique, based on the Wilcoxon test, are better
-in more uncertain environments or, of course, in the case the
-noise distribution is not centered. 
+But, more importantly, this initial conclusion disagrees with the
+usual assumptions of optimization in uncertain environments, where it
+is usual to take a normal distribution of noise with fixed $\sigma$ as
+the initial hypothesis \cite{arnold2001evolution}. For instance, in
+the functions of the Black Box Optimization Benchmarks
+\cite{hansen2009real}, uncertainty was simulated by adding a Cauchy
+noise function centered in 0, that is, a centered, sharp bell-shaped
+distribution, with different widths. Either multiplicative or additive
+noise has been used in different occasions. However, our initial work
+hints that this is not the case in real-world optimization problems,
+ultimately invalidating the generality of the conclusions on different
+optimization methods obtained through the usual benchmarks.  Besides,
+we also prove in \cite{merelo14:noisy} that, depending on the shape of
+the statistical distribution of the fitness, different methods could
+yield the best results. While methods that use the median or average
+would work well in centered distributions, other methods such as our
+technique, based on the Wilcoxon test, are better in more uncertain
+environments or, of course, in the case the noise distribution is not
+centered.
 
-In this paper, we collect data from several different
-case studies, which will be presented later on, to find a stochastic model
-for the fitness using statistical 
-tools. Our final objective is to eventually build a model as general
-as possible, able to account for most sources of
-uncertainty; failing that, to devise selection operators that %PABLO: paloma told me in the mail that this "failing that" is weird. Other option?
-% not really. Tell Paloma to change it here - JJ
-are able to work with random fitness in a natural way. 
-%However, this
-%is not the focus of this paper and, if it is eventually needed, is
-%left as future work.
+In this paper, we collect data from several different case studies,
+which will be presented later on, to find a stochastic model for the
+fitness using statistical tools. Our final objective is to eventually
+build a model as general as possible, able to account for most sources
+of uncertainty; failing that, to devise selection operators that are
+able to work with random fitness in a natural way.
+
 This second part, if needed, will be the focus of future research.
 
-The rest of the paper is organized as follows. In Section \ref{sec:soa} we present the
-state of the art for evolutionary algorithms in uncertain environments,
-to be followed by a short presentation of the four problems with
-uncertainty whose measures will be used in this paper in Section
-\ref{sec:problems}. Results will be presented in Section
-\ref{sec:res}, followed by our conclusions.
+The rest of the paper is organized as follows. In Section
+\ref{sec:soa} we present the state of the art for evolutionary
+algorithms in uncertain environments, to be followed by a short
+presentation of the four problems with uncertainty whose measures will
+be used in this paper in Section \ref{sec:problems}. Results will be
+presented in Section \ref{sec:res}, followed by our conclusions.
 
 % ******************************************************************************
 
@@ -372,7 +382,7 @@ which will effectively increase the number of
 evaluations and thus slow down the search. In any case, using explicit averaging usually requires just a small change to the algorithm framework, by
 using the average of several evaluations as the new fitness function.
 Thus, it is usually the method preferred by researchers and practitioners using off-the-shelf
-libraries such as ECJ\cite{luke2006ecj}.
+libraries such as ECJ \cite{luke2006ecj}.
 
 In order to improve the efficiency of the algorithm, or the running
 time, these two averaging approaches that are focused on the evaluation process might
@@ -976,9 +986,9 @@ individuals whose fitness is closer to a central shape are oversampled
 and thus selected preferably, with almost-central individuals in the
 latest stages being a consequence of this fact. In other cases, when
 fitness is computed in a different way or selection takes another
-form, the effect is exactly the opposite. At any rate, using averages
-or other central measures like the median is discouraged 
-after the study done in this paper since in many cases
+form, the effect is exactly the opposite. Using averages
+or other central measures like the median does not seem to be
+supported by the results of this paper since in many cases
 and almost always in the early stages of the evolution, fitness, being
 a random variable, does not pass a centrality test and it might not
 even possess a reliable, that is, statistically significant,
