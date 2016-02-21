@@ -30,20 +30,7 @@ mlp.data <- read.csv("../data/MLP/data-mlp.csv")
 
 
 \title{The Uncertainty Quandary: A Study in the Context of the
-  Evolutionary Optimization of Games and Other Uncertain Environments}
-% Antonio - The last part of the title sounds a bit strange, could not be better something like '...of the Evolutionary Optimization of Games and Neural Networks'? or '...of the Evolutionary Optimization in Uncertain Environments'
-
-% Antonio - 'of games' -> 'in games' or in another type of problems if we include MLP results
-% Alberto - I am writing some general observations inside the master
-% branch as if it there was no tomorrow. Also, as a general
-% observation, the word 'crisp' is repeated about 10^80 times. You
-% might want to find some synonyms. Also, when we speak about
-% "fitness", IMHO is kindof weird. We should speak either of "fitness
-% functions" or "fitness values", to be more understandable. 
-% Just go ahead and change them. I'll look crisp up.
-
-% Don't like it too much, but at least it's honest and true.
-% Antonio - I fix it and propose a change "Noise plays: a study of uncertainty in the context of evolutionary optimization in games"
+  Evolutionary Optimization in Games and Other Uncertain Environments}
 
 \author{Juan J. Merelo\inst{1} \and 
     Federico Liberatore\inst{1},
@@ -743,6 +730,15 @@ statistical analysis.
 % Alberto - ok, but why? Why didn't you take 50 individuals in every generation?
 % It takes a good while to do so - JJ
 % Alberto - I see; but this is a weak point that some reviewers might dislike...
+% We'll have to make do as long as it is statistically significant.
+You can already see that the distribution is not normal, since almost
+no individual has a kurtosis and skewness equal to zero; some of them,
+however, are close. This will be
+the case for the rest of the experiments, too; in some very limited
+cases fitness distribution will be almost normal in the first or the
+last generations, but that will never be the case for all individuals
+or even a significant fraction, nullifying the hypothesis of fitness
+behaving like a crisp fitness with gaussian added noise.
 As generations proceed, a curious convergence towards the normal
 distribution is observed; in the first
 generations, values of skewness and kurtosis are quite high and
@@ -922,7 +918,8 @@ the average will not be an accurate description for the whole
 data. Besides, values tend to get closer to 0 although in every generation 
 there are values quite far away from them; e.g in the last generation, 
 a neural net whose fitness distribution has kurtosis of 15, indicating a 
-very sharp bump, is present, but it also has a low kurtosis of almost -4 indicating a long tail to the right.
+very sharp bump, is present, but it also has a low kurtosis of almost
+-4 indicating a long tail to the right. 
 The conclusion in this case is similar in the sense that values tend to change while they
 keep away from a single kurtosis and skewness; even having less values than the latter 
 if both of them are set to 0.
@@ -983,15 +980,12 @@ this case we should take into account that ``true''
 or ``crisp'' fitness {\em does not really exist}, so any modelization
 of uncertain values that uses noise added to a fitness value is, in the
 more general case, wrong, although it might still return correct results in some cases. 
-% Alberto - I could not understand the paragraph below
 If the fitness evaluation is expensive and tests have to be
 performed for new selection operators, the best way to model uncertainty
 would be to use {\em different} statistical models applied to every individual,
 with different skewness and kurtosis. However, this would be only a
 first-order approximation and it might still favor methods that use
 averages.
-%Hope it works now - JJ
-% Alberto - Yes, now I get it.
 
 What remains to be done is to effectively apply Wilcoxon-based
 comparisons to the case studies above. Since real-world case studies are computationally expensive to
@@ -1014,6 +1008,7 @@ and project CEI2015-MP-V17 of the Microprojects program 2015 from CEI BioTIC Gra
 \bibliography{geneura,GA-general,noisy}
 
 \end{document}
+
 %%% Local Variables:
 %%% ispell-local-dictionary: "english"
 %%% hunspell-local-dictionary: "english"
