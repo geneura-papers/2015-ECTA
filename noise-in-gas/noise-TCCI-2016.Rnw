@@ -156,7 +156,17 @@ optimization problems, such as:
 In all these examples, it cannot be said that there is actually {\em
 noise} added to a {\em real} fitness. Instead, the fitness itself can
 be represented with a statistical variable, whose value arises from a
-stochastic process, evaluation, or training.
+stochastic process, evaluation, or training. In this sense, we are not
+concerned with the origin of this uncertainty. It could be noise in
+the measuring process, uncertainty in the fitness itself, or
+incomplete information like, for instance, what appears when surrogate
+models are used. It might be the case that the statistical nature of
+the fitness as a random variable might be different,
+distribution-wise, but we think that, except in the case that
+uncertainty is created by adding noise to fitness, the results
+obtained here will hold. In the problems used here, the randomness
+arises from the inherent stochasticity of the methods used to measure
+fitness, which, themselves, have a random element. 
 
 Despite a considerable amount of literature on problems with
 stochastic fitness values, there is a distinct lack of exhaustive
