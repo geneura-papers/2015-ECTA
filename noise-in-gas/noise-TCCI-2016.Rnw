@@ -98,33 +98,38 @@ algorithms.
 \label{sec:introduction}
 
 Optimization methods usually need a single-valued and reliable
-feedback to work correctly. This value, usually called {\em cost} or
+feedback on the quality of possible solutions to work correctly. This value, usually called {\em cost} or
 {\em fitness}, informs the algorithm on the goodness of the solution
 and, when facing different alternatives, it is used to select a
 particular solution over others. This does not imply the necessity of
-a single floating point number as feedback; since these methodology
+a single floating point number as feedback; since these methodologies
 are based on comparisons, it is usually enough if the values can be
 partially ordered. In multiobjective optimization \cite{Deb2001}, for
 instance, two solutions can even be considered {\em non-comparable},
 based on the set of fitness values they possess.  In either case, the
 answer to the question ``Is this solution better than the other?''
-needs to be either a `Yes', or `No', or `Not decidable'.
+needs to be either a `Yes', or `No', or `Not decidable' in most
+optimization algorithms. 
 
 
-In many cases, however, the fitness or cost of a solution cannot be
-described by a scalar value, because there is  \textit{uncertainty} in the measure. 
-Such uncertainty is inherent to most real-world physical systems, such as the one described in \cite{esann94}, where a
-control system is optimized through a stochastic procedure. 
-In these cases, the best way to describe a solution will be a random
+For many problems, however, the fitness or cost of a solution cannot be
+described by a single value or vector, because there is
+\textit{uncertainty} when measuring it. Such uncertainty is inherent
+to most real-world physical systems, such as the one described in
+\cite{esann94}, where a 
+control system is optimized through a stochastic procedure, but it
+also shows in machine learning and, in general, when the optimization
+algorithm uses a lower-level method which is, itself, stochastic.
+In these cases, the best way to describe the quality of a solution will be a random
 variable, not a single value or a vector of deterministic values.
 In our research, we routinely find this phenomenon in different
 optimization problems, such as:
 \begin{itemize}
-  \item Optimizing the layout of a web-page using Simulated
+\item Optimizing the layout of a web-page using Simulated
   Annealing (SA) \cite{jj-ppsn98}. Since SA is a stochastic procedure, the fitness  of an obtained solution will be a random variable.
-  %PABLO: at a first glance I thought each solutions had stochastic fitness, but it is the value of the 'obtained' final solution, so I moved "obtained".
-\item training any kind of neural network
-  \cite{esann94,merelo:ESNN}; in the second case we dealt with a
+  
+\item Training any kind of neural network
+  \cite{esann94,merelo:ESNN}; in the first case, also mentioned above, we dealt with a
   physical installation, introducing another kind of randomness. Since
   training a neural network is usually a stochastic procedure, the error rate
   obtained after every training run will also follow  a statistical
@@ -138,7 +143,8 @@ optimization problems, such as:
   generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
   case two different runs with exactly the same initial conditions and
   opponent will also yield different scores.
-  \item In coevolutionary algorithms \cite{paredis1995coevolutionary},
+  
+\item In coevolutionary algorithms \cite{paredis1995coevolutionary,EvoStar2014:CoEvolutionary,DBLP:journals/soco/Parras-GutierrezARJ12},
     individuals are evaluated by randomly choosing opponents from a
     pool, thus resulting in a fitness that is variable in a single
     generation and across generations \cite{DBLP:journals/jcst/MoraFGGF12}.
@@ -372,7 +378,7 @@ which will effectively increase the number of
 evaluations and thus slow down the search. In any case, using explicit averaging usually requires just a small change to the algorithm framework, by
 using the average of several evaluations as the new fitness function.
 Thus, it is usually the method preferred by researchers and practitioners using off-the-shelf
-libraries such as ECJ\cite{luke2006ecj}.
+libraries such as ECJ \cite{luke2006ecj}.
 
 In order to improve the efficiency of the algorithm, or the running
 time, these two averaging approaches that are focused on the evaluation process might
@@ -969,9 +975,9 @@ individuals whose fitness is closer to a central shape are oversampled
 and thus selected preferably, with almost-central individuals in the
 latest stages being a consequence of this fact. In other cases, when
 fitness is computed in a different way or selection takes another
-form, the effect is exactly the opposite. At any rate, using averages
-or other central measures like the median is discouraged 
-after the study done in this paper since in many cases
+form, the effect is exactly the opposite. Using averages
+or other central measures like the median does not seem to be
+supported by the results of this paper since in many cases
 and almost always in the early stages of the evolution, fitness, being
 a random variable, does not pass a centrality test and it might not
 even possess a reliable, that is, statistically significant,
