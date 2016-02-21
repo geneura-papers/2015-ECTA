@@ -31,7 +31,7 @@ mlp.data <- read.csv("../data/MLP/data-mlp.csv")
 
 
 \title{The Uncertainty Quandary: A Study in the Context of the
-  Evolutionary Optimization in Games and Other Uncertain Environments}
+  Evolutionary Optimization in Games and other Uncertain Environments}
 
 \author{Juan J. Merelo\inst{1} \and 
     Federico Liberatore\inst{1},
@@ -75,7 +75,7 @@ intelligence in videogames, where Evolutionary Computation methods
 have been applied, and the evaluation of each individual is performed
 by playing the game, and compares it to other problem, neural network
 optimization, where performance is also a statistical variable.  In
-order to find a pattern in the statistical behavior of the variables,
+order to find possible patterns in the statistical behavior of the variables,
 we track the main features of its distributions, \textit{skewness} and
 \textit{kurtosis}. Contrary to the usual assumption in this kind of
 problems, we prove that, in general, the values of two features imply
@@ -108,7 +108,7 @@ partially ordered. In multiobjective optimization \cite{Deb2001}, for
 instance, two solutions can even be considered {\em non-comparable},
 based on the set of fitness values they possess.  In either case, the
 answer to the question ``Is this solution better than the other?''
-needs to be either a 'Yes', or 'No', or 'It is impossible to know'.
+needs to be either a `Yes', or `No', or `Not decidable'.
 
 
 In many cases, however, the fitness or cost of a solution cannot be
@@ -126,7 +126,7 @@ optimization problems, such as:
 \item training any kind of neural network
   \cite{esann94,merelo:ESNN}; in the second case we dealt with a
   physical installation, introducing another kind of randomness. Since
-  training a neural network is a stochastic procedure, the error rate
+  training a neural network is usually a stochastic procedure, the error rate
   obtained after every training run will also follow  a statistical
   distribution. 
 \item Evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
@@ -166,7 +166,7 @@ depending on the particular individual, the state of evolution and, of
 course, the specific problem.
 
 But, more importantly, this initial conclusion disagrees with the usual assumptions of
-optimization in uncertain environments, where it is frequent to take a normal distribution of noise with fixed $\sigma$ as the initial hypothesis \cite{arnold2001evolution}. For instance, in the functions of the Black Box
+optimization in uncertain environments, where it is usual to take a normal distribution of noise with fixed $\sigma$ as the initial hypothesis \cite{arnold2001evolution}. For instance, in the functions of the Black Box
 Optimization Benchmarks \cite{hansen2009real}, uncertainty was
 simulated by adding a Cauchy noise function centered in 0,
 that is, a centered, sharp bell-shaped distribution,
