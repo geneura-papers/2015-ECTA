@@ -985,14 +985,20 @@ performed for new selection operators, the best way to model uncertainty
 would be to use {\em different} statistical models applied to every individual,
 with different skewness and kurtosis. However, this would be only a
 first-order approximation and it might still favor methods that use
-averages.
+averages. Following the model proposed by Jin \cite{jin2011surrogate}
+for surrogate models, assuming normality in fitness will make
+selectable some individuals that should not be. Assessing this error
+and its impact on selection, and comparing how different methods, such
+as the one based in statistical techniques and proposed previously,
+reduce that error is also left as future work.
 
 What remains to be done is to effectively apply Wilcoxon-based
 comparisons to the case studies above. Since real-world case studies are computationally expensive to
 evaluate, we plan to create a benchmark for problems with
 uncertainty which reflects in the best possible way how fitness is
 organized in a wide array of problems. In order to attain this goal, we will 
-examine as many uncertain problems as possible, in the attempt to deduce a model of noise what as general as possible. 
+examine as many uncertain problems as possible, in the attempt to
+deduce a model of noise what as general as possible.  
 
 
 \section{\uppercase{Acknowledgements}}
