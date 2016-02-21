@@ -577,7 +577,14 @@ this paper, uncertainty in the evaluation of the fitness, among others. % Albert
 The individuals described in this subsection have been generated using
 StarCraftGP \cite{Garcia15StarcraftGP}, a Genetic Programming (GP)
 \cite{Koza93} framework that automatically generates the source code of
-high-level strategies of bots. As in some of the games described
+high-level strategies of bots. In this case, Linear GP \cite{SquilleroLP05} was used to generate 
+the building order of the units to create, and also the rules to activate 
+during the game: for example, when to attack the enemy or when to collect
+ more materials. Each individual is a source code file in C++ that is compiled
+ during the evaluation. A population of 32 individuals was evolved during 30 generations.
+ The rest of the parameters used are presented in \cite{Garcia15StarcraftGP}.
+
+As in some of the games described
 above, the fitness of one individual is computed pitting the bot
 against different enemies, each one following a different strategy.  
 More specifically, in this case every individual faces three {\em
