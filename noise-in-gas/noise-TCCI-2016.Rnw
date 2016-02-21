@@ -73,7 +73,7 @@ specifically, the statistical distribution that better fits them. This
 work analyzes four different problems related to computational
 intelligence in videogames, where Evolutionary Computation methods
 have been applied, and the evaluation of each individual is performed
-by playing the game, and compares it to other problem, neural network
+by playing the game, and compare them to other problem, neural network
 optimization, where performance is also a statistical variable.  In
 order to find possible patterns in the statistical behavior of the variables,
 we track the main features of its distributions, \textit{skewness} and
@@ -700,7 +700,7 @@ related to their $\theta$ and $\kappa$ parameters, for instance. These
 parameters are what defines the statistical distribution; $\kappa$ is
 the shape parameter and skewness is $2/\sqrt{\kappa}$, which means
 that it is only 0, corresponding to normality, if $\kappa$ grows to
-infinite. Kurtosis is $6/\kappa$, implying the same. 
+infinity. Kurtosis is $6/\kappa$, implying the same. 
 % Alberto - yes, but what are \alpha and \kappa? They are introduced here, but not explained
 A random variable can have skewness and kurtosis fixed at any value: thus, we present
 these values in the following figures, with skewness
@@ -799,7 +799,7 @@ below 0 are found even later in the evolution. Noise is, thus, {\em
   noisy} and does not conform to a single shape, even less a normal
 one; this implies that using a single statistical model to represent
 noise will never be too close to reality, since the shapes of the
-statistical distribution are, in general, away from the normal
+statistical distribution are, in general, quite different from the normal
 distribution and then different among themselves even for a single
 problem, that is, the shape of the statistical distribution of fitness
 values in uncertain environments is, itself, uncertain or {\em noisy}.
@@ -947,7 +947,7 @@ if both of them are set to 0.
 distribution that best fits  the stochastic fitness values of single individuals 
 in several case studies in the area of games; we have also included a
 genetically optimized neural network for the sake of comparison.
-Stochastic optimization algorithms applied to
+Stochastic optimization evolutionary algorithms applied to
 MADE, Planet Wars, Ms. Pac-Man, and StarCraft exploit different ways to
 compute the fitness values, but for all of them the fitness value is
 not a fixed number but a random variable. This is also the case in
@@ -963,13 +963,13 @@ case study or a single generation.
 This conclusion follows from our study of the parameters of the
 statistical variables that describe fitness. The best way to describe them is using two
 parameters: kurtosis and skewness. These two parameters have been
-computed and plotted for candidate solutions extracted from each one of the case studies, 
+computed and plotted for candidate solutions extracted from each of the case studies, 
 proving that not
 only distributions are asymmetrical and not bell-shaped, but that their
 shape changes within a single problem and in different stages of the
 computation; this is in accordance with the conclusions reached by
 Rattray and Shapiro in \cite{rattray1998noisy} for evolution of finite
-populations in the presence of noise. In some case, like MADE, it seems clear that due to the
+populations in the presence of noise. In some cases, like MADE, it seems clear that due to the
 fact that averages are used as a representative for selection, 
 individuals whose fitness is closer to a central shape are oversampled
 and thus selected preferably, with almost-central individuals in the
