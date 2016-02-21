@@ -422,33 +422,39 @@ generation of character backstories in artificial worlds, described in
 subsection \ref{ss:made}, optimization of bots for playing the real
 time strategy game (RTS) Planet Wars in \ref{ss:pw}, optimization of
 the ghost team in Ms. Pac-Man, which will be described in subsection
-\ref{ss:pacman}, automatic generation of autonomous players for
-the famous RTS StarCraft, explained in subsection \ref{ss:starcraft}
-and an artificial neural network optimization problem using an EA \ref{ss:gprop}. 
-These five problems have been chosen for two main reasons: the origin of uncertainty
-is different for each of the case studies; and data for the experiments is readily
-available, with the possibility of
-running further experimental trials, if needed.
-%the the most important of 
-%which is that we have been working on them and thus have data 
-%available; another reason is that the origin of the uncertainty is
-%different in the four cases. 
-In the case of MADE, fitness is computed
-through a simulation; in the case of Planet Wars, the bot
-themselves have a random component, with its representation including
-probabilities of different courses of action;  in Ms. Pac-Man, uncertainty lies in the 
-nature of the game itself; and the huge amount of possibilities in StarCraft, 
-with a considerable number of units behaving independently, creates an extremely high source of uncertainty. These scenarios are not a complete representation 
-of all possible causes of uncertainty in optimization, 
-but we think that the sample is big and varied enough to 
-generalize the obtained results, which will be presented in the next section. 
+\ref{ss:pacman}, automatic generation of autonomous players for the
+famous RTS StarCraft, explained in subsection \ref{ss:starcraft} and
+an artificial neural network optimization problem using an EA
+\ref{ss:gprop}.  
 
-%[Pedro] in the "Experiments and Results" the order of reporting the resulst is different to the previously proposed: (1)Ms.Pac-man (2)MADE (3)Planet Wars
-% in "Experiments and Results" section the order is (1)MADE (2)Planet Wars (3)Ms.Pac-man 
-% This is not so important, but I think it should be the same order...
-% Antonio - opino igual, pero habría que cambiar los textos (en los experimentos, o al principio de esta sección)
-% The order is for the sake of argument. It does not matter that it is
-% different - JJ
+These five problems have been chosen for two main
+reasons: the origin of uncertainty is different for each of the case
+studies; and data for the experiments is readily available, with the
+possibility of running further experimental trials, if needed.  In the
+case of MADE, fitness is computed through a simulation; in the case of
+Planet Wars, the bot themselves have a random component, with its
+representation including probabilities of different courses of action;
+in Ms. Pac-Man, uncertainty lies in the nature of the game itself; and
+the huge amount of possibilities in StarCraft, with a considerable
+number of units behaving independently, creates an extremely high
+source of uncertainty. These scenarios are not a complete
+representation of all possible causes of uncertainty in optimization,
+but we think that the sample is big and varied enough to generalize
+the obtained results, which will be presented in the next section.
+
+In all cases, three generations were chosen, and they are different
+depending on the problem. We feature the first generation (except in
+the case of MADE), a intermediate generation and one close to the
+end of the evolution, containing individuals close to the
+solution. These were chosen to check the progress of the two
+statistical parameters in different situations: close to random in the
+case of the first generations, and close to the {\em real} value, in
+the case of the last ones. The particular number of generations is not
+really important, the importance is how close they are to the end of
+the evolution, which is different in each case. 
+
+We will next examine the creation of character backstories in the
+problem called MADE.
 
 %---------------------------------------------------------
 
