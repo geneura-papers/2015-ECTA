@@ -302,7 +302,7 @@ In real-world problems, however, populations are finite: in fact, using large po
 decreases the algorithm's efficiency and can be time consuming, so the usual approach for dealing with
 fitness with a degree of randomness is to enlarge the population
 to a value bigger than would normally be needed in a non-noisy environment, while keeping it to a manageable size.   
-Furthermore, it has been recently proved that using two parents to
+Furthermore, it has been  proved recently that using two parents to
 generate offspring, that is, crossover, 
 is able to successfully deal  with noise \cite{2015arXiv150202793F}, while an
 evolutionary algorithm based mainly on mutation,
@@ -400,7 +400,7 @@ representation of the {\em true} fitness, even more so if there are instead
 several measures that represent, {\em as a set}
 the fitness of an individual, such as the case study described 
 in \cite{merelo2016statistical}. This is what
-we have been using in many of our papers: a method that uses resampling via an
+we have been using in many of our papers: a method that uses resampling via a
  memory attached to every individual that stores all fitness measures % Alberto - what is "an individual memory"?
  % all fitness measurements - JJ
 and uses either explicit averaging or statistical
@@ -416,9 +416,9 @@ actually appears in games and other real-world case studies for optimization.
 \label{sec:problems}
 
 % Antonio - reescribo el texto para cambiar el orden
-The fitness of four different case studies, all related to
+The fitness analyzed in the four different case studies, all related to
 computational intelligence in games, are described in this paper:
-generation of character backstories in artificial worlds, described in
+generation of character backstories in a MAssive Drama Engine for non-player characters (MADE), described in
 subsection \ref{ss:made}, optimization of bots for playing the real
 time strategy game (RTS) Planet Wars in \ref{ss:pw}, optimization of
 the ghost team in Ms. Pac-Man, which will be described in subsection
@@ -461,7 +461,7 @@ problem called MADE.
 \subsection{Creation of character backstories}
 \label{ss:made}
 
-MADE (MAssive Drama Engine for non-player characters)
+MADE 
 \cite{garcia14my} is a framework for the automatic generation of
 virtual worlds that allow the emergence of backstories for secondary
 characters that can later on be included in videogames. In this context, an {\em archetype}
@@ -505,7 +505,7 @@ and they are used to conquer enemy planets, the main way to defeat the enemy.
 In this paper we are % Alberto - which paper? The current, or the Planet Wars one?
 %this one - JJ
 using the results obtained from the Genebot algorithm \cite{EvoStar2014:GPBot}. This
-algorithm optimizes the parameters of a hand-coded FSM that indicates how many ships send from each
+algorithm optimizes the parameters of a hand-coded FSM that indicates how many ships are sent from each
 planet to attack or reinforce another planet depending of some other values (such as the distance between planets). The generated bot is not
 deterministic, as some of the jumps of the states are based on
 probabilities. 
@@ -593,7 +593,7 @@ so one victory in a higher tier
 was considered better than more victories in the immediately lower one. 
 For example, one individual that wins 1 time against one enemy of 
 every tier was considered better than one individual that beats all
- individuals from medium and weak tier, but none in the strong one.
+ individuals from the medium and weak tier, but none in the strong one.
 
 % Antonio - Check my rephrasing and please try to clarify this giving a more complete explanation. Is the paragrpah below explaining this? ;) Pablo: fixed and explained below again
 
@@ -607,7 +607,7 @@ describes the fitness function:
 F_{StarCraft}=21\times A + 5\times B + C + R
 \end{equation}
 
-Where $A$ is the number of victories against enemies in the strongest
+where $A$ is the number of victories against enemies in the strongest
 tier, $B$ is the number of victories against the middle tier, and $C$
 is the number of victories against the weakest enemies. Thus, for
 example, one victory in the middle tier is worth more points (5
@@ -619,11 +619,11 @@ that takes into account all the aspects of a match, ranging from the
 number of kills to the type and quality of units built.  
 % Antonio - Please, explain this better. ;) Pablo: Done
 
-Moreover, the evaluation process is quite time-consuming, so, in order
+Moreover, the evaluation process is quite time-consuming, so in order
 to save execution time, at least one enemy of the weak tiers must be
 defeated before allowing the individual to proceed to fight the next one. To
 this end, if a bot does not win against weaker rivals, we consider it
-cannot defeat the stronger ones: so, the evaluation terminates at that
+cannot defeat the stronger ones: so the evaluation terminates at that
 point, with the current score. 
 % Antonio - with the current score, right? Pablo: yes, yes.
 
@@ -693,8 +693,8 @@ distributions, such as the Gamma that we had found in previous papers
 related to their $\theta$ and $\kappa$ parameters, for instance. These
 parameters are what defines the statistical distribution; $\kappa$ is
 the shape parameter and skewness is $2/\sqrt{\kappa}$, which means
-that it is only 0, corresponding to normality, if $\kappa$ is too
-big. Kurtosis is $6/\kappa$, implying the same. 
+that it is only 0, corresponding to normality, if $\kappa$ grows to
+infinite. Kurtosis is $6/\kappa$, implying the same. 
 % Alberto - yes, but what are \alpha and \kappa? They are introduced here, but not explained
 A random variable can have skewness and kurtosis fixed at any value: thus, we present
 these values in the following figures, with skewness
