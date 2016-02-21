@@ -478,8 +478,7 @@ characters that can later on be included in videogames. In this context, an {\em
 is a well-known behaviour present in the imaginary collective (for
 example, a ``hero'' or a ``villain''). Given a fitness that takes into account the
 existence of different $N_a$ archetypes for a virtual world, MADE uses
-a genetic algorithm to optimize the parameter values of a Finite State
-Machine (FSM) that models the agents of that world. For the evaluation,
+a Genetic Algorithm (GA) \cite{Goldberg} to optimize the parameter values of a Finite State Machine (FSM) that models the agents of that world. For the evaluation,
 a world is simulated using this parameter set, and the log is analyzed
 to detect behaviours of the world agents that match the desired
 archetypes. 
@@ -514,11 +513,23 @@ and they are used to conquer enemy planets, the main way to defeat the enemy.
 
 In this paper we are % Alberto - which paper? The current, or the Planet Wars one?
 %this one - JJ
-using the results obtained from the Genebot algorithm \cite{EvoStar2014:GPBot}. This
-algorithm optimizes the parameters of a hand-coded FSM that indicates how many ships are sent from each
-planet to attack or reinforce another planet depending of some other values (such as the distance between planets). The generated bot is not
-deterministic, as some of the jumps of the states are based on
-probabilities. 
+using the results obtained from the Genebot algorithm \cite{DBLP:conf/iwann/Fernandez-AresMMGF11}. This
+algorithm optimizes seven parameters of a hand-coded FSM, namely:
+\begin{itemize}
+	\item the percentage of starships the bot sends (regarding the number of starships in the planet).
+   \item the probability this happens.
+	\item the weight of the number of starships and the planet growth rate.
+   \item the distance from the base planet to the target planet. 
+	\item the proportion and percentage of extra starships that the bot sends from the base planet to the target planet. 
+	\item the probability of sending extra fleets from the colonies to the target planet.
+\end{itemize}
+
+These values are used in expressions used by the bot to take decisions, such as the selection of the target planet to attack or reinforce. 
+A GA was applied to evolve (improve) these parameters off-line, i.e., not during the battles. It followed a generational scheme \cite{Michalewicz} with 
+elitism (the best solution always survives). A Two-Tournament selection was performed, together with a BLX-alpha crossover 
+\cite{Herrera03ataxonomy} ($\alpha$ = 0.5) and an operator which mutates the value of a random gene by adding or subtracting a random quantity in the $[0,1]$ interval. 
+
+The generated bot is not deterministic, as some of the jumps of the states are based on probabilities. 
 Fitness is calculated confronting five times the bot obtained from the parameter set of the FSM against
 a competitive hand-coded bot. The result of each match takes into account the `slope' of the number of player spaceships
 during the time of the match. Positive results mean that the bot won,
@@ -528,8 +539,8 @@ in the game. A value of -1 would indicate that the player lost all
 their ships in the initial time, while $1$ would mean the contrary: it
 generated all the spaceships and won in the initial time. The fitness
 of an individual is the sum of all five results, and therefore being
-in the range $[-5,5]$. This fitness measurement is explained in more detail
-in \cite{Fernandez-Ares_COSECIVI14}.  
+in the range $[-5,5]$.
+  
 
 %---------------------------------------------------------
 
