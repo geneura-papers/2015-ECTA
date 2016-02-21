@@ -266,7 +266,11 @@ generation. This option seems to work especially well if the population is
 large \cite{hansen2009method}, since the selective pressure is lower
 and solutions have the chance to be evaluated several times before
 being selected or discarded; this leads, if the population is large
-enough, to an {\em implicit averaging} as mentioned in \cite{Jin2005303}.
+enough, to an {\em implicit averaging} as mentioned in
+\cite{Jin2005303}; in fact, Rattray and Shapiro
+\cite{rattray1998noisy} in their theoretical model compute by how much
+the {\em crisp} population must be enlarged to overcome the {\em
+  problem} of noise.
 This solution is exploited in our previous research in
 games, although one evaluation in some of these works consists, in
   fact, of an average of several evaluations, on different maps or
@@ -940,7 +944,8 @@ not a fixed number but a random variable. This is also the case in
 G-Prop, the genetically optimized multilayer perceptron. We
 prove the hypothesis that not only noise does not follow the normal,
 or Gaussian, distribution, or other centrally-distributed models such
-as Cauchy, which have been used repeatedly in literature; but also
+as Cauchy, which have been used repeatedly in literature for
+benchmarking selection methods in the presence of noise; but also
 it does not follow a single, particular distribution even when considering a single
 case study or a single generation.
 
@@ -952,7 +957,9 @@ computed and plotted for candidate solutions extracted from each one of the case
 proving that not
 only distributions are asymmetrical and not bell-shaped, but that their
 shape changes within a single problem and in different stages of the
-computation. In some case, like MADE, it seems clear that due to the
+computation; this is in accordance with the conclusions reached by
+Rattray and Shapiro in \cite{rattray1998noisy} for evolution of finite
+populations in the presence of noise. In some case, like MADE, it seems clear that due to the
 fact that averages are used as a representative for selection, 
 individuals whose fitness is closer to a central shape are oversampled
 and thus selected preferably, with almost-central individuals in the
