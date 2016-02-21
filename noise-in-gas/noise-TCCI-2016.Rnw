@@ -73,7 +73,7 @@ specifically, the statistical distribution that better fits them. This
 work analyzes four different problems related to computational
 intelligence in videogames, where Evolutionary Computation methods
 have been applied, and the evaluation of each individual is performed
-by playing the game, and compares it to other problem, neural network
+by playing the game, and compare them to other problem, neural network
 optimization, where performance is also a statistical variable.  In
 order to find possible patterns in the statistical behavior of the variables,
 we track the main features of its distributions, \textit{skewness} and
@@ -793,7 +793,7 @@ below 0 are found even later in the evolution. Noise is, thus, {\em
   noisy} and does not conform to a single shape, even less a normal
 one; this implies that using a single statistical model to represent
 noise will never be too close to reality, since the shapes of the
-statistical distribution are, in general, away from the normal
+statistical distribution are, in general, quite different from the normal
 distribution and then different among themselves even for a single
 problem, that is, the shape of the statistical distribution of fitness
 values in uncertain environments is, itself, uncertain or {\em noisy}.
