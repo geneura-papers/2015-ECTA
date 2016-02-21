@@ -645,42 +645,31 @@ point, with the current score.
 % Antonio - with the current score, right? Pablo: yes, yes.
 
 
-%---------------------------------------------------------
-% Alberto - here, you should probably explain better the structure of an individual and the characteristics of the fitness function...right?
-% Please, Alberto, do it yourself - JJ
-% Alberto - I was referring to the Artificial Neural Networks project (below), to which I did not participate, and of which I know nothing about :-)
-% Don't know much either, this was written by Pedro - JJ
 \subsection{Artificial Neural Networks Optimization Using an EA: GProp}
 \label{ss:gprop}
 
-%Designing an artificial neural network is not an easy process, as 
-%it requires setting a layer structure with connections among the different 
-%components, tuning several parameters, such as the initial weights, 
-%and defining a set of learning constants. Then, a training method must be used, 
-%which is usually an iterative gradient descent algorithm. 
-% Man, I wrote that sentence like 20 years ago. You should have
-% changed it already - JJ
-
-The design of an Artificial Neural Network (ANN) \cite{Haykin98_NNC} requires to set both, the structure of its set of hidden layers, along with the parameters it uses (weights and learning constants).
+The design of an Artificial Neural Network (ANN) \cite{Haykin98_NNC}
+requires to set both, the structure of its set of hidden layers, along
+with the parameters it uses, weights and learning constants).
 % Antonio - I have rewritten it.
 
 G-Prop (``genetic backpropagation'') \cite{CastilloNPL,castilloNC,ieeeanova2002} 
 aims to solve the problem of finding 
-appropriate initial weights and learning parameters for a single hidden layer 
-of a Multilayer Perceptron (MLP), by combining an EA and QuickProp method \cite{FahlmanQP}. 
-The EA selects the MLP's initial weights, picks its learning rate, and changes the 
-number of neurons in the hidden layer through the application of
-specific genetic operators. 
-
-G-Prop is a hybrid algorithm that leverages the capabilities of two classes 
-of algorithms: the ability of the EA to find a solution close to the global 
-optimum, and the ability of the QuickProp algorithm to tune a solution and reach 
-the nearest local minimum by means of a local search performed from the 
-solution found by the EA.
-
-In this case, training is not deterministic and results in different
-models, the success rate, which is used as a fitness value, achieved during test will be different for
-each training run. This uncertainty makes this method amenable to
+appropriate initial weights, number of neurons in the hidden layer and
+learning parameters for a Multilayer Perceptron (MLP) with a single
+hidden layer. It does so by combining an EA and the QuickProp method
+\cite{FahlmanQP} for training MLPs. 
+The EA selects the MLP's initial weights, picks its learning rate, and
+changes the number of neurons in the hidden layer through the application of
+specific genetic operators. Since this representation of the neural
+network is then trained using QuickProp, which is an stochastic
+gradient-descent algorithm, the results will have a certain
+variability, resulting in the uncertainty in the fitness that will be
+studied here. In this problem, fitness is the classification accuracy
+or success rate; this fitness is obtained after training the MLP,
+which sets its weights, and then testing it on a test set. After
+classification, weights will be different, so the test result will
+also be, making fitness {\em noisy} and thus amenable to
 analysis in the paper.
 
 
