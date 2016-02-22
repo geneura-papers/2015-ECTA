@@ -511,45 +511,23 @@ simplification of the usual elements in RTS games: one kind of unit
 and they are used to conquer enemy planets, the main way to defeat the enemy.
 %as this is the objective of the game. 
 
-In this paper we are % Alberto - which paper? The current, or the Planet Wars one?
-%this one - JJ
-using the results obtained from the Genebot algorithm \cite{DBLP:conf/iwann/Fernandez-AresMMGF11}. This
-algorithm optimizes seven parameters of a hand-coded FSM, namely:
-\begin{itemize}
-	\item the percentage of starships the bot sends (regarding the number of starships in the planet).
-   \item the probability this happens.
-	\item the weight of the number of starships and the planet growth rate.
-   \item the distance from the base planet to the target planet. 
-	\item the proportion and percentage of extra starships that the bot sends from the base planet to the target planet. 
-	\item the probability of sending extra fleets from the colonies to the target planet.
-\end{itemize}
-
-These values are used in expressions used by the bot to take decisions, such as the selection of the target planet to attack or reinforce. 
-A GA was applied to evolve (improve) these parameters off-line, i.e., not during the battles. It followed a generational scheme \cite{Michalewicz} with 
-elitism (the best solution always survives). A Two-Tournament selection was performed, together with a BLX-alpha crossover 
-\cite{Herrera03ataxonomy} ($\alpha$ = 0.5) and an operator which mutates the value of a random gene by adding or subtracting a random quantity in the $[0,1]$ interval. 
-
-The generated bot is not deterministic, as some of the jumps of the states are based on probabilities. 
-Fitness is calculated confronting five times the bot obtained from the parameter set of the FSM against
+In this paper we areusing the results obtained from the Genebot algorithm \cite{DBLP:conf/iwann/Fernandez-AresMMGF11}. This
+algorithm optimizes seven parameters of a hand-coded FSM, two of which are probabilities.
+These values are used in expressions used by the bot to take
+decisions, such as the selection of the target planet to attack or
+reinforce; this implies that the actions of the bot will be different
+every time the bot acts, that is, some state transitions are based on probabilities. 
+Fitness is calculated confronting the bot obtained from the parameter
+set of the FSM five times against
 a competitive hand-coded bot. The result of each match takes into account the `slope' of the number of player spaceships
 during the time of the match. Positive results mean that the bot won,
 as the slope will be positive, and vice versa. Theoretical values are
-in the range $[-1,1]$, although these values are impossible to attain
+in the range $[-1,1]$, although these extremes are impossible to attain
 in the game. A value of -1 would indicate that the player lost all
-their ships in the initial time, while $1$ would mean the contrary: it
+their ships at startup, while $1$ would mean the contrary: it
 generated all the spaceships and won in the initial time. The fitness
-of an individual is the sum of all five results, and therefore being
-in the range $[-5,5]$.
-  
-
-%---------------------------------------------------------
-
-% Alberto - for the Ms. Pac-Man case study, the structure of an individual is not explained at all, maybe it should be added?
-% Don't know if its worth the while. We are only concerned with the
-% fact that the fitness behaves that way - JJ
-% Alberto - but it could be useful to the reader, just to know whether it's a fixed-length vector of real values, or something more complex.
-% Beats me. I think it is just score. Will have to read over again the
-% paper, and there's no time - JJ
+of an individual is the sum of all five results, and therefore is in
+the range $[-5,5]$. 
 
 \subsection{Ghost team optimization}
 \label{ss:pacman}
