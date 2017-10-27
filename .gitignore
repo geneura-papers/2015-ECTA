@@ -124,3 +124,12 @@ sympy-plots-for-*.tex/
 # WinEdt
 *.bak
 *.sav
+
+# Backup
+*~
+
+# tex
+*.tex
+*.pdf
+
+**/figure/
