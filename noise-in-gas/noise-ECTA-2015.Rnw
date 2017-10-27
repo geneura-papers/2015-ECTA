@@ -1,0 +1,618 @@
+\documentclass[a4paper,twoside]{article}
+
+\usepackage{subfigure}
+\usepackage{calc}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{pslatex}
+\usepackage{apalike}
+\usepackage{SCITEPRESS}     % Please add other packages that you may
+                            % need BEFORE the SCITEPRESS.sty package.
+\usepackage{hyperref}
+
+\subfigtopskip=0pt
+\subfigcapskip=0pt
+\subfigbottomskip=0pt
+
+\begin{document}
+<<setup, cache=FALSE,echo=FALSE>>=
+#You've got to install all these libraries if you want to compile the paper.
+library("ggplot2")
+library("RCurl") #To download stuff directly from the GitHub repo
+library(e1071) # for skewness and kurtosis
+# Now download stuff from noisy-ga repo
+made.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/MADE/made-data.csv"))
+pacman.data <-  read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/ms-pacman/pacman-fitness.csv"))
+planetwars.data <- read.csv(text = getURL("https://raw.githubusercontent.com/JJ/noisy-ga/master/data/planet-wars/planetwars-fitness.csv"))
+@ 
+
+\title{There is Noisy Lunch: a study of noise in evolutionary optimization problems} 
+
+\author{\authorname{Juan J. Merelo\sup{1}, 
+    Federico Liberatore\sup{1},
+    Antonio Fern{\'a}ndez Ares\sup{1}, 
+    Rub{\'e}n Garc{\'i}a\sup{2}, 
+    Zeineb Chelly\sup{3}, 
+    Carlos Cotta\sup{4}, 
+    Nuria Rico\sup{5}, 
+    Antonio M. Mora\sup{6}
+    and Pablo Garc{\'i}a-S{\'a}nchez\sup{1}} 
+\affiliation{\sup{1}Depto. ATC, University of Granada, Spain}
+\affiliation{\sup{2}Escuela de Doctorado, University of Granada, Spain}
+\affiliation{\sup{3}Lab. RODCP, Institut Sup\'erieur de Gestion, Tunisia}
+\affiliation{\sup{4}Depto. LCC, University of M{\'a}laga, Spain}
+\affiliation{\sup{5}Depto. EIO, University of Granada, Spain}
+\affiliation{\sup{6}Depto. TSTC, University of Granada, Spain}
+\email{{\tt jmerelo@geneura.ugr.es}}
+}
+
+\keywords{Games, evolutionary optimization, noise, uncertainty, noisy fitness}
+
+\abstract{Noise or uncertainty appear in many optimization processes
+  when there is not a single measure of optimality or fitness but a
+  random variable representing it. These kind of problems
+  have been known for a long time, but there has been no investigation
+  of the statistical distribution those random variables follow,
+  assuming in most cases that it is distributed normally and, thus,
+  it can be modelled via an additive or multiplicative noise on top of
+  a {\em non-noisy} fitness.
+In this paper we will look at several uncertain optimization problems
+that have been addressed by means of Evolutionary Algorithms
+ and prove that there is no single statistical model the evaluations
+ of the fitness functions
+  follow, being different not only from one problem to the next, but in
+different phases of the optimization in a single problem.}
+
+\onecolumn \maketitle \normalsize \vfill
+
+% ******************************************************************************
+
+\section{\uppercase{Introduction}}
+\label{sec:introduction}
+
+Optimization methods usually need a crisp and fixed value to work
+correctly. This value, usually called {\em cost} or {\em fitness},
+informs the procedure on how good is the solution and is used to
+select particular solution over others. This does not imply that these
+methods need a single floating point number; since they are based on
+comparisons, it is usually enough that the values can be partially
+ordered. Multiobjective optimization, for instance, just need to know
+when 
+comparing two solutions whether one or the other is the best or there
+can be no comparison between them. In either case, the answer to the
+question ``Is this solution better than the other?'' needs to be either a crisp
+`Yes' or `No', or simply ``Impossible to know''.
+
+In many cases, however, the fitness or cost of a solution cannot be
+described by a crisp value. In those cases where there is
+\textit{uncertainty} in the measure, that is, in most real world,
+physical cases, such as the one described in \cite{esann94}, where a
+control system was optimized , or in the procedure 
+used to evaluate the solution, for instance, when using a stochastic procedure
+to make that measure, the best way to describe a solution will be a random
+variable, not a single, or even a vector, value. 
+In our research we have found this happens in many different
+optimization problems:
+\begin{itemize}
+  \item When optimizing the layout of a web-page using Simulated
+  Annealing (SA) \cite{jj-ppsn98}. Since SA is a stochastic procedure, the fitness obtained by a solution will be a random variable.
+\item When training any kind of neural network, such as those in
+  \cite{esann94,merelo:ESNN}; in the second case we dealt with a
+  physical installation, introducing another kind of randomness. Since training a neural network is a   stochastic procedure, the error rate obtained after every training run will also follow  a statistical distribution.
+\item When evolving game bots (autonomous agents) \cite{bots:evostar}. In this case, the
+  uncertainty arises from the problem itself; in games, several factors such as the initial positions of the players or the opponent's behavior add certain stochastic component so that final score will also be {\em uncertain} or {\em noisy}; in some cases, too, the bot itself will rely on probabilities to
+  generate its behavior \cite{EvoStar2014:CoEvolutionary}, in which
+  case two different runs with exactly the same initial conditions and
+  opponent will also yield different scores.
+\end{itemize}
+
+In all these cases it cannot be said that there is {\em noise} added to
+a {\em crisp} fitness. The fitness itself is a statistical variable
+whose value arises from a stochastic process, evaluation or
+training, however, we have not seen an exhaustive research of the
+behavior of fitness as a random variable.
+
+That is why, after some initial study of noise in a particular game in
+\cite{merelo14:noisy}, 
+where our findings indicated that, in some cases, noise followed a Gamma, that
+is a skewed normal distribution and proposing a solution to this using
+Wilcoxon comparison as a selection operator, 
+% Antonio - referencia a esto (Wilcoxon), para los no expertos
+% La quito para que no ocupe espacio
+we dug into data discovering that, even if the distribution in that particular case was always a gamma, the parameters of the distribution were different,
+which meant that the random variable behaved in different ways
+depending on the particular individual, the state of evolution and, of
+course, the particular problem.
+
+This initial conclusion disagrees with the usual assumptions in
+optimization in uncertain environments, where it is frequent to assume
+that the noise is normally distributed and with a fixed sigma
+\cite{arnold2001evolution}. For instance, in the Black Box
+Optimization Benchmarks \cite{hansen2009real} the uncertainty was
+simulated by adding noise centered in 0 and with a Cauchy
+that is, a centered, sharp bell shaped distribution,
+with different widths. 
+% Antonio - Referencia? (pos esto)
+% References to what? It's right there, Hansen and Arnold - JJ
+% No todo el mundo sabe lo que es una distribuciÃ³n de Cauchy
+% Everybody *should*. It's Statistics 101. I have added a small
+% explanation, however - JJ
+Either multiplicative or additive noise has
+been used in different occasions. 
+
+That is why in this paper we have collected data from three different
+problems, which will be presented later on in this paper
+and tried to find a model for the fitness using statistical
+tools. Our aim is to eventually find a model that is as general
+as possible and that is able to account for most sources of
+uncertainty; failing that, to try and find selection operators that
+are able to work with random variables in a natural way. However, this
+is not the focus of this paper and, if it is eventually needed, is
+left as future work. 
+
+The rest of the paper is organized as follows. Next we present the
+state of the art in evolutionary algorithms in uncertain environments,
+to be followed by a short presentation of the three problems with
+uncertainty whose measures will be used in this paper in Section
+\ref{sec:problems}. Results will be presented in Section
+\ref{sec:res}, followed by our conclusions.
+
+% ******************************************************************************
+
+\section{\uppercase{State of the Art}}
+\label{sec:soa}
+
+\sloppypar The most recent and comprehensive review of the state of the art in 
+% Antonio - el mas reciente es de 2005?
+% Pues si. No he encontrado mas. - JJ
+evolutionary algorithms in {\em uncertain} environments 
+was done by \cite{Jin2005303}, although recent
+papers such as \cite{DBLP:journals/corr/QianYZ13,6931307} and
+\cite{Qian:sampling} include brief updates. In that first survey  
+the authors state that uncertainty is categorized into noise,
+robustness issues, fitness approximation, and time-varying fitness functions, and then, different options for dealing with it are proposed. In principle, the
+approach presented in this paper was designed to deal with the first kind of
+uncertainty, noise or uncertainty in fitness evaluation, although it could be argued that there is uncertainty in the true fitness as stated in the third
+category; however, we do not think that is the case and, in general,
+that third issue refers to the case in which expensive fitness
+functions are substituted by surrogate functions which carry a certain
+amount of error. They suggest several methods, based either on using
+averaging or using a selection threshold over which one or other
+individual is selected. But since then, several other solutions have
+been proposed.
+
+\sloppypar For scientists not concerned on solving the problem of noise, but on
+a straightforward solution of the optimization problem without
+modification of existing tools and methodologies, an usual approach is
+just to disregard the fact that the fitness is noisy and use whatever  %[Pedro] I don't understand this sentence. What's is the subject for "use" in this sentence? (check the correspondence).
+value is returned by a single evaluation or after re-evaluation each
+generation. This was the option in our previous research in
+games although one evaluation in some of those works consists, in
+  fact, in an average of several evaluations, in different maps or
+  considering different opponents, for instance. 
+\cite{bots:evostar,DBLP:journals/jcst/MoraFGGF12,liberatore:pacman}  
+and evolution of neural networks \cite{castilloGECCO99,merelo:ESNN} and leads, if the population is large enough, to an {\em implicit averaging} as
+mentioned in \cite{Jin2005303}.
+
+In fact, selection used in evolutionary algorithms
+is also stochastic, so noise in fitness evaluation
+will have the same effect as randomness in selection or a higher mutation
+rate, which might make the evolution process easier and not harder
+in some particular cases
+\cite{DBLP:journals/corr/QianYZ13}. 
+In fact, Miller and Goldberg proved that an infinite population would not
+be affected by noise \cite{miller1996genetic} and Jun-Hua and Ming studied the
+effect of noise in convergence rates \cite{Junhua20136780}, proving
+that an elitist genetic algorithm finds at least one solution, although with a lowered convergence rate. 
+
+But real populations are finite, so the usual approach to dealing with
+fitness with a degree of randomness is to increase the population size
+to a value bigger than would be needed in a non-noisy environment.  
+In fact, it has been recently proved that using {\em sex}, that is, crossover, 
+is able to deal successfully with noise \cite{2015arXiv150202793F}, while an
+evolutionary algorithm based mainly on mutation,
+such as the $\mu$+1 EA, or evolutionary programming, 
+would suffer a considerable degradation of performance. 
+However, crossover is part of the standard kit of evolutionary
+algorithms, so using it and increasing the population size has the
+advantage that no special provision or change in the implementation
+has to be made, just different values of the standard parameters.
+
+Another more theoretically sound way is using a statistical central tendency
+indicator, which is usually the {\em average}; which happens to be
+equal to the median in the case of the random variable following the
+normal distribution. This strategy is called
+{\em explicit averaging} by Jin and Branke and is used, for instance,
+in \cite{Junhua20136780}. Averaging decreases the variance of fitness but
+the problem is that it is not clear in advance what would be the
+sample size used for averaging \cite{aizawa1994scheduling}. We have
+used it in some cases but in a different way: not re-evaluating
+individuals every additional generation and computing the average but
+computing the fitness using the average of several evaluations,
+usually five or more \cite{DBLP:journals/jcst/MoraFGGF12}. 
+Most authors use several measures of fitness for each new individual
+\cite{costa2013using}, although other averaging strategies have also
+been proposed, like averaging over the neighbourhood of the
+individual or using {\em resampling}, that is, more measures of fitness in a
+number which is decided heuristically
+\cite{liu2014mathematically}. This assumes that there is, effectively,
+an average of the 
+fitness values which is true for Gaussian random noise and other
+distributions such as Gamma or Cauchy, but not
+necessarily for all distributions. 
+
+To the best of our knowledge, 
+other measures like the median which might be more adequate for
+certain noise models, but which is the same for the normal
+distribution usually attributed to noise, have not been tested; the median always exists,
+while the average might not exist for non-centrally distributed
+variables. Besides, most models keep the number of evaluations fixed 
+and independent of its value, 
+which might result in bad individuals
+being evaluated many times before being discarded; some authors have
+proposed {\em resampling},
+\cite{RadaVilela2014,6900521},
+which will effectively increase the number of
+evaluations and thus slow down the search. In any case, using average is
+also a small change to the algorithm framework, requiring only
+using as new fitness function the average of several evaluations.
+
+These two approaches that are focused on the evaluation process might
+be complemented with changes to the selection process. For instance,
+using a threshold \cite{Rudolph2001318,6900521} that is related to the noise characteristics to
+avoid making comparisons of individuals that might, in fact, be very
+similar or statistically the same; this is usually called {\em
+  threshold selection} and can be applied either to explicit or
+implicit averaging fitness functions. The algorithms used for
+solution, themselves, can be also tested, with some authors proposing, instead of taking more measures,  
+testing different solvers \cite{cauwet2014algorithm}, some of which
+might be more affected by noise than others. However, recent papers
+have proved that sampling might be ineffective \cite{Qian:sampling} in
+some types of evolutionary algorithms, adding running time without an
+additional benefit in terms of performance. This is one lead we will
+use in the current paper. 
+
+Any of these approaches do have the problem of statistical
+representation of the {\em true} fitness, even more so if there is not
+such a thing, but several measures that represent, {\em as a set}
+the fitness of an individual. This is what we are going to use in this
+paper, where we present a method that uses resampling via an
+individual memory and use either explicit averaging or statistical
+tests like the non-parametric Wilcoxon test. 
+First we will examine and try to find the shape of the noise that
+actually appears in some games and other optimization problems; 
+then we will check in this paper what is the influence on the quality of
+results of these two strategies and which one, if any, is the best
+when working in noisy environments.  
+
+% ******************************************************************************
+
+\section{Problems used in this paper}
+\label{sec:problems}
+
+% Antonio - reescribo el texto para cambiar el orden
+The fitness of three different problems, all of them related to
+computational intelligence in games, has been used in this paper:
+generation of character backstories in artificial worlds, described in subsection \ref{ss:made}, optimization of bots for playing the real time strategy game Planet Wars in \ref{ss:pw}, and optimization of the ghost team in Ms. Pac-Man, which will be described in subsection \ref{ss:pacman}. These three
+problems have been chosen for several reasons, the most important of
+which is that we have been working on them and thus have data %[Pedro] should the word "we" appear before "have" ?
+% Why not? - JJ
+available; another reason is that the origin of the uncertainty is
+different in the three cases. In the case of MADE, fitness is computed
+through a simulation; in the case of Planet Wars, the bot
+themselves have a random component, with its representation including
+probabilities of different courses of action; and finally in Ms. Pac-Man, it is due to the nature of the game itself. It is not a complete
+representation of all causes of uncertainty, but the sample is big
+enough so that we can generalize the results obtained, which will be
+presented in the next section. 
+
+%[Pedro] in the "Experiments and Results" the order of reporting the resulst is different to the previously proposed: (1)Ms.Pac-man (2)MADE (3)Planet Wars
+% in "Experiments and Results" section the order is (1)MADE (2)Planet Wars (3)Ms.Pac-man 
+% This is not so important, but I think it should be the same order...
+% Antonio - opino igual, pero habrÃ­a que cambiar los textos (en los experimentos, o al principio de esta secciÃ³n)
+% The order is for the sake of argument. It does not matter that it is
+% different - JJ
+
+\subsection{Creation of character backstories}
+\label{ss:made}
+
+MADE (Massive Drama Engine for non-player characters)
+\cite{garcia14my} is a framework for the automatic generation of
+virtual worlds that allow the emergence of backstories for secondary
+characters that can later on be included in videogames. In this context, an archetype
+is a well-known behaviour present in the imaginary collective (for
+example, a ``hero'' or a ``villain''). Given a fitness to model the
+existence of different $N_a$ archetypes for a virtual world, MADE uses
+a genetic algorithm to optimize the parameter values of a Finite State
+Machine (FSM) that model the agents of that world. For the evaluation,
+a world is simulated using this parameter set, and the log is analyzed
+to detect behaviours of the world agents to match with the desired
+archetypes. 
+
+As the evolved parameters are the probabilities to jump from one state
+to another in the FSM, each fitness evaluation is performed executing
+the virtual world five times per individual, obtaining the average
+fitness. Selection is, therefore, performed comparing this average
+fitness, using a binary tournament in this case. Fitness values range
+from 0 and $N_a$ and are calculated taking into account the rate of occurrence of the archetypes in the execution log. 
+
+
+\subsection{Real time strategy: Planet Wars}
+\label{ss:pw}
+
+Planet Wars \cite{DBLP:conf/cec/Fernandez-AresMGGF11} is a
+simple Real-Time strategy (RTS) game. RTS games are not turn-based and
+their objective is to defeat the enemy using resources available in
+the map to build units and structures. 
+
+Computational intelligence
+methods have been applied to Planet Wars since it provides a
+simplification of the elements of the RTS: one kind of units
+(spaceships) and one kind of resources and structures
+(planets). Spaceships are automatically generated in the planets owned by the player
+and they are used to conquer the enemy planets, as this is the objective of the game. 
+
+In this paper we are
+using the results obtained from the Genebot algorithm \cite{EvoStar2014:GPBot}. This
+algorithm optimizes the parameters of a hand-coded FSM that indicates how many ships send from each
+planet to attack or reinforce another planet depending of some other values (such as the distance between planets). The generated bot is not
+deterministic, as some of the jumps of the states are based in
+probabilities. 
+Fitness is calculated confronting five times the bot obtained from the parameter set of the FSM against
+a competitive hand-coded bot. The result of each match takes into account the `slope' of the number of player spaceships
+during the time of the match. Positive results mean that the bot won,
+as the slope will be positive, and vice versa. Theoretical values are
+in the range $[-1,1]$, although these values are impossible to attain
+in the game. A value of -1 would indicate that the player lost all
+their ships in the initial time, while $1$ would mean the contrary: it
+generated all the spaceships and won in the initial time. The fitness
+of an individual is the sum of all five results, and therefore being
+in the range $[-5,5]$. This fitness has been explained in more detail
+in \cite{Fernandez-Ares_COSECIVI14}.  
+
+% Antonio - cambio de orden la sección para que quede más congruente con el resto del artículo
+\subsection{Ghost team optimization}
+\label{ss:pacman}
+
+Ms. Pac-Man is a variant of the famous Pac-Man game that extends its
+mechanics with features such as the inclusion of a random event that
+reverses the direction of the ghosts. This game is used in 
+the Ms. Pac-Man vs Ghosts competition, where participants can submit
+controllers for both Ms. Pac-Man and the Ghost Team, the first trying
+to maximize its score, the second trying to minimize Ms. Pac-Man's. 
+The framework used to test the methodology analyzed defines the
+following restrictions for the Ghost Team: 
+\begin{itemize}
+ \item A ghost can never stop and if it is in a corridor it must move forward.
+ \item A ghost can choose its direction only at a junction.
+ \item Every time a ghost is at a junction the controller has to provide a direction from the set of feasible directions.
+ \item After 4000 game ticks, a level is considered completed and the game moves on to the next one.
+\end{itemize} 
+
+Also, in this method, which was published in \cite{liberatore:pacman}, the fitness of each individual is computed as the maximum
+score obtained by eight different Ms. Pac-Man controllers. Some of these controllers were the best
+in past editions of the international competition, so they are very
+tough rivals for the ghost team.
+
+
+% ******************************************************************************
+
+\section{Experiments and Results}
+\label{sec:res}
+
+With the problems presented above, data on fitness was collected by
+selecting a few random individuals in every generation and measuring
+its fitness 100 times. Thus, every individual is represented by a
+random variable with the 100 measures taken with its
+fitness. According to the usual assumptions, this random variable
+should follow a normal distribution, with probably different $\sigma$
+and centered on the {\em true} fitness value. In order to check that
+hypothesis, we plotted the {\em skewness}, that is, asymmetry of the
+distribution, and kurtosis, which is a parameter related to the shape
+of the distribution. A symmetrical distribution like the normal
+distribution has a skewness and kurtosis equal to 0; asymmetric
+distributions, such as the Gamma that we had found in previous papers
+\cite{merelo14:noisy}, has non-zero skewness and kurtosis which are
+related to their $\alpha$ and $\kappa$ parameters, for instance. Any
+random variable has skewness and kurtosis at any rate, and we have
+computed and plotted them in the next figures, where skewness is
+plotted as $x$ axis against kurtosis in the $y$ axis.
+
+\begin{figure}[htb]
+  \centering
+<<made,cache=FALSE,echo=FALSE,warning=FALSE>>=
+s.k <- data.frame(Gen=character(), 
+                  Skewness=character(),
+                  Kurtosis=character(),
+                  stringsAsFactors=FALSE)
+
+for ( i in c(64,128,256)) {
+    for ( j in unique(subset(made.data,Gen==i)$ID) ) {
+        this.data <- subset(made.data,Gen==i & ID==j)$Fitness
+        s.k <- rbind( s.k
+                     , data.frame(Gen=paste("Gen",i)
+                                  ,Skewness=skewness(this.data)
+                                  ,Kurtosis=kurtosis(this.data)))
+    }
+}
+
+ggplot(s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))+theme_bw()
+
+@ 
+\caption{Skewness and kurtosis for fitness in several generations of
+  the MADE problem. Different colors represent diffent generations.}
+\label{fig:made}
+\end{figure}
+
+% Antonio - yo cambiaría los símbolos de cada serie de datos. Es difícil distinguirlas en las gráficas.
+
+Figure \ref{fig:made} represents them for the MADE problem for which
+we took measures for a variable amount of individuals every
+generation, from 100 in generation 64 to around 50 in the latest
+generation. A curious convergence, but without reaching, the normal
+distribution is observed as generations proceed; in the first
+generations, values of skewness and kurtosis are quite high and
+correspond to arbitrary distribution (Beta or uniform), however, as
+the simulation proceeds, values approach zero. However, they do not
+converge exactly to 0, meaning that, even if uncertainty can be
+approached by a normal distribution, that approximation would only be
+correct for the latest generations of the simulation. In general, individual
+fitness will follow an arbitrary distribution with a general shape and
+asymmetry. 
+
+\begin{figure}[htb]
+  \centering
+<<planetwars,cache=FALSE,echo=FALSE,warning=FALSE>>=
+pw.s.k <- data.frame(Gen=character(), 
+                  Skewness=character(),
+                  Kurtosis=character(),
+                  stringsAsFactors=FALSE)
+
+for ( i in c(1,50)) {
+    for ( j in unique(subset(planetwars.data,Gen==i)$ID) ) {
+        this.data <- subset(planetwars.data,Gen==i & ID==j)$Fitness
+        pw.s.k <- rbind( pw.s.k
+                     , data.frame(Gen=paste("Gen",i)
+                                  , Skewness=skewness(this.data)
+                                  , Kurtosis=kurtosis(this.data)))
+    }
+}
+
+ggplot(pw.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-1,2.5))+scale_y_continuous(limits=c(-1,8))+theme_bw()
+@ 
+\caption{Skewness and kurtosis for fitness in several generations of
+  the Planet Wars problem. Different colors represent different generations.}
+\label{fig:pw}
+\end{figure}
+
+The shape of the graph for the Planet Wars problem, shown in Figure
+\ref{fig:pw} for two different generations, is different but has some
+similarities. The dispersion also decreases as evolution proceeds,
+with shape becoming closer to normal distribution in generation
+50. However, initial kurtosis is quite high and values above 2 and
+below 0 are found even late in the evolution. Noise is, thus, {\em
+  noisy} and does not conform to a single shape, even less a normal
+one. 
+
+\begin{figure}[htb]
+  \centering
+<<pacman,cache=FALSE,echo=FALSE,warning=FALSE>>=
+pm.s.k <- data.frame(Gen=character(), 
+                  Skewness=character(),
+                  Kurtosis=character(),
+                  stringsAsFactors=FALSE)
+
+for ( i in c(1,25,50)) {
+    for ( j in unique(subset(pacman.data,Gen==i)$ID) ) {
+        this.data <- subset(pacman.data,Gen==i & ID==j)$Fitness
+        pm.s.k <- rbind( pm.s.k
+                        , data.frame(Gen=paste("Gen",i)
+                                     , Skewness=skewness(this.data)
+                                     , Kurtosis=kurtosis(this.data)))
+    }
+}
+
+ggplot(pm.s.k,aes(x=Skewness,y=Kurtosis,color=Gen))+geom_point()+scale_x_continuous(limits=c(-2,10))+scale_y_continuous(limits=c(-5,100))+theme_bw()
+@ 
+\caption{Skewness and kurtosis for fitness in several generations of
+  the Ms. Pac-Man problem. Different colors represent different generations.}
+\label{fig:pm}
+\end{figure}
+
+The graph for the final problem, Ms. Pac-Man, is different in several
+aspects, and is shown in Figure \ref{fig:pm}. First we have to take
+into account, as explained in \ref{ss:pacman}, that differently from
+the previous cases, the fitness for a ghost team is the maximum, not
+an average of several values. This causes a curious behavior of
+fitness: in the first generation, several individuals have {\em crisp}
+values; however, this is decreasingly so, becoming more ``random'' as
+generations proceed, that is, the set of values the fitness has got
+starts to have many different values while in the first generations it
+had one or a few. That is why the behavior shown in the graph is
+completely different: distributions get increasingly asymmetric and
+its shape more different from a normal distribution and more like a
+Beta distribution. Even if the trend is different from the other two
+problems, the overall aspect is the same: there is no single
+distribution that is able to describe the shape of fitness with an
+uncertainty component. 
+
+% ******************************************************************************%
+
+\section{\uppercase{Conclusions}}
+\label{sec:conclusion}
+
+\noindent In this paper we set out to study the statistical
+distribution followed by the fitness of single individuals in several
+problems in the area of games in which we have worked. These problems:
+MADE, Planet Wars, and Ms. Pac-Man, have different natures and ways to
+compute the fitness, but all of them have in common that fitness is
+not a fixed number but a random variable. We have set out to do to
+prove the hypothesis that not only noise does not follow the normal,
+or Gaussian, distribution or other centrally-distributed models such
+as Cauchy, which have been used repeatedly in the literature, but that
+it does not follow a single distribution even considering a single
+problem. 
+
+The study presented here proves that hypothesis. 
+The best way to describe statistical variables is using two
+parameters: kurtosis and skewness. These two parameters have been
+computed and plotted for each one of the problems, proving that not
+only distributions are asymmetrical and not bell-shaped, but that its
+shape changes within a single problem and in different stages of the
+computation. In some case, like MADE, it seems clear that due to the
+fact that averages are used as a representative for selection, those
+individuals whose fitness is closer to a central shape are oversampled
+and thus selected preferably, with almost-central individuals in the
+latest stages being a consequence of this fact. In other cases, when
+fitness is computed in a different way or selection takes another
+form, the effect is exactly the opposite. At any rate, using averages,
+after the study done in this paper, is discouraged since in many cases
+and almost always in the early stages of the evolution, fitness, being
+a random variable, does not pass a centrality test and it might not
+even have an average. A better way of comparing any fitness with
+uncertainty would be, as proposed by the authors, using non-parametric
+tests such as the Wilcoxon test that impose a partial order on the
+individuals \cite{merelo14:noisy}; this partial order can be used, in
+several different ways, for selection. 
+
+The fact that there is no single model representing the distribution
+of fitness also implies that it is an error to use centrally
+distributed random variables added to a  crisp fitness to test
+operators and algorithms that operate in uncertainty. Either real
+values should be used, such as the ones proposed above, or a
+distribution with varying shape and symmetry such as Beta should be
+used. However, in this case we should take into account that ``true''
+or ``crisp'' fitness {\em does not really exist}, so any modelization
+of uncertain fitness that uses noise added to crisp fitness is, in the
+more general case, wrong, although it might obviously be true in some
+cases. If the fitness evaluation is expensive and tests want to be
+performed for some new operators, the best way to model uncertainty
+would be to use {\em different} models applied to every individuals,
+with different skewness and kurtosis. However, this would be only a
+first-order approximation and it might favor methods that use
+averages.  
+
+What remains to be done is to effectively apply Wilcoxon-based
+comparisons to the problems above, but since they are costly to
+evaluate, we will try to create a benchmark for problems with
+uncertainty which reflects in the best possible way how fitness is
+organized in a wide array of problems. In order to do that we will try
+to examine as many uncertain problems as possible and deduce what
+would be the most general model. 
+
+
+\section*{\uppercase{Acknowledgements}}
+
+\noindent This work has been supported in part by projects TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitiveness), SPIP2014-01437 (Direcci{\'o}n
+General de Tr{\'a}fico), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza
+Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de
+Investigaci{\'o}n), and project V17-2015 of the Microprojects program 2015 from CEI BioTIC Granada. 
+
+\bibliographystyle{apalike}
+\bibliography{geneura,GA-general,noisy}
+
+\end{document}
+
