@@ -511,7 +511,7 @@ simplification of the usual elements in RTS games: one kind of unit
 and they are used to conquer enemy planets, the main way to defeat the enemy.
 %as this is the objective of the game. 
 
-In this paper we areusing the results obtained from the Genebot algorithm \cite{DBLP:conf/iwann/Fernandez-AresMMGF11}. This
+In this paper we are using the results obtained from the Genebot algorithm \cite{DBLP:conf/iwann/Fernandez-AresMMGF11}. This
 algorithm optimizes seven parameters of a hand-coded FSM, two of which are probabilities.
 These values are used in expressions used by the bot to take
 decisions, such as the selection of the target planet to attack or

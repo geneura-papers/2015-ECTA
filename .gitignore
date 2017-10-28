@@ -125,6 +125,7 @@ sympy-plots-for-*.tex/
 *.bak
 *.sav
 
+
 # Backup
 *~
 
@@ -133,3 +134,4 @@ sympy-plots-for-*.tex/
 *.pdf
 
 **/figure/
+
