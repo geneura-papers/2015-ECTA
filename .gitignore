@@ -1,1 +1,11 @@
 *~
+
+*.out
+*.pdf
+*.tex
+*.aux
+*.bbl
+*.blg
+*.log
+*.zip
+**/auto/
