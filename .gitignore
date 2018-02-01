@@ -135,3 +135,5 @@ sympy-plots-for-*.tex/
 
 **/figure/
 
+auto/
+*.zip
